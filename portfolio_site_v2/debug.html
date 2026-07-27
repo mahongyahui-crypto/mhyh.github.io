@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>Debug</title>
+<style>
+.matcher-loading { display: none; text-align: center; padding: 32px; }
+.matcher-loading.show { display: block; }
+.matcher-result { display: none; }
+.matcher-result.show { display: block; }
+</style>
+</head>
+<body>
+<textarea id="modalJdInput" rows="5" cols="50">测试JD内容</textarea>
+<div class="matcher-modal-actions">
+  <button onclick="analyzeMatch()">开始分析</button>
+</div>
+<div class="matcher-loading" id="matcherLoading">
+  <p>AI 正在分析匹配度...</p>
+</div>
+<div class="matcher-result" id="matcherResult"></div>
+
+<script>
+function analyzeMatch() {
+  console.log('analyzeMatch called');
+  const jd = document.getElementById('modalJdInput').value.trim();
+  console.log('jd:', jd);
+  
+  if (!jd) {
+    alert('请输入职位描述');
+    return;
+  }
+
+  // 隐藏输入区域，显示loading
+  document.getElementById('modalJdInput').style.display = 'none';
+  document.querySelector('.matcher-modal-actions').style.display = 'none';
+  document.getElementById('matcherLoading').classList.add('show');
+  document.getElementById('matcherResult').classList.remove('show');
+  
+  console.log('loading shown');
+
+  // 模拟分析延迟
+  setTimeout(function() {
+    console.log('timeout fired');
+    const result = { overallScore: 85, overallLevel: '高度匹配' };
+    
+    document.getElementById('matcherResult').innerHTML = '<h2>结果: ' + result.overallScore + '分 - ' + result.overallLevel + '</h2>';
+    document.getElementById('matcherResult').classList.add('show');
+    document.getElementById('matcherLoading').classList.remove('show');
+    console.log('result shown');
+  }, 1500);
+}
+
+// 自动触发测试
+setTimeout(analyzeMatch, 500);
+</script>
+</body>
+</html>
