@@ -221,3 +221,11 @@ button.project-index-item { border-top: 0; border-right: 0; border-bottom: 1px s
   .product-evidence-copy strong { font-size: 14px; }
   .product-evidence-copy small { font-size: 10px; }
 }
+
+/* Make the working method verifiable instead of purely declarative. */
+.approach-proof { display: block; margin-top: 13px; color: var(--paper-fade); font: 500 10px var(--mono); letter-spacing: .02em; }
+.approach-proof b { margin-right: 6px; color: var(--lime); font-size: 12px; font-weight: 500; }
+
+@media (max-width: 680px) {
+  .approach-proof { margin-top: 11px; font-size: 9px; line-height: 1.55; }
+}
