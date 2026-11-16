@@ -154,6 +154,7 @@ const PRODUCT_CASES = {
     role: '产品 / 交互 / 原型设计',
     focus: '财务流程 · 权限 · 审计',
     output: 'HTML 交互原型 · 状态流程 · 弹窗与表格',
+    visualType: 'finance-flow',
     contextTitle: '后台最怕“改得动，但追不回去”',
     context: '超管后台同时承接权益购买、退款、财务结算、销售归属和授权查询等任务。设计重点不是把页面做满，而是让每一次调整都有前置条件、确认节点和后续记录。',
     problems: ['权益、退款、均摊和收款记录跨多个业务节点，用户需要知道当前状态和下一步。', '业绩归属同时存在自动判定、人工申报和财务复核，角色边界容易混淆。', '查询授权和审计日志涉及权限与追溯，不能只靠页面上的一个按钮解决。'],
@@ -172,6 +173,7 @@ const PRODUCT_CASES = {
     role: '产品 / UI / 交互设计',
     focus: '规则计算 · 权限 · 通知 · 追溯',
     output: '需求方案 · App/PC 原型 · 验收口径',
+    visualType: 'replenishment-rule',
     contextTitle: '补货建议不能只给一个数字',
     context: '门店需要根据销量和库存快速判断补货，但人工估算难以稳定复用，也很难解释建议从哪里来。方案把规则、数据口径、权限和通知拆开，让建议能够被查看、修改和追溯。',
     problems: ['不同门店、品类和规格需要按同一套维度计算，否则建议无法复用。', '管理员和普通员工的查看、编辑、通知权限不同，需要在流程里显式区分。', '没有销量、缺少属性或修改建议后，系统都要给出可理解的状态反馈。'],
@@ -190,6 +192,7 @@ const PRODUCT_CASES = {
     role: '产品 / PC 交互设计',
     focus: '首页预警 · 阈值设置 · 列表联动',
     output: '需求方案 · HTML 原型 · 验收状态',
+    visualType: 'warning-linkage',
     contextTitle: '首页不只是展示数据，还要把人带到下一步',
     context: '用户通常先在工作台发现库存或到货异常，再进入列表处理。预警联动的价值，是让首页数量和列表筛选保持同一语义，减少反复进入页面确认的成本。',
     problems: ['首页卡片、列表数量和筛选条件如果口径不同，会造成用户对数据的信任下降。', '阈值设置仍在列表页，首页需要说明提醒来源和进入后的处理路径。', '无数据、接口异常和权限不足不能共用一个空白状态。'],
@@ -359,6 +362,44 @@ analyzeBtn.addEventListener('click', analyzeJD);
 const dialog = $('#projectDialog');
 const closeDialog = $('#closeDialog');
 
+function renderEvidenceVisual(type) {
+  const visuals = {
+    'finance-flow': `
+      <div class="evidence-diagram evidence-finance">
+        <div class="evidence-diagram-head"><div><span>FLOW MAP / 01</span><strong>一条记录，经过哪些节点才算完成？</strong></div><em>交互原型逻辑</em></div>
+        <div class="evidence-flow">
+          <div class="evidence-node"><small>01</small><b>权益记录</b><span>购买 / 变更</span></div><i>→</i>
+          <div class="evidence-node"><small>02</small><b>退款流水</b><span>登记 / 审核</span></div><i>→</i>
+          <div class="evidence-node"><small>03</small><b>财务拆分</b><span>结算 / 均摊</span></div><i>→</i>
+          <div class="evidence-node"><small>04</small><b>审计日志</b><span>可查询 / 可回看</span></div>
+        </div>
+        <div class="evidence-foot"><span>角色：超管 / 财务 / 销售</span><span>状态：待审 · 已确认 · 已终止</span><span>留痕：操作人 · 时间 · 条件</span></div>
+      </div>`,
+    'replenishment-rule': `
+      <div class="evidence-diagram evidence-replenish">
+        <div class="evidence-diagram-head"><div><span>RULE MAP / 02</span><strong>建议补货量不是一个黑盒数字</strong></div><em>PRD 计算口径</em></div>
+        <div class="evidence-formula-grid">
+          <div><small>01</small><b>日均销量</b><strong>周期销量 ÷ 天数</strong></div>
+          <div><small>02</small><b>可销售天数</b><strong>当前库存 ÷ 日均销量</strong></div>
+          <div><small>03</small><b>目标库存</b><strong>日均销量 × 补货天数</strong></div>
+        </div>
+        <div class="evidence-output"><span>系统输出</span><strong>建议补货量 = max(0, ceil(目标库存 − 当前库存))</strong></div>
+        <div class="evidence-foot"><span>输入维度：门店 · 品类 · 品牌 · 型号 · 规格</span><span>权限：管理员配置 · 普通员工查看</span></div>
+      </div>`,
+    'warning-linkage': `
+      <div class="evidence-diagram evidence-warning">
+        <div class="evidence-diagram-head"><div><span>LINKAGE MAP / 03</span><strong>从首页发现异常，到列表继续处理</strong></div><em>跨页面联动</em></div>
+        <div class="evidence-alert-layout">
+          <div class="evidence-alert-stack"><div class="evidence-alert alert-red"><b>库存年龄</b><strong>03</strong><span>需要处理</span></div><div class="evidence-alert alert-amber"><b>未到货</b><strong>08</strong><span>查看明细</span></div><div class="evidence-alert alert-blue"><b>相关列表</b><strong>12</strong><span>进入筛选</span></div></div>
+          <div class="evidence-link-arrow">→</div>
+          <div class="evidence-route"><div class="evidence-route-row"><span>首页卡片</span><b>保留筛选语义</b></div><div class="evidence-route-row"><span>列表页</span><b>继续处理</b></div><div class="evidence-route-row"><span>设置页</span><b>调整阈值</b></div></div>
+        </div>
+        <div class="evidence-state-row"><span>空数据</span><span>接口异常</span><span>权限不足</span><small>三种状态分别反馈</small></div>
+      </div>`
+  };
+  return visuals[type] || '';
+}
+
 function openProjectCase(projectId) {
   const project = CASE_LIBRARY[projectId];
   if (!project) return;
@@ -369,6 +410,9 @@ function openProjectCase(projectId) {
   $('#dialogRole').textContent = project.role;
   $('#dialogFocus').textContent = project.focus;
   $('#dialogOutput').textContent = project.output;
+  const visualMarkup = renderEvidenceVisual(project.visualType);
+  $('#dialogVisualWrap').classList.toggle('is-hidden', !visualMarkup);
+  $('#dialogVisual').innerHTML = visualMarkup;
   const heroImage = $('#dialogHeroImage');
   heroImage.src = project.heroImage || '';
   heroImage.alt = project.heroImage ? `${project.title} 代表画面` : '';
