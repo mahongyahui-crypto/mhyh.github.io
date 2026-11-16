@@ -28,7 +28,7 @@ const PROJECTS = {
     role: 'UI / 产品设计',
     focus: '工作台 · 数据看板 · 库存列表',
     output: '页面改版 · 交互状态 · 高保真',
-    heroImage: 'assets/enterprise-pc-home.png',
+    heroImage: 'assets/enterprise-pc-inventory.png',
     contextTitle: '让工作台先回答“现在要做什么”',
     context: '企业版 PC 承接采购、仓储、销售、财务和数据仓库等多条业务线。改版重点不是增加信息，而是重新安排信息的优先级，让管理者先看到经营状态，再进入高频任务和具体列表。',
     problems: ['多业务导航同时存在，入口层级和业务关系不够清楚。', '销售指标、库存预警、采购分析和机器状态信息密度高。', '快捷入口、经营数据和列表操作之间缺少连续的任务顺序。'],
@@ -329,6 +329,26 @@ $$('.case-trigger').forEach((button) => {
     openProjectCase(button.dataset.project || button.closest('[data-project]')?.dataset.project);
   });
 });
+
+const workFilters = $$('.work-filter');
+const caseCards = $$('.case-card');
+const caseEmpty = $('#caseEmpty');
+function applyWorkFilter(filter) {
+  let visibleCount = 0;
+  caseCards.forEach((card) => {
+    const visible = filter === 'all' || card.dataset.category === filter;
+    card.classList.toggle('is-filtered-out', !visible);
+    if (visible) visibleCount += 1;
+  });
+  workFilters.forEach((button) => {
+    const active = button.dataset.filter === filter;
+    button.classList.toggle('is-active', active);
+    button.setAttribute('aria-selected', String(active));
+  });
+  caseEmpty.classList.toggle('is-hidden', visibleCount > 0);
+}
+workFilters.forEach((button) => button.addEventListener('click', () => applyWorkFilter(button.dataset.filter)));
+
 closeDialog.addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
 
