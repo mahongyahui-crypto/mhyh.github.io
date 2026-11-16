@@ -4,30 +4,30 @@ const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector
 const PROJECTS = {
   wangji: {
     kicker: 'CASE STUDY / 01',
-    index: '01 / UI + INTERACTION',
-    title: '企业版 PC 与门店版 App · 复杂业务原型',
-    summary: '围绕多门店配件库存、IMEI 黑名单风险拦截、销售出库、调拨与维修等场景，整理角色、库存隔离、批量校验、风险提醒、空状态和提交失败等关键状态，让一线任务更容易被执行。',
-    role: 'UI / 交互原型设计',
-    focus: '库存 · 风险 · 门店任务',
-    output: 'HTML 原型 · 流程 · 状态设计'
+    index: '01 / ENTERPRISE APP UI',
+    title: '企业版 App UI · 业务移动端',
+    summary: '覆盖销售管理、仅出库、售后出库、配件申领、销售出库、已销售订单和财务管理等移动端业务场景，把门店高频任务组织成清晰的入口、列表与状态。',
+    role: 'UI / 交互设计',
+    focus: '销售 · 售后 · 配件 · 财务',
+    output: 'UI 稿 · 业务流程 · 状态设计'
   },
   chain: {
     kicker: 'CASE STUDY / 02',
-    index: '02 / UX STRATEGY',
-    title: 'B 端后台系统重构 · 从工作台到商品',
-    summary: '从连锁业务角色与任务出发，重构工作台、数据中心、库存和商品的信息架构与任务路径，并补齐状态反馈、风险前置、表单规则和组件规范，让复杂后台更接近真实的工作节奏。',
-    role: 'UI / UX 设计',
-    focus: '信息架构 · 任务效率 · 设计系统',
-    output: '流程梳理 · 高保真 · 组件规范'
+    index: '02 / ENTERPRISE PC UI',
+    title: '企业版 PC 改版 · 工作台与经营数据',
+    summary: '从快捷菜单、经营数据、销售指标到库存列表与筛选，重新整理后台首页与关键列表，让企业版 PC 更接近门店经营和管理者决策的真实工作流。',
+    role: 'UI / 产品设计',
+    focus: '工作台 · 数据看板 · 库存列表',
+    output: '页面改版 · 交互状态 · 高保真'
   },
   inventory: {
     kicker: 'CASE STUDY / 03',
-    index: '03 / PRODUCT DESIGN',
-    title: '超管后台财务模块 · Order to Reconcile',
-    summary: '负责收入、订单退款、财务分账、套餐/子账号摊销和订单对账等模块的需求、流程、原型与 UI，串起订单、权益、退款/降级、分账、摊销到对账的业务闭环，并推进开发验收。',
-    role: 'UI / 产品原型设计',
-    focus: '收入 · 退款 · 分账 · 对账',
-    output: '需求拆解 · 原型 · 开发验收'
+    index: '03 / CRM AI PRODUCT',
+    title: 'CRM AI 销售助手 · 从会话到跟进',
+    summary: '围绕 AI 自动会话、新建会话、线索/客户管理、通话资料、客户分析、跟进建议和字段回填，设计默认、运行、成功、失败、重试和权限等完整状态，让 AI 结果能继续被使用。',
+    role: '产品 / UI / 交互设计',
+    focus: 'AI 会话 · 线索 · 客户 · 证据',
+    output: '高保真交付 · 可点击原型 · 状态矩阵'
   }
 };
 
@@ -48,7 +48,7 @@ const SKILLS = [
     label: 'B 端 SaaS / ERP',
     keywords: ['tob', 'b端', 'saas', 'erp', '后台', '企业版', '连锁', '门店', '企业服务'],
     weight: 18,
-    evidence: ['B 端后台系统重构', '企业版 PC 与门店版 App', 'ERP 50+ 项需求'],
+    evidence: ['企业版 App / PC UI', '万机之家连锁版 App', 'ERP 50+ 项需求'],
     advice: '优先讲一个复杂 B 端案例，说明角色、业务约束和你的设计取舍。'
   },
   {
@@ -76,7 +76,7 @@ const SKILLS = [
     label: 'UI / 视觉与界面',
     keywords: ['视觉', '界面', 'ui', '视觉方案', '页面', '设计表现'],
     weight: 10,
-    evidence: ['后台与门店端 UI', '接单侠全 UI', '移动端 / PC / 小程序设计'],
+    evidence: ['企业版 App / PC UI', '门店版 App / PC UI', '回收接单侠全 UI'],
     advice: '挑一个代表页面，说明层级、信息密度和视觉决策如何服务业务。'
   },
   {
