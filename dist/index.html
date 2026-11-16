@@ -136,19 +136,11 @@
             <div class="tool-topline"><span>RESUME + PORTFOLIO FIT</span><span class="tool-live"><i></i> NO LOGIN / LOCAL</span></div>
             <div class="tool-body">
               <div class="tool-field">
-                <label for="roleSelect">目标岗位</label>
-                <select id="roleSelect">
-                  <option value="product">产品设计师 / Product Designer</option>
-                  <option value="ux">用户体验设计师 / UX Designer</option>
-                  <option value="strategy">体验策略 / Service Design</option>
-                </select>
-              </div>
-              <div class="tool-field">
-                <div class="field-label-row"><label for="jdInput">岗位 JD</label><button class="sample-link" id="loadSample" type="button">载入示例 JD</button></div>
-                <textarea id="jdInput" rows="7" placeholder="粘贴岗位描述，例如：负责 ToB 产品体验设计、用户研究、复杂流程梳理……"></textarea>
+                <label for="jdInput">直接粘贴岗位 JD</label>
+                <textarea id="jdInput" rows="7" placeholder="把 HR 发来的岗位描述粘贴到这里，系统会从 JD 中识别要求并对应到简历与项目证据……"></textarea>
               </div>
               <button class="button button-primary button-full" id="analyzeBtn" type="button">分析匹配度 <span>→</span></button>
-              <p class="tool-caption">首版按当前简历与作品集资料库在浏览器本地分析，JD 不上传。</p>
+              <p class="tool-caption">从 JD 中识别能力要求，并对应到简历与项目证据；内容仅在当前浏览器本地分析，不上传。</p>
             </div>
             <div class="match-result is-hidden" id="matchResult" aria-live="polite">
               <div class="result-summary">
@@ -160,7 +152,7 @@
                 <div><span class="result-label">建议补强</span><div class="gap-list" id="gapSkills"></div></div>
               </div>
               <div class="result-evidence"><span class="result-label">对应项目证据</span><div class="evidence-list" id="evidenceList"></div></div>
-              <div class="result-tip" id="resultTip"></div>
+              <div class="result-tip"><span class="tip-title">下一步建议</span><p id="resultTip"></p></div>
             </div>
           </div>
         </section>

@@ -143,18 +143,6 @@ const PROJECTS = {
   }
 };
 
-const SAMPLE_JDS = {
-  product: `我们正在寻找一名产品设计师，负责 ToB / SaaS 产品的体验设计工作。
-
-你将参与用户研究、需求分析、信息架构、复杂业务流程、交互设计和高保真原型，和产品及研发团队一起推进库存、商品、订单等后台场景落地。熟悉 Figma，能够建立组件和设计规范，有 B 端 / ERP 产品经验更佳。`,
-  ux: `负责企业服务产品的用户体验设计，从用户与业务场景出发，完成用户流程、信息架构、交互原型和视觉方案。
-
-希望你能够处理复杂状态、异常流程和后台任务，也能和产品、研发协作，把设计方案推进到上线。熟悉 Figma、设计系统和可用性验证。`,
-  strategy: `加入体验策略团队，参与服务蓝图、业务流程梳理和用户研究项目，为复杂的门店与企业服务场景建立清晰的问题定义与体验方案。
-
-需要良好的结构化思维、跨团队沟通能力，以及把研究结论转化为信息架构、交互原型和可落地设计的能力。`
-};
-
 const SKILLS = [
   {
     label: 'B 端 SaaS / ERP',
@@ -228,10 +216,8 @@ const SKILLS = [
   }
 ];
 
-const roleSelect = $('#roleSelect');
 const jdInput = $('#jdInput');
 const analyzeBtn = $('#analyzeBtn');
-const loadSample = $('#loadSample');
 const matchResult = $('#matchResult');
 const scoreRing = $('#scoreRing');
 const scoreValue = $('#scoreValue');
@@ -247,7 +233,7 @@ function normalize(value) {
 }
 
 function getMatchResult(jd) {
-  const text = normalize(`${jd} ${roleSelect.value}`);
+  const text = normalize(jd);
   const matched = SKILLS.filter((skill) => skill.keywords.some((keyword) => text.includes(normalize(keyword))));
   const gaps = SKILLS.filter((skill) => !matched.includes(skill)).sort((a, b) => b.weight - a.weight);
   const matchedWeight = matched.reduce((sum, skill) => sum + skill.weight, 0);
@@ -260,7 +246,7 @@ function resultCopy(score) {
   if (score >= 85) return { title: '项目证据有清晰交集。', desc: '当前 JD 与简历 / 作品集资料库有较多重合，优先讲最接近的案例和可核验结果。' };
   if (score >= 70) return { title: '有清晰的能力交集。', desc: '方向是对的，面试前把最接近岗位的案例讲得更具体，会明显提升说服力。' };
   if (score >= 55) return { title: '有基础，但需要补证据。', desc: '你已经覆盖了一部分要求，可以优先补一到两个高频能力点，再决定如何投递。' };
-  return { title: '先补齐核心证据。', desc: '这份 JD 和当前资料库的交集偏少，建议先找出最接近的项目或调整目标岗位。' };
+  return { title: '先补齐核心证据。', desc: '这份 JD 和当前资料库的交集偏少，建议先找出最接近的项目，或重新核对这份 JD 与作品方向是否匹配。' };
 }
 
 function animateNumber(target, value) {
@@ -308,17 +294,6 @@ function showToast(message) {
 }
 
 analyzeBtn.addEventListener('click', analyzeJD);
-loadSample.addEventListener('click', () => {
-  jdInput.value = SAMPLE_JDS[roleSelect.value];
-  jdInput.focus();
-  analyzeJD();
-});
-roleSelect.addEventListener('change', () => {
-  if (!jdInput.value.trim() || Object.values(SAMPLE_JDS).includes(jdInput.value)) {
-    jdInput.value = SAMPLE_JDS[roleSelect.value];
-    analyzeJD();
-  }
-});
 
 const dialog = $('#projectDialog');
 const closeDialog = $('#closeDialog');
@@ -382,6 +357,3 @@ const cursorGlow = $('.cursor-glow');
 window.addEventListener('pointermove', (event) => {
   cursorGlow.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
 }, { passive: true });
-
-jdInput.value = SAMPLE_JDS.product;
-window.setTimeout(analyzeJD, 420);
