@@ -10,7 +10,7 @@ const PROJECTS = {
     role: 'UI / 交互设计',
     focus: '销售 · 售后 · 配件 · 财务',
     output: 'UI 稿 · 业务流程 · 状态设计',
-    heroImage: 'assets/enterprise-app-home.png',
+    heroImage: 'assets/enterprise-app-list.png',
     contextTitle: '把门店高频操作放到同一条业务路径里',
     context: '企业版 App 面向门店日常经营，既要处理销售与售后，也要承接配件申领、出库和日常收支。页面不是孤立的视觉稿，而是要让不同角色在手机上快速找到入口、核对信息并完成操作。',
     problems: ['销售、售后、配件和财务入口多，用户需要快速判断下一步。', '出库详情需要同时核对客户、出库人、机器、IMEI 和采购信息。', '仅出库、已出库、取消出库、待分货等状态需要清晰区分。'],
@@ -18,7 +18,7 @@ const PROJECTS = {
     solutionPoints: ['用模块入口承接销售管理、售后出库、配件管理和财务管理。', '在出库详情中聚合单据、客户、机器与成本信息，降低来回查找。', '用筛选、标签、颜色提示和确认动作区分正常与异常状态。'],
     result: '形成从入口、订单列表、物品列表到详情与操作反馈的完整 UI 方案，覆盖多种业务状态。',
     tags: ['移动端 UI', '复杂业务', '状态设计', '出库流程'],
-    gallery: ['assets/enterprise-app-home.png', 'assets/enterprise-app-list.png', 'assets/enterprise-app-detail.png']
+    gallery: ['assets/enterprise-app-list.png', 'assets/enterprise-app-detail.png']
   },
   enterprisePC: {
     kicker: 'CASE STUDY / 02',
@@ -98,14 +98,15 @@ const PROJECTS = {
     role: 'UI / 交互设计',
     focus: 'IMEI · 维修 · 订单 · 分享',
     output: 'App UI · 异常状态 · 操作引导',
-    heroImage: 'assets/store-app-home.png',
+    heroImage: 'assets/store-app-repair.png',
     contextTitle: '把门店现场的复杂状态变成可处理的提醒',
     context: '门店版 App 需要处理设备入库、维修留机、订单交付、分享商品和授权等现场任务，状态变化快，操作边界也多。',
     problems: ['IMEI、成本、服务费和设备信息需要在入库时集中核对。', '维修订单存在超时提醒、交付当天提醒和多种订单状态。', '授权、分享、消息通知等功能需要清楚告知当前状态和下一步。'],
     solution: '用状态提醒、分步表单和操作引导把高风险任务拆开，并为正常、空值和超时场景提供不同反馈。',
     solutionPoints: ['在入库详情中明确 IMEI、型号、成本和服务费关系。', '通过红点、倒计时和订单状态提示门店及时处理。', '为私域分享、闲鱼授权和消息通知设计完整的操作状态。'],
     result: '完成门店端入库、维修、订单、分享和授权等高频流程的 UI 与状态设计。',
-    tags: ['门店 App', 'IMEI', '维修流程', '超时提醒']
+    tags: ['门店 App', 'IMEI', '维修流程', '超时提醒'],
+    gallery: ['assets/store-app-repair.png']
   },
   storePC: {
     kicker: 'PROJECT / 07',
