@@ -139,9 +139,69 @@ const PROJECTS = {
     solution: '以线索和订单状态为骨架，设计线索大厅、详情、倒计时、结算和通知中心的连续体验。',
     solutionPoints: ['用状态标签和倒计时帮助接单者判断优先级。', '为发布线索、城市选择、时间选择和线索费设置连续表单。', '补齐空数据、已读、取消、成交和超时等异常状态。'],
     result: '完成从发布线索、接单、拨打、上门到成交/取消/结算的移动端 UI 状态体系。',
-    tags: ['回收业务', '线索管理', '订单状态', '异常处理']
+    tags: ['回收业务', '线索管理', '订单状态', '异常处理'],
+    gallery: ['assets/recycle-home.png', 'assets/recycle-lead-motion.gif']
   }
 };
+
+const PRODUCT_CASES = {
+  superAdmin: {
+    kicker: 'PRODUCT CASE / P01',
+    index: 'P01 / BACKEND PRODUCT DESIGN',
+    title: '超管后台优化一期 · 把复杂财务做成可追溯流程',
+    summary: '围绕权益记录、退款流水、财务拆分、均摊计划、收款订单、业绩归属、快速查询授权与审计日志，整理一套可核对、可复盘的超管后台交互原型。',
+    role: '产品 / 交互 / 原型设计',
+    focus: '财务流程 · 权限 · 审计',
+    output: 'HTML 交互原型 · 状态流程 · 弹窗与表格',
+    contextTitle: '后台最怕“改得动，但追不回去”',
+    context: '超管后台同时承接权益购买、退款、财务结算、销售归属和授权查询等任务。设计重点不是把页面做满，而是让每一次调整都有前置条件、确认节点和后续记录。',
+    problems: ['权益、退款、均摊和收款记录跨多个业务节点，用户需要知道当前状态和下一步。', '业绩归属同时存在自动判定、人工申报和财务复核，角色边界容易混淆。', '查询授权和审计日志涉及权限与追溯，不能只靠页面上的一个按钮解决。'],
+    solution: '以“记录链路 + 角色权限 + 状态反馈”为骨架，把复杂后台拆成可以执行和验收的连续流程。',
+    solutionPoints: ['把退款流水独立成审计记录，并让退款、均摊终止和财务审核有清晰状态。', '区分自动判定、人工申报、财务复核和结果回看，避免把不同角色塞进同一动作。', '为快速查询授权、操作日志和查询审计补充范围、条件、时间与命中数量等信息。'],
+    result: '形成一套覆盖权益、财务、业绩归属、授权与审计的后台交互原型；当前展示的是方案和原型交付，不虚构线上数据结果。',
+    evidence: '证据来自你提供的“超管后台优化一期”HTML 原型：包含退款流水、财务拆分、均摊计划、收款订单、业绩归属判定/复核、快速查询授权和审计日志等可运行页面与状态。',
+    tags: ['后台产品', '财务流程', '权限设计', '审计追溯'],
+    gallery: []
+  },
+  smartReplenish: {
+    kicker: 'PRODUCT CASE / P02',
+    index: 'P02 / APP + PC PRODUCT DESIGN',
+    title: '门店版智能补货 · 让建议有规则，也有解释',
+    summary: '从销售数据、库存维度和门店权限出发，设计可解释的智能补货建议，让店长知道为什么补、补多少，以及修改之后发生了什么。',
+    role: '产品 / UI / 交互设计',
+    focus: '规则计算 · 权限 · 通知 · 追溯',
+    output: '需求方案 · App/PC 原型 · 验收口径',
+    contextTitle: '补货建议不能只给一个数字',
+    context: '门店需要根据销量和库存快速判断补货，但人工估算难以稳定复用，也很难解释建议从哪里来。方案把规则、数据口径、权限和通知拆开，让建议能够被查看、修改和追溯。',
+    problems: ['不同门店、品类和规格需要按同一套维度计算，否则建议无法复用。', '管理员和普通员工的查看、编辑、通知权限不同，需要在流程里显式区分。', '没有销量、缺少属性或修改建议后，系统都要给出可理解的状态反馈。'],
+    solution: '以“统一规则—明确口径—门店查看—修改留痕”为主线，让 App 与 PC 共享同一批规则、数据和状态。',
+    solutionPoints: ['明确日均销量、可销售天数、目标库存和建议补货量的计算关系。', '按店铺、品类、品牌、型号和规格展开数据，并显式提示缺失属性。', '让管理员配置规则、普通员工按权限查看；补货量可编辑，系统计算量保持只读并记录修改。'],
+    result: '把一个依赖经验的补货任务整理成可配置、可解释、可验证的产品流程；需求文档和原型均保留规则、通知、日志及边界口径。',
+    evidence: '证据来自 ERP 需求库中的《门店版智能补货 PRD v4》和配套原型：包含规则生效时间、计算公式、三层权限、通知历史、修改日志、导出和边界状态。',
+    tags: ['产品逻辑', '规则型产品', 'App + PC', '权限与日志'],
+    gallery: []
+  },
+  warningLinkage: {
+    kicker: 'PRODUCT CASE / P03',
+    index: 'P03 / PC PRODUCT DESIGN',
+    title: '企业版首页预警联动 · 从发现问题到进入处理',
+    summary: '把库存年龄、未到货和相关列表接到企业版 PC 首页，用预警卡片降低重复查找成本，同时保留阈值、筛选、空态、错误态和权限边界。',
+    role: '产品 / PC 交互设计',
+    focus: '首页预警 · 阈值设置 · 列表联动',
+    output: '需求方案 · HTML 原型 · 验收状态',
+    contextTitle: '首页不只是展示数据，还要把人带到下一步',
+    context: '用户通常先在工作台发现库存或到货异常，再进入列表处理。预警联动的价值，是让首页数量和列表筛选保持同一语义，减少反复进入页面确认的成本。',
+    problems: ['首页卡片、列表数量和筛选条件如果口径不同，会造成用户对数据的信任下降。', '阈值设置仍在列表页，首页需要说明提醒来源和进入后的处理路径。', '无数据、接口异常和权限不足不能共用一个空白状态。'],
+    solution: '围绕“卡片发现—保留语义进入列表—按设置继续处理”设计跨页面联动，并把未确认的边界单独列出来。',
+    solutionPoints: ['在既有销售看板和库存信息之间安排预警卡片，不打断工作台主层级。', '让卡片数量、列表筛选、清空条件和阈值设置保持关联。', '把时间锚点、边界符号、去重规则、权限和异常状态列为验收问题，而不是默默猜测。'],
+    result: '形成一套能从首页进入业务处理的 PC 交互方案；原需求处于评审草案阶段，网站会明确标注边界待确认。',
+    evidence: '证据来自 ERP 需求库中的《首页库存预警与未到货预警联动》PRD 与 HTML 原型。文档明确区分了已确定范围、待确认口径和本地演示数据，适合展示产品判断过程。',
+    tags: ['PC 产品', '跨页面联动', '异常状态', '验收意识'],
+    gallery: []
+  }
+};
+
+const CASE_LIBRARY = { ...PROJECTS, ...PRODUCT_CASES };
 
 const SKILLS = [
   {
@@ -299,7 +359,7 @@ const dialog = $('#projectDialog');
 const closeDialog = $('#closeDialog');
 
 function openProjectCase(projectId) {
-  const project = PROJECTS[projectId];
+  const project = CASE_LIBRARY[projectId];
   if (!project) return;
   $('#dialogKicker').textContent = project.kicker;
   $('#dialogIndex').textContent = project.index;
@@ -308,8 +368,11 @@ function openProjectCase(projectId) {
   $('#dialogRole').textContent = project.role;
   $('#dialogFocus').textContent = project.focus;
   $('#dialogOutput').textContent = project.output;
-  $('#dialogHeroImage').src = project.heroImage;
-  $('#dialogHeroImage').alt = `${project.title} 代表画面`;
+  const heroImage = $('#dialogHeroImage');
+  heroImage.src = project.heroImage || '';
+  heroImage.alt = project.heroImage ? `${project.title} 代表画面` : '';
+  heroImage.classList.toggle('is-hidden', !project.heroImage);
+  $('.dialog-hero').classList.toggle('no-image', !project.heroImage);
   $('#dialogContextTitle').textContent = project.contextTitle;
   $('#dialogContext').textContent = project.context;
   $('#dialogProblems').innerHTML = project.problems.map((item) => `<li>${item}</li>`).join('');
@@ -317,7 +380,10 @@ function openProjectCase(projectId) {
   $('#dialogSolutionList').innerHTML = project.solutionPoints.map((item) => `<li>${item}</li>`).join('');
   $('#dialogResult').textContent = project.result;
   $('#dialogTags').innerHTML = project.tags.map((tag) => `<span>${tag}</span>`).join('');
-  const gallery = project.gallery || [project.heroImage];
+  $('#dialogEvidence').textContent = project.evidence || '当前案例基于已整理的项目 UI、简历和可见交付内容，线上结果数据待补充。';
+  const gallery = project.gallery || (project.heroImage ? [project.heroImage] : []);
+  const galleryWrap = $('.dialog-gallery-wrap');
+  galleryWrap.classList.toggle('is-hidden', gallery.length === 0);
   $('#dialogGallery').innerHTML = gallery.map((src, index) => `<figure><img src="${src}" alt="${project.title} 过程画面 ${index + 1}" /><figcaption>${project.index} / 过程画面 ${String(index + 1).padStart(2, '0')}</figcaption></figure>`).join('');
   dialog.showModal();
   $('.case-dialog-scroll').scrollTop = 0;
