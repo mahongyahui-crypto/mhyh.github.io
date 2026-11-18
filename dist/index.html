@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b0d12" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="马弘雅卉的产品设计作品集：聚焦 B 端 SaaS、ERP、后台系统与复杂业务流程，并提供基于简历和作品集的 JD 匹配分析。" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <title>马弘雅卉 / Product Designer</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=hero-about-layout-20261117-1" />
   </head>
   <body>
-    <div class="cursor-glow" aria-hidden="true"></div>
     <div class="site-shell">
       <header class="topbar" id="top">
         <a class="brand" href="#top" aria-label="返回首页">
@@ -20,59 +20,121 @@
           <span></span><span></span>
         </button>
         <nav class="nav" aria-label="主导航">
-          <a href="#work">作品集 <span>01</span></a>
-          <a href="#match">JD 匹配 <span>02</span></a>
-          <a href="#approach">工作方式 <span>03</span></a>
-          <a class="nav-cta" href="#contact">联系我 <span>↗</span></a>
+          <a class="nav-link" href="#home">首页</a>
+          <a class="nav-link" href="#match">岗位适配分析</a>
+          <a class="nav-link" href="#work">精选作品</a>
+          <a class="nav-link" href="#experience">经历</a>
         </nav>
+        <a class="nav-contact" href="#contact"><span>联系我</span><span aria-hidden="true">↗</span></a>
       </header>
 
       <main>
-        <section class="hero section-pad" aria-labelledby="hero-title">
-          <div class="hero-copy reveal">
-            <div class="eyebrow"><span class="eyebrow-dot"></span> OPEN TO THE NEXT CHAPTER</div>
-            <h1 id="hero-title">把复杂问题，<em>做成</em><br /><span>更容易被选择的体验。</span></h1>
-            <p class="hero-lede">我是马弘雅卉，一名聚焦 B 端 SaaS、ERP 与后台系统的 UI / 产品设计师。习惯从业务流程和真实场景出发，把模糊需求拆成清晰的结构、界面与可落地的方案。</p>
-            <div class="hero-actions">
-              <a class="button button-primary" href="#work">查看作品集 <span>↓</span></a>
-              <a class="button button-quiet" href="#match">试试 JD 匹配 <span>↗</span></a>
-            </div>
-            <div class="hero-signals" aria-label="个人信息摘要">
-              <div><strong>5+ YEARS</strong><span>UI / 产品设计</span></div>
-              <div><strong>BASED IN</strong><span>Chengdu / Remote</span></div>
-              <div><strong>FOCUS</strong><span>B 端 SaaS / ERP</span></div>
-            </div>
-          </div>
+        <section class="hero hero-lens-section section-pad" id="home" aria-labelledby="hero-title">
+          <div class="hero-lens reveal" id="heroLens" role="button" tabindex="0" aria-label="Hero：移动鼠标探索两套身份，按 Enter 查看关于我" aria-pressed="false" aria-describedby="heroLensNote">
+            <div class="hero-flip-card" id="heroFlipCard">
+              <div class="hero-face hero-front-face">
+                <div class="hero-lens-base">
+                  <div class="hero-lens-topline">
+                    <span>PORTFOLIO / 00</span>
+                    <span>CHENGDU / REMOTE</span>
+                  </div>
 
-          <div class="hero-art reveal reveal-delay" aria-label="个人作品集视觉封面">
-            <div class="art-orbit orbit-one"></div>
-            <div class="art-orbit orbit-two"></div>
-            <div class="art-grid"></div>
-            <div class="art-card art-card-main">
-              <div class="art-card-top"><span>CASE STUDY / 01</span><span class="tiny-arrow">↗</span></div>
-              <div class="art-display">
-                <span class="display-kicker">FROM CHAOS</span>
-                <strong>TO<br /><i>CLARITY.</i></strong>
-                <div class="display-line"></div>
-                <small>Structure is a design decision.</small>
+                  <div class="hero-name-lockup hero-content" id="heroContent">
+                    <span class="hero-name-english">MA HONG YAHUI</span>
+                    <h1 id="hero-title" class="hero-title">
+                      <span class="title-base">HELLO, </span><span class="title-middle">I'M</span><span class="title-signature"> YAHUI</span>
+                    </h1>
+                    <p class="hero-role">UI / UX <span aria-hidden="true">·</span> PRODUCT DESIGN</p>
+                  </div>
+
+                  <div class="hero-lens-bottomline">
+                    <div class="hero-lens-facts" aria-label="个人信息摘要">
+                      <span>5+ YEARS</span>
+                      <span>B2B / APP / PC / SYSTEMS</span>
+                    </div>
+                    <div class="hero-lens-actions">
+                      <a href="#work">精选作品 <span aria-hidden="true">↘</span></a>
+                      <a href="#match">岗位适配分析 <span aria-hidden="true">↗</span></a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hero-lens-reveal" id="heroReveal" aria-hidden="true">
+                  <div class="hero-name-lockup hero-content inverted-content">
+                    <span class="hero-name-english">MA HONG YAHUI</span>
+                    <h2 class="hero-title inverted-title">
+                      <span class="title-base">你好，</span><span class="title-middle">我是</span><span class="title-signature">雅卉</span>
+                    </h2>
+                    <p class="hero-role">UI / UX <span aria-hidden="true">·</span> PRODUCT DESIGN</p>
+                  </div>
+                </div>
               </div>
-              <div class="art-card-bottom"><span>WORK / 2025—26</span><span>↗</span></div>
+
+              <div class="hero-face hero-about-face" aria-hidden="true">
+                <div class="hero-about-topline">
+                  <span>ABOUT ME / 03</span>
+                  <span>UI / UX DESIGNER</span>
+                </div>
+                <div class="hero-about-layout">
+                  <div class="hero-about-copy">
+                    <h2>关于我</h2>
+                    <p class="hero-about-principle">从业务理解，到交互决策。</p>
+                    <p class="hero-about-intro">我是一名 UI/UX 设计师，主要涉及 B 端 SaaS、ERP、后台管理系统和移动端产品。</p>
+                    <p class="hero-about-detail">从业务流程、信息架构到交互原型与视觉交付，关注复杂系统的可理解性和操作体验。</p>
+                  </div>
+
+                  <div class="hero-about-skills" aria-label="设计能力">
+                    <article class="hero-about-skill">
+                      <span class="hero-about-skill-index">01 /</span>
+                      <div><h3>复杂业务与交互</h3><p>ERP、采购、库存、销售及经营管理流程</p></div>
+                    </article>
+                    <article class="hero-about-skill">
+                      <span class="hero-about-skill-index">02 /</span>
+                      <div><h3>多端产品设计</h3><p>PC 后台、App、小程序与私域商城</p></div>
+                    </article>
+                    <article class="hero-about-skill">
+                      <span class="hero-about-skill-index">03 /</span>
+                      <div><h3>设计规范与交付</h3><p>组件库、交互规范、研发协作与验收</p></div>
+                    </article>
+                    <article class="hero-about-skill">
+                      <span class="hero-about-skill-index">04 /</span>
+                      <div><h3>AI 辅助设计实践</h3><p>AI 辅助 HTML 原型、复杂流程与状态验证</p></div>
+                    </article>
+                  </div>
+                </div>
+                <div class="hero-about-footer">
+                  <div class="hero-about-approach" aria-label="设计方法">
+                    <div class="hero-about-approach-heading">设计方法 <span>/ DESIGN APPROACH</span></div>
+                    <div class="hero-about-approach-grid">
+                      <div class="hero-about-approach-item">
+                        <span>01 /</span>
+                        <div><h3>理解业务</h3><p>场景 · 需求 · 流程</p></div>
+                      </div>
+                      <div class="hero-about-approach-item">
+                        <span>02 /</span>
+                        <div><h3>设计体验</h3><p>架构 · 交互 · 视觉</p></div>
+                      </div>
+                      <div class="hero-about-approach-item">
+                        <span>03 /</span>
+                        <div><h3>推动落地</h3><p>规范 · 协作 · 验收</p></div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="hero-about-return-prompt">点击空白区域，返回首页正面</span>
+                </div>
+              </div>
             </div>
-            <div class="floating-label label-top">THINK<br /><b>IN SYSTEMS</b></div>
-            <div class="floating-label label-bottom"><span class="pulse-dot"></span> AVAILABLE FOR GOOD WORK</div>
           </div>
+          <p class="hero-lens-note" id="heroLensNote">移动鼠标探索两套身份；点击 Hero 或按 Enter 查看关于我。</p>
         </section>
 
-        <section class="signal-bar section-pad" aria-label="网站内容概览">
-          <div class="signal-item"><span class="signal-number">01</span><span>从业务与用户之间<br />找到真正的问题</span></div>
-          <div class="signal-item"><span class="signal-number">02</span><span>用结构、流程与视觉<br />把答案讲清楚</span></div>
-          <div class="signal-item"><span class="signal-number">03</span><span>用 JD 匹配工具<br />快速找到合适的交集</span></div>
-          <div class="signal-note">SCROLL TO<br /><b>EXPLORE ↓</b></div>
+        <section class="signal-bar section-pad" aria-label="继续向下探索">
+          <div class="signal-note"><span>继续向下探索</span><b aria-hidden="true">↓</b></div>
         </section>
 
         <section class="section-pad work-section" id="work" aria-labelledby="work-title">
           <div class="section-heading reveal">
-            <div><span class="section-index">01 / SELECTED WORK</span><h2 id="work-title">让每一个<br /><em>项目都有证据。</em></h2></div>
+            <div><span class="section-index">02 / SELECTED WORK</span><h2 id="work-title">让每一个<br /><em>项目都有证据。</em></h2></div>
             <p>按交付形态浏览入口页；点击项目，再看我如何处理问题、流程与状态。</p>
           </div>
 
@@ -143,67 +205,284 @@
 
         <section class="match-section section-pad" id="match" aria-labelledby="match-title">
           <div class="match-intro reveal">
-            <span class="section-index">02 / ROLE FIT</span>
-            <h2 id="match-title">别只说<br /><em>“我很适合”。</em></h2>
-            <p>HR 可以把岗位 JD 直接粘贴进来，系统会按我的简历与作品集证据，给出可解释的优势、缺口和下一步准备方向。</p>
+            <span class="section-index">01 / JOB FIT</span>
+            <h2 id="match-title">岗位适配分析</h2>
+            <p>从岗位要求出发，用真实经历回应每一项期待。</p>
             <div class="fit-points">
-              <div><span>✓</span><p><b>读取 JD</b><br />抓出岗位的关键要求</p></div>
-              <div><span>✓</span><p><b>映射证据</b><br />对应到简历与真实项目</p></div>
-              <div><span>✓</span><p><b>给出下一步</b><br />提示面试前需要补强的证据</p></div>
+              <div><span>01</span><p><b>30秒看结论</b><br />综合分、匹配等级、一句话判断</p></div>
+              <div><span>02</span><p><b>只看客观缺口</b><br />必备技能、经验、行业与基础门槛</p></div>
+              <div><span>03</span><p><b>原文可追溯</b><br />JD内的对应原文和项目证据</p></div>
             </div>
           </div>
 
           <div class="match-tool reveal reveal-delay">
-            <div class="tool-topline"><span>RESUME + PORTFOLIO FIT</span><span class="tool-live"><i></i> NO LOGIN / LOCAL</span></div>
+            <div class="tool-topline"><span>HR QUICK READ / LOCAL REPORT</span><span class="tool-live"><i></i> NO LOGIN / LOCAL</span></div>
             <div class="tool-body">
               <div class="tool-field">
-                <label for="jdInput">直接粘贴岗位 JD</label>
-                <textarea id="jdInput" rows="7" placeholder="把 HR 发来的岗位描述粘贴到这里，系统会从 JD 中识别要求并对应到简历与项目证据……"></textarea>
+                <label for="jdInput">粘贴岗位描述 JD</label>
+                <textarea id="jdInput" rows="7" placeholder="将岗位招聘描述粘贴到这里，例如：岗位职责、任职要求、所需技能、加分项等……"></textarea>
+                <p class="match-input-error" id="jdError" role="alert" hidden></p>
               </div>
-              <button class="button button-primary button-full" id="analyzeBtn" type="button">分析匹配度 <span>→</span></button>
-              <p class="tool-caption">从 JD 中识别能力要求，并对应到简历与项目证据；内容仅在当前浏览器本地分析，不上传。</p>
+              <button class="button button-primary button-full" id="analyzeBtn" type="button"><span id="analyzeButtonLabel">开始匹配</span> <span aria-hidden="true">↗</span></button>
+              <p class="tool-caption">基于规则的本地参考分析，不依赖外部大模型。</p>
+              <div class="fit-rule-strip" aria-label="五维评分权重">
+                <span class="fit-rule-title">REPORT BASIS</span>
+                <span><b>30%</b> 必备技能</span>
+                <span><b>25%</b> 项目 / 岗位经验</span>
+                <span><b>15%</b> 行业背景</span>
+                <span><b>20%</b> 基础门槛</span>
+                <span><b>10%</b> 附加加分项</span>
+              </div>
             </div>
-            <div class="match-result is-hidden" id="matchResult" aria-live="polite">
+          </div>
+          <div class="match-result is-hidden" id="matchResult" aria-live="polite">
+              <div class="match-report-heading">
+                <div class="match-report-title"><span class="section-index">02 / MATCH REPORT</span><span class="report-badge">本地规则</span></div>
+                <span class="match-report-note">按当前 JD 与资料库逐项比对</span>
+              </div>
               <div class="result-summary">
                 <div class="score-ring" id="scoreRing"><div><strong id="scoreValue">0</strong><span>/ 100</span></div></div>
-                <div><span class="result-kicker">MATCH SCORE / 5 DIMENSIONS</span><h3 id="scoreTitle">准备好分析了吗？</h3><p id="scoreDesc">把 JD 放进来，你会看到更具体的结果。</p><span class="score-status" id="scoreStatus">等待分析</span></div>
+                <div class="score-summary-copy"><span class="result-kicker">综合适配结论</span><h3 id="scoreTitle">等待生成简报</h3><p id="scoreDesc">一次粘贴，一次比对；结果只基于当前已有的简历与作品集资料。</p><span class="score-status" id="scoreStatus">等待分析</span><span class="score-compare" id="scoreCompare">按五维加权后显示</span></div>
+                <div class="result-risk"><span class="result-risk-label">最值得关注的缺口 / 风险</span><p id="resultRisk">匹配后显示当前 JD 中最需要核对的条件。</p></div>
               </div>
-              <div class="result-controls"><label class="hard-gate"><input type="checkbox" id="hardGate" /><span>开启硬性门槛拦截</span></label><span>必填技能缺失或年限不足时，综合分最高显示为 59。</span></div>
               <div class="radar-panel">
-                <div class="radar-wrap"><span class="result-label">FIVE-DIMENSION FIT</span><svg id="radarChart" viewBox="0 0 300 300" role="img" aria-label="五维匹配雷达图"></svg></div>
+                <div class="radar-wrap"><span class="result-label">五维分析</span><svg id="radarChart" viewBox="0 0 300 300" role="img" aria-label="五维初筛匹配雷达图"></svg><p class="radar-note">五轴均为 0–100 分；只展示 JD 显性条件与资料库的客观比对。</p></div>
                 <div class="dimension-panel"><span class="result-label">五维拆分</span><div class="dimension-cards" id="dimensionCards"></div></div>
               </div>
               <div class="result-columns">
-                <div><span class="result-label">匹配亮点</span><div class="chip-list" id="matchedSkills"></div></div>
-                <div><span class="result-label">风险与待确认</span><div class="gap-list" id="gapSkills"></div></div>
+                <div class="gap-summary"><span class="result-label">关键要求与缺口</span><div class="gap-group"><b class="gap-heading is-critical">不满足要求</b><div class="gap-list" id="gapSkills"></div></div><div class="gap-group"><b class="gap-heading is-unknown">信息不足 / 待补充</b><div class="gap-list" id="unknownSkills"></div></div><div class="gap-group"><b class="gap-heading is-hit">已符合要求</b><div class="chip-list" id="matchedSkills"></div></div><div class="gap-group"><b class="gap-heading is-bonus">附加加分</b><div class="chip-list" id="bonusSkills"></div></div></div>
+                <div class="result-evidence-panel"><span class="result-label">真实经历证据</span><p class="result-section-note">来自当前简历与作品集资料库的可核验依据。</p><div class="evidence-list" id="evidenceList"></div></div>
               </div>
-              <div class="result-evidence"><span class="result-label">对应项目证据</span><div class="evidence-list" id="evidenceList"></div></div>
               <div class="result-trace">
-                <details><summary>查看 JD 原始要点 <span id="jdTraceCount"></span></summary><div class="trace-content" id="jdTrace"></div></details>
-                <details><summary>查看简历 / 作品集证据溯源 <span id="resumeTraceCount"></span></summary><div class="trace-content" id="resumeTrace"></div></details>
+                <details>
+                  <summary><span class="trace-summary-title">评分依据</span><span class="trace-summary-note">查看各维度评分规则与权重</span><span id="jdTraceCount"></span></summary>
+                  <div class="trace-content">
+                    <div class="result-controls"><div class="result-rule-note"><b>报告口径</b><span>必备技能 30 · 项目经验 25 · 行业背景 15 · 基础门槛 20 · 加分项 10</span><small>未识别项不加分；加分项未命中不扣分；不评估软实力和稳定性。</small></div><details class="report-options"><summary>可选设置 <span>硬性门槛拦截</span></summary><label class="hard-gate"><input type="checkbox" id="hardGate" /><span>必备技能或基础门槛不满足时，将综合分标记为门槛未通过</span></label></details></div>
+                    <div id="jdTrace"></div>
+                  </div>
+                </details>
+                <details>
+                  <summary><span class="trace-summary-title">逐项证据</span><span class="trace-summary-note">查看与 JD 要求对应的资料原文</span><span id="resumeTraceCount"></span></summary>
+                  <div class="trace-content" id="resumeTrace"></div>
+                </details>
               </div>
-              <div class="result-tip"><span class="tip-title">下一步建议</span><p id="resultTip"></p></div>
+              <div class="result-tip"><span class="tip-title">初筛提示</span><p id="resultTip"></p></div>
+          </div>
+        </section>
+
+        <section class="section-pad experience-section" id="experience" aria-labelledby="experience-title">
+          <header class="experience-heading reveal">
+            <div>
+              <span class="section-index">03 / EXPERIENCE</span>
+              <h2 id="experience-title">经历</h2>
+            </div>
+            <p>从业务理解、流程梳理到设计交付，逐步积累对复杂产品场景的判断与落地经验。</p>
+          </header>
+
+          <div class="experience-overview reveal reveal-delay">
+            <div class="experience-journey">
+              <strong>2021 — NOW</strong>
+              <span>PROFESSIONAL JOURNEY</span>
+            </div>
+            <div class="experience-overview-meta">
+              <strong>5+ YEARS</strong>
+              <span>UI / UX · PRODUCT DESIGN</span>
+            </div>
+          </div>
+
+          <div class="experience-area">
+            <div class="experience-timeline reveal" aria-hidden="true">
+              <span class="experience-timeline-now">NOW</span>
+              <span class="experience-timeline-line"></span>
+              <i class="experience-current-node"></i>
+              <i class="experience-past-node"></i>
+              <span class="experience-timeline-start">2021</span>
+            </div>
+
+            <div class="experience-list" id="experienceTimeline">
+              <article class="experience-item is-open reveal" data-experience-id="experience-1">
+                <button class="experience-toggle" type="button" aria-expanded="true" aria-controls="experience-detail-1">
+                  <span class="experience-index" aria-hidden="true">01</span>
+                  <span class="experience-time">2026.05—至今</span>
+                  <span class="experience-role"><strong>西安腾为计算机系统有限责任公司</strong><em>产品经理兼 UI 设计师</em></span>
+                  <span class="experience-toggle-symbol" aria-hidden="true"></span>
+                </button>
+                <div class="experience-details is-open" id="experience-detail-1" aria-hidden="false">
+                  <div class="experience-details-inner">
+                    <div class="experience-detail-surface">
+                      <aside class="experience-overview-column">
+                        <span class="experience-detail-label">OVERVIEW / 工作概述</span>
+                        <p class="experience-overview-copy">参与企业版、连锁版、ERP、CRM、私域商城及后台系统的产品与 UI 设计，覆盖需求分析、业务流程、信息架构、交互原型、视觉设计与开发验收。</p>
+                        <div class="experience-tags" aria-label="能力标签">
+                          <span>B2B / ERP</span><span>0 → 1 产品</span><span>PC / APP</span><span>组件规范</span><span>研发协作</span>
+                        </div>
+                      </aside>
+                      <div class="experience-responsibilities">
+                        <span class="experience-detail-label">RESPONSIBILITIES / 工作职责</span>
+                        <ol>
+                          <li><span>01</span><p>参与企业版、连锁版产品从 0 到 1 建设，覆盖商品、库存、采购、销售、客户经营、考勤及业绩管理 7 条业务线；梳理总部与门店多角色权限、单据流转及核心业务规则，完成业务流程、交互原型与 UI 设计，支撑门店日常经营场景落地。</p></li>
+                          <li><span>02</span><p>参与 CRM 系统与私域商城从 0 到 1 建设，完成信息架构与核心业务流程设计，梳理下单、支付、履约及库存扣减规则，完善订单状态流转、异常退款等边界场景；完成“许愿瓶”互动功能及动效设计，协同研发推动上线。</p></li>
+                          <li><span>03</span><p>参与 ERP 系统 50+ 项需求的方案设计与上线交付，覆盖库存、销售、订单、维修等业务场景；梳理权限配置与敏感信息查看规则，优化管理员配置及用户操作路径，跟进开发过程中的方案调整与上线验收。</p></li>
+                          <li><span>04</span><p>参与超管后台财务模块建设，完成需求梳理、业务流程确认、交互原型及 UI 设计，协同产品、研发开展方案评审、开发跟进与上线验收，推动需求落地及问题闭环。</p></li>
+                          <li><span>05</span><p>承担接单侠全流程 UI 设计，覆盖核心业务页面、页面状态与交互细节，完成设计稿及动效交付，配合研发开展还原核对并推动项目上线；参与 AI 黑卡功能 UI 设计及落地。</p></li>
+                          <li><span>06</span><p>从 0 到 1 搭建门店版 PC UI 组件库与设计规范，覆盖工作台、库存管理等重点模块；与研发共建组件使用机制，推动开发侧组件使用率达到 85%，提升页面一致性与组件复用效率。</p></li>
+                          <li><span>07</span><p>参与 20 次技术及设计评审，协同产品、研发与业务团队完成需求澄清、方案调整、设计验收及问题闭环。</p></li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="experience-item reveal reveal-delay" data-experience-id="experience-2">
+                <button class="experience-toggle" type="button" aria-expanded="false" aria-controls="experience-detail-2">
+                  <span class="experience-index" aria-hidden="true">02</span>
+                  <span class="experience-time">2022.05—2026.05</span>
+                  <span class="experience-role"><strong>陕西超掌柜科技有限公司</strong><em>UI 设计师</em></span>
+                  <span class="experience-toggle-symbol" aria-hidden="true"></span>
+                </button>
+                <div class="experience-details" id="experience-detail-2" hidden aria-hidden="true">
+                  <div class="experience-details-inner">
+                    <div class="experience-detail-surface">
+                      <aside class="experience-overview-column">
+                        <span class="experience-detail-label">OVERVIEW / 工作概述</span>
+                        <p class="experience-overview-copy">负责餐饮数字化产品从 0 到 1 及持续迭代的 UI/UX 设计，覆盖门店管理后台、收银系统、移动端及小程序，参与产品从需求分析、方案设计到开发落地的完整流程。</p>
+                        <div class="experience-tags" aria-label="能力标签">
+                          <span>餐饮数字化</span><span>B 端后台</span><span>收银系统</span><span>移动端 / 小程序</span><span>设计规范</span>
+                        </div>
+                      </aside>
+                      <div class="experience-responsibilities">
+                        <span class="experience-detail-label">RESPONSIBILITIES / 工作职责</span>
+                        <ol>
+                          <li><span>01</span><p>负责公司餐饮数字化系统设计，通过与店长、店员沟通，了解实际业务使用场景，梳理用户需求及产品体验问题。</p></li>
+                          <li><span>02</span><p>结合业务流程及竞品分析，对 B 端后台系统进行信息架构、任务流程及页面结构优化，提升系统操作效率与使用体验。</p></li>
+                          <li><span>03</span><p>独立负责门店管理后台、收银系统等核心模块设计，包括商品管理、订单管理、经营数据等功能模块，完成交互方案及 UI 设计。</p></li>
+                          <li><span>04</span><p>参与移动端、小程序产品设计，根据用户场景完成页面结构设计、视觉设计及开发验收，保障设计方案准确落地。</p></li>
+                          <li><span>05</span><p>搭建设计规范与组件资源库，统一产品设计标准，提高产品迭代效率。</p></li>
+                          <li><span>06</span><p>协同产品、研发团队推进需求评审、方案沟通及设计还原验收，解决设计落地过程中的问题。</p></li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="experience-item reveal reveal-delay-2" data-experience-id="experience-3">
+                <button class="experience-toggle" type="button" aria-expanded="false" aria-controls="experience-detail-3">
+                  <span class="experience-index" aria-hidden="true">03</span>
+                  <span class="experience-time">2021.06—2022.05</span>
+                  <span class="experience-role"><strong>西安腾宇网络科技有限公司</strong><em>UI 设计师</em></span>
+                  <span class="experience-toggle-symbol" aria-hidden="true"></span>
+                </button>
+                <div class="experience-details" id="experience-detail-3" hidden aria-hidden="true">
+                  <div class="experience-details-inner">
+                    <div class="experience-detail-surface">
+                      <aside class="experience-overview-column">
+                        <span class="experience-detail-label">OVERVIEW / 工作概述</span>
+                        <p class="experience-overview-copy">负责移动端、PC 端及小程序产品界面设计工作，参与页面结构梳理、设计规范整理及设计交付。</p>
+                        <div class="experience-tags" aria-label="能力标签">
+                          <span>移动端</span><span>PC 端</span><span>小程序</span><span>交互优化</span><span>运营视觉</span>
+                        </div>
+                      </aside>
+                      <div class="experience-responsibilities">
+                        <span class="experience-detail-label">RESPONSIBILITIES / 工作职责</span>
+                        <ol>
+                          <li><span>01</span><p>参与移动端、PC 端及小程序产品 UI 设计，根据产品需求完成页面结构梳理、界面设计及设计输出。</p></li>
+                          <li><span>02</span><p>协同产品、开发团队进行需求沟通，优化页面布局与交互细节，跟进设计还原及问题调整。</p></li>
+                          <li><span>03</span><p>参与产品设计规范整理，维护设计资源及组件资产，提高设计输出效率与一致性。</p></li>
+                          <li><span>04</span><p>支持公司业务活动及运营场景设计需求，完成相关视觉物料设计。</p></li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </section>
 
-        <section class="section-pad approach-section" id="approach" aria-labelledby="approach-title">
-          <div class="section-heading reveal">
-            <div><span class="section-index">03 / HOW I WORK</span><h2 id="approach-title">过程不是装饰，<br /><em>它本身就是答案。</em></h2></div>
-            <p>我喜欢把设计放进真实约束里验证：每一步都对应需求、原型、验收或上线记录，而不是只留下方法论口号。</p>
-          </div>
-          <div class="approach-grid">
-            <div class="approach-step reveal"><span class="step-no">01</span><div><h3>先把问题说准</h3><p>从业务目标、用户任务和现有流程开始，确认真正需要被解决的那一层。</p><span class="approach-proof"><b>50+</b> ERP 需求 · 库存 / 采购 / 销售 / 订单</span></div><span class="step-mark">↗</span></div>
-            <div class="approach-step reveal reveal-delay"><span class="step-no">02</span><div><h3>再把复杂度拆开</h3><p>用信息架构、流程图和组件规则，把复杂场景变成团队可以继续协作的语言。</p><span class="approach-proof"><b>4</b> 种交付形态 · App / PC / 后台 / 小程序</span></div><span class="step-mark">↗</span></div>
-            <div class="approach-step reveal reveal-delay-2"><span class="step-no">03</span><div><h3>最后让方案落地</h3><p>关注交互细节、边界状态和开发沟通，让设计不仅停在漂亮的展示稿里。</p><span class="approach-proof"><b>交付闭环</b> HTML 原型 · 需求验收 · 研发说明 · 内部上线</span></div><span class="step-mark">↗</span></div>
-          </div>
+        <section class="design-principle-section section-pad reveal" id="design-principle" aria-label="设计理念">
+          <p class="design-principle-copy">
+            <span class="design-principle-emphasis">理解业务，</span><span class="design-principle-muted">让设计落地。</span>
+          </p>
         </section>
 
         <section class="contact-section section-pad" id="contact" aria-labelledby="contact-title">
           <div class="contact-card reveal">
-            <div><span class="section-index">LET'S MAKE SOMETHING USEFUL</span><h2 id="contact-title">如果你正在找<br /><em>这样的设计师。</em></h2></div>
-            <div class="contact-side"><p>欢迎聊聊你的团队、产品和正在面对的问题。简历、作品集与 JD 匹配结果，都可以从这里开始。</p><a class="contact-email" href="mailto:947252422@qq.com">947252422@qq.com <span>↗</span></a><div class="contact-links"><a href="#top">回到顶部 ↑</a><a href="mailto:947252422@qq.com?subject=一起聊聊工作机会">发一封邮件</a></div></div>
+            <div class="contact-flip-card" id="contactFlipCard" data-flipped="false">
+              <section class="contact-face contact-front" id="contactFront" aria-labelledby="contact-title" aria-hidden="false">
+                <div class="contact-heading">
+                  <span class="section-index">CONTACT</span>
+                  <h2 id="contact-title">期待与你聊聊。</h2>
+                  <p class="contact-intro">关于设计、产品，或一个值得深入交流的工作机会。</p>
+                  <button class="contact-toggle" id="contactToggle" type="button" aria-expanded="false" aria-controls="contactBack">
+                    <span class="contact-toggle-icon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><path d="M3.5 5.5h13v9h-13zM4 6l6 4.2L16 6" /></svg></span>
+                    <span class="contact-toggle-label">查看联系方式</span>
+                    <span class="contact-toggle-arrow" aria-hidden="true">↗</span>
+                  </button>
+                </div>
+              </section>
+
+              <section class="contact-face contact-back" id="contactBack" aria-labelledby="contact-back-title" aria-hidden="true" inert>
+                <div class="contact-back-heading">
+                  <span class="section-index">CONTACT / DIRECT</span>
+                  <h2 id="contact-back-title">联系方式</h2>
+                  <p>选择你方便的方式，直接联系我。</p>
+                </div>
+
+                <div class="contact-back-grid">
+                  <div class="contact-direct-column">
+                    <div class="contact-back-group">
+                      <span class="contact-detail-label">EMAIL</span>
+                      <a class="contact-email" href="mailto:947252422@qq.com">947252422@qq.com</a>
+                      <div class="contact-actions">
+                        <a class="contact-action contact-mail" href="mailto:947252422@qq.com?subject=一起聊聊工作机会">发送邮件 <span aria-hidden="true">↗</span></a>
+                        <button class="contact-action contact-copy" type="button" data-copy-value="947252422@qq.com" data-copy-label="复制邮箱"><span class="contact-copy-label">复制邮箱</span> <span aria-hidden="true">↗</span></button>
+                      </div>
+                    </div>
+
+                    <div class="contact-back-group contact-phone-group">
+                      <span class="contact-detail-label">PHONE</span>
+                      <a class="contact-phone" href="tel:13259719293">13259719293</a>
+                      <div class="contact-actions">
+                        <a class="contact-action contact-call" href="tel:13259719293">拨打电话 <span aria-hidden="true">↗</span></a>
+                        <button class="contact-action contact-copy" type="button" data-copy-value="13259719293" data-copy-label="复制号码"><span class="contact-copy-label">复制号码</span> <span aria-hidden="true">↗</span></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="contact-wechat-column">
+                    <span class="contact-detail-label">WECHAT</span>
+                    <button class="contact-qr-trigger" id="contactQrTrigger" type="button" aria-haspopup="dialog" aria-controls="contactQrDialog">
+                      <img src="./assets/contact-wechat-qr.jpg" alt="Harper Ma 的微信好友二维码" width="972" height="1444">
+                    </button>
+                    <p class="contact-qr-caption">扫码添加微信 <span aria-hidden="true">↗</span></p>
+                    <p class="contact-pending-note">二维码包含头像、姓名与地区信息，正式公开前请确认是否保留这些信息。</p>
+                  </div>
+                </div>
+
+                <div class="contact-back-actions">
+                  <button class="contact-back-button" id="contactBackButton" type="button">返回正面 <span aria-hidden="true">↙</span></button>
+                </div>
+              </section>
+            </div>
+
+            <div class="contact-footer">
+              <a href="#top">回到顶部 <span aria-hidden="true">↑</span></a>
+            </div>
           </div>
+
+          <dialog class="contact-qr-dialog" id="contactQrDialog" aria-labelledby="contactQrDialogTitle">
+            <div class="contact-qr-dialog-inner">
+              <div class="contact-qr-dialog-head">
+                <span class="contact-detail-label">WECHAT</span>
+                <button class="contact-qr-dialog-close" id="contactQrDialogClose" type="button">关闭 <span aria-hidden="true">×</span></button>
+              </div>
+              <h2 id="contactQrDialogTitle">扫码添加微信</h2>
+              <img src="./assets/contact-wechat-qr.jpg" alt="Harper Ma 的微信好友二维码大图" width="972" height="1444">
+              <p>长按保存，或使用微信识别二维码。</p>
+            </div>
+          </dialog>
         </section>
       </main>
 
@@ -232,6 +511,6 @@
     </dialog>
 
     <div class="toast" id="toast" role="status"></div>
-    <script src="script.js"></script>
+    <script type="module" src="script.js?v=hero-about-layout-20261117-2"></script>
   </body>
 </html>
