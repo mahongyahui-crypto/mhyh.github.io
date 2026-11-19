@@ -1,6 +1,6 @@
 import { CASE_LIBRARY } from './data/projects.js';
 import { BONUS_CATALOG, CITY_TERMS, DEGREE_RANK, EXPERIENCE_CATALOG, INDUSTRY_CATALOG, REQUIRED_SKILL_CATALOG, RESUME_PROFILE, SKILLS } from './data/match-profile.js';
-import { initHeroLens } from './modules/hero-lens.js?v=hero-about-interaction-20261117-2';
+import { initHeroLens } from './modules/hero-lens.js?v=hero-about-interaction-20261119-1';
 import { initExperience } from './modules/experience.js?v=experience-hover-20261117-1';
 import { initReveal } from './modules/reveal.js';
 
@@ -904,6 +904,15 @@ const scrollToContact = ({ behavior = 'smooth', updateHistory = true } = {}) => 
     window.scrollTo({ top: targetTop, behavior });
   });
 };
+const scrollToTop = (event) => {
+  event.preventDefault();
+  setActiveNav('home');
+  closeMobileNav();
+  if (window.location.hash !== '#home') {
+    window.history.replaceState({ section: 'home' }, '', '#home');
+  }
+  window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+};
 navLinks.forEach((link) => link.addEventListener('click', () => {
   setActiveNav(link.getAttribute('href').slice(1));
   closeMobileNav();
@@ -912,6 +921,7 @@ $$('a[href="#contact"]').forEach((link) => link.addEventListener('click', (event
   event.preventDefault();
   scrollToContact();
 }));
+$$('.brand, .contact-footer a, a[href="#top"]').forEach((link) => link.addEventListener('click', scrollToTop));
 const getInitialNavId = () => {
   const hashId = window.location.hash.slice(1);
   if (hashId && navItems.some((link) => link.getAttribute('href') === `#${hashId}`)) return hashId;
