@@ -1211,6 +1211,10 @@ h1 em, h2 em { color: var(--ink); }
   border-radius: 16px;
   background: var(--surface);
 }
+.match-result .result-columns > .result-evidence-panel {
+  padding-left: 28px;
+  padding-right: 28px;
+}
 .match-result .gap-summary > .result-label,
 .match-result .result-evidence-panel > .result-label {
   margin: 0 0 20px;
@@ -1335,6 +1339,10 @@ h1 em, h2 em { color: var(--ink); }
   .match-result .result-columns { grid-template-columns: 1fr; gap: 14px; }
   .match-result .gap-summary,
   .match-result .result-evidence-panel { padding: 20px 18px 15px; border-radius: 14px; }
+  .match-result .result-columns > .result-evidence-panel {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
   .match-result .gap-summary > .result-label,
   .match-result .result-evidence-panel > .result-label {
     margin-bottom: 18px;

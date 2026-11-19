@@ -19,7 +19,6 @@ const scoreTitle = $('#scoreTitle');
 const scoreDesc = $('#scoreDesc');
 const scoreStatus = $('#scoreStatus');
 const scoreCompare = $('#scoreCompare');
-const hardGate = $('#hardGate');
 const radarChart = $('#radarChart');
 const dimensionCards = $('#dimensionCards');
 const matchedSkills = $('#matchedSkills');
@@ -581,7 +580,7 @@ function animateNumber(target, value) {
 }
 
 function renderMatchResult(jd, shouldScroll = true) {
-  const result = getMatchResult(jd, hardGate.checked);
+  const result = getMatchResult(jd, false);
   const copy = resultCopy(result);
   matchResult.classList.remove('is-hidden', 'is-ready');
   if (analyzeButtonLabel) analyzeButtonLabel.textContent = '重新匹配';
@@ -752,9 +751,6 @@ contactQrDialog?.addEventListener('click', (event) => {
 });
 
 analyzeBtn.addEventListener('click', analyzeJD);
-hardGate.addEventListener('change', () => {
-  if (lastAnalyzedJD) renderMatchResult(lastAnalyzedJD, false);
-});
 
 const dialog = $('#projectDialog');
 const closeDialog = $('#closeDialog');
