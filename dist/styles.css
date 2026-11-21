@@ -449,6 +449,7 @@ body { background: var(--paper); color: var(--ink); font-family: var(--sans); }
 .nav a.nav-link.is-active::before { background: rgb(17 17 17 / 7%); box-shadow: 0 2px 9px rgb(17 17 17 / 5%), inset 0 1px 0 rgb(255 255 255 / 84%); }
 .nav a.nav-link:active::before { opacity: 1; transform: translateY(1px) scale(.96); transition-duration: 90ms; }
 .nav a.nav-link:hover, .nav a.nav-link:focus-visible, .nav a.nav-link.is-active { background: transparent; }
+.nav a.nav-contact-mobile-link { display: none; }
 .nav a.nav-link:focus-visible, .nav-contact:focus-visible, .brand:focus-visible, .nav-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .nav-contact { display: inline-flex; height: 50px; padding: 0 22px; align-items: center; justify-content: center; gap: 8px; color: var(--paper); background: var(--ink); border-radius: 999px; box-shadow: 0 5px 16px rgb(0 0 0 / 10%); font: 500 15px var(--sans); line-height: 1; white-space: nowrap; transition: color var(--motion-ui) var(--ease-out), background-color var(--motion-ui) var(--ease-out), box-shadow var(--motion-ui) var(--ease-out), transform var(--motion-ui) var(--ease-out); }
 .nav-contact.is-active { box-shadow: inset 0 0 0 2px rgb(255 255 255 / 24%), 0 5px 16px rgb(0 0 0 / 10%); }
@@ -5508,5 +5509,245 @@ h1 em, h2 em { color: var(--ink); }
   #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
     padding-left: 0;
     border-left: 0;
+  }
+}
+
+/* Mobile responsive repair: restore full-width sections and keep the About
+   back face readable without changing the existing flip/lens motion. */
+@media (max-width: 680px) {
+  main > section.section-pad:not(#home):not(.signal-bar),
+  footer.footer.section-pad {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  #home #heroLens .hero-about-face {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 42px;
+  }
+
+  #home #heroLens .hero-about-layout {
+    height: auto;
+    min-height: 0;
+  }
+
+  #home #heroLens .hero-about-content-column {
+    min-height: 0;
+  }
+
+  #home #heroLens .hero-about-skill-row {
+    grid-template-columns: minmax(0, .9fr) minmax(50px, 1fr) auto;
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-skill-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  #home #heroLens .hero-about-skill-level {
+    padding-inline: 5px;
+  }
+
+  #home #heroLens .hero-about-core-focus p,
+  #home #heroLens .hero-about-capability-tags span {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  #home #heroLens .hero-about-capability-tags span {
+    text-align: center;
+  }
+
+  #home #heroLens {
+    touch-action: pan-y;
+  }
+}
+
+/* Mobile About breathing room: use a taller, content-led flip stage only on
+   small screens; the desktop Hero geometry remains unchanged. */
+@media (max-width: 680px) {
+  #home #heroLens.hero-lens {
+    height: auto;
+    min-height: clamp(760px, calc(100svh - 64px), 820px);
+  }
+
+  #home #heroLens .hero-flip-card,
+  #home #heroLens .hero-face {
+    height: auto;
+    min-height: inherit;
+  }
+
+  #home #heroLens .hero-about-face {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  #home #heroLens .hero-about-layout {
+    gap: 16px;
+  }
+
+  #home #heroLens .hero-about-content-column {
+    gap: 12px;
+  }
+
+  #home #heroLens .hero-about-positioning {
+    padding-bottom: 12px;
+  }
+
+  #home #heroLens .hero-about-middle {
+    gap: 12px;
+  }
+
+  #home #heroLens .hero-about-skills-panel {
+    padding-bottom: 16px;
+  }
+
+  #home #heroLens .hero-about-skill-groups {
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  #home #heroLens .hero-about-skill-list {
+    margin-top: 8px;
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-skill-row {
+    min-height: 18px;
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-skill-name {
+    font-size: 10.5px;
+  }
+
+  #home #heroLens .hero-about-skill-level {
+    padding: 4px 6px;
+    font-size: 8.5px;
+  }
+
+  #home #heroLens .hero-about-core-focus-list {
+    margin-top: 11px;
+  }
+
+  #home #heroLens .hero-about-core-focus {
+    padding-block: 6px 7px;
+  }
+
+  #home #heroLens .hero-about-core-focus p {
+    margin-top: 3px;
+    font-size: 9.5px;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  #home #heroLens .hero-about-capabilities {
+    padding-top: 8px;
+  }
+
+  #home #heroLens .hero-about-capability-groups {
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-capability-group h4 {
+    margin-bottom: 3px;
+    font-size: 9.5px;
+  }
+
+  #home #heroLens .hero-about-capability-tags {
+    gap: 4px;
+  }
+
+  #home #heroLens .hero-about-capability-tags span {
+    min-height: 19px;
+    padding: 2px 5px;
+    font-size: 8.5px;
+  }
+}
+
+/* Mobile stability pass: keep the flip stage geometrically stable while the
+   content gets enough room to breathe. Desktop geometry is intentionally
+   outside this block. */
+@media (max-width: 680px) {
+  #home #heroLens.hero-lens {
+    height: clamp(788px, calc(100svh - 64px), 860px);
+    min-height: 0;
+    perspective: 1200px;
+  }
+
+  #home #heroLens .hero-flip-card,
+  #home #heroLens .hero-face {
+    height: 100%;
+    min-height: 0;
+  }
+
+  #home #heroLens .hero-flip-card {
+    transform-origin: 50% 50%;
+    transition: transform 820ms cubic-bezier(.16, 1, .3, 1);
+    will-change: transform;
+  }
+
+  #home #heroLens .hero-face {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  #home #heroLens .hero-about-face {
+    overflow-y: hidden;
+  }
+
+  #home #heroLens .hero-about-layout,
+  #home #heroLens .hero-about-content-column {
+    height: auto;
+  }
+
+  #home #heroLens .hero-about-capability-groups {
+    gap: 8px;
+  }
+
+  #home #heroLens .hero-about-capability-group h4 {
+    margin-bottom: 5px;
+    font-size: 10px;
+  }
+
+  #home #heroLens .hero-about-capability-tags {
+    gap: 5px;
+  }
+
+  #home #heroLens .hero-about-capability-tags span {
+    min-height: 23px;
+    padding: 3px 7px;
+    font-size: 9.5px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Mobile uses the navigation menu and the in-flow contact section instead
+     of a floating control over the reading column. */
+  .topbar .nav-contact {
+    display: none;
+  }
+
+  .nav a.nav-contact-mobile-link {
+    display: flex;
+  }
+}
+
+@media (max-width: 359px) {
+  #home #heroLens.hero-lens {
+    height: clamp(820px, calc(100svh - 32px), 900px);
+  }
+
+  #home #heroLens .hero-about-face {
+    overflow-y: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #home #heroLens .hero-flip-card {
+    transition: none;
   }
 }

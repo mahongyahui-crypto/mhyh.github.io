@@ -1,6 +1,6 @@
 import { CASE_LIBRARY } from './data/projects.js';
 import { BONUS_CATALOG, CITY_TERMS, DEGREE_RANK, EXPERIENCE_CATALOG, INDUSTRY_CATALOG, REQUIRED_SKILL_CATALOG, RESUME_PROFILE, SKILLS } from './data/match-profile.js';
-import { initHeroLens } from './modules/hero-lens.js?v=motion-restore-20261121-1';
+import { initHeroLens } from './modules/hero-lens.js?v=smooth-flip-20261121-1';
 import { initExperience } from './modules/experience.js?v=experience-hover-20261117-1';
 import { initReveal } from './modules/reveal.js';
 import { analyzeJobDescription } from './modules/job-fit-engine.js?v=match-engine-v3-20261119-1';

@@ -38,6 +38,12 @@ export function initHeroLens(root = document.querySelector('#heroLens')) {
   let heroInView = true;
   let flipped = false;
   let frameRect = null;
+  let touchPointerId = null;
+  let touchStartPoint = null;
+  let touchMoved = false;
+  let suppressNextClick = false;
+  let flipTransitionTimer = 0;
+  let isFlipTransitioning = false;
 
   const writeLensVariables = () => {
     root.style.setProperty('--lens-x', `${current.x.toFixed(2)}%`);
@@ -155,10 +161,28 @@ export function initHeroLens(root = document.querySelector('#heroLens')) {
   };
 
   const canFollowPointer = (event) => {
-    if (flipped || reducedMotion.matches || event?.pointerType === 'touch') return false;
+    if (flipped || reducedMotion.matches) return false;
+    if (event?.pointerType === 'touch') return event.pointerId === touchPointerId;
     return event?.pointerType === 'mouse'
       || event?.pointerType === 'pen'
       || finePointer.matches;
+  };
+
+  const beginTouchPointer = (event) => {
+    if (event.pointerType !== 'touch' || flipped || reducedMotion.matches) return;
+    touchPointerId = event.pointerId;
+    touchStartPoint = { x: event.clientX, y: event.clientY };
+    touchMoved = false;
+    frameRect = measureFrame();
+    setPointerTarget(event);
+  };
+
+  const handlePointerMove = (event) => {
+    if (event.pointerType === 'touch' && event.pointerId === touchPointerId && touchStartPoint) {
+      const distance = Math.hypot(event.clientX - touchStartPoint.x, event.clientY - touchStartPoint.y);
+      if (distance > 5) touchMoved = true;
+    }
+    setPointerTarget(event);
   };
 
   const setPointerTarget = (event) => {
@@ -230,30 +254,71 @@ export function initHeroLens(root = document.querySelector('#heroLens')) {
     scheduleMotion();
   };
 
+  const endTouchPointer = (event, options = {}) => {
+    if (event?.pointerType === 'touch') {
+      if (touchPointerId !== null && event.pointerId !== touchPointerId) return;
+      suppressNextClick = touchMoved;
+      touchPointerId = null;
+      touchStartPoint = null;
+      touchMoved = false;
+    }
+    closePointerLens(options);
+  };
+
+  const finishFlipTransition = () => {
+    window.clearTimeout(flipTransitionTimer);
+    flipTransitionTimer = 0;
+    isFlipTransitioning = false;
+    root.classList.remove('is-flipping');
+    root.removeAttribute('aria-busy');
+  };
+
+  const beginFlipTransition = () => {
+    window.clearTimeout(flipTransitionTimer);
+    isFlipTransitioning = true;
+    root.classList.add('is-flipping');
+    root.setAttribute('aria-busy', 'true');
+    const duration = Number.parseFloat(window.getComputedStyle(flipCard).transitionDuration) * 1000 || 0;
+    flipTransitionTimer = window.setTimeout(finishFlipTransition, duration + 90);
+  };
+
   const setFlipped = (nextValue) => {
-    flipped = Boolean(nextValue);
+    const nextFlipped = Boolean(nextValue);
+    if (flipped === nextFlipped) return;
+    flipped = nextFlipped;
     closePointerLens({ immediate: true, resetPosition: true });
     flipCard.classList.toggle('is-flipped', flipped);
+    beginFlipTransition();
     root.setAttribute('aria-pressed', String(flipped));
     root.setAttribute('aria-label', flipped
       ? 'Hero：关于我，按 Enter 返回首页'
-      : 'Hero：移动鼠标探索两套身份，按 Enter 查看关于我');
+      : 'Hero：移动或触摸探索两套身份，按 Enter 查看关于我');
     frontFace.setAttribute('aria-hidden', String(flipped));
     aboutFace.setAttribute('aria-hidden', String(!flipped));
   };
 
-  const toggleFlipped = () => setFlipped(!flipped);
+  const toggleFlipped = () => {
+    if (isFlipTransitioning) return;
+    setFlipped(!flipped);
+  };
 
+  root.addEventListener('pointerdown', beginTouchPointer, { passive: true });
   root.addEventListener('pointerenter', (event) => {
     frameRect = measureFrame();
     setPointerTarget(event);
   }, { passive: true });
-  root.addEventListener('pointermove', setPointerTarget, { passive: true });
-  root.addEventListener('pointerleave', () => closePointerLens(), { passive: true });
-  root.addEventListener('pointercancel', () => closePointerLens({ immediate: true }), { passive: true });
+  root.addEventListener('pointermove', handlePointerMove, { passive: true });
+  root.addEventListener('pointerup', endTouchPointer, { passive: true });
+  root.addEventListener('pointerleave', (event) => endTouchPointer(event), { passive: true });
+  root.addEventListener('pointercancel', (event) => endTouchPointer(event, { immediate: true }), { passive: true });
 
   // Keep the click-to-flip gesture separate from the action links inside Hero.
   root.addEventListener('click', (event) => {
+    if (suppressNextClick) {
+      suppressNextClick = false;
+      event.preventDefault();
+      return;
+    }
     const protectedBackContent = event.target.closest('.hero-about-topline, .hero-about-layout, .hero-about-footer');
     if (flipped && protectedBackContent && !event.target.closest('.hero-about-return-prompt')) return;
     const interactive = event.target.closest('a, button, input, textarea, select, summary');
@@ -298,13 +363,19 @@ export function initHeroLens(root = document.querySelector('#heroLens')) {
   window.addEventListener('resize', handleResize, { passive: true });
   window.addEventListener('blur', () => closePointerLens({ immediate: true, resetPosition: true }), { passive: true });
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) closePointerLens({ immediate: true, resetPosition: true });
+    if (document.hidden) {
+      closePointerLens({ immediate: true, resetPosition: true });
+      finishFlipTransition();
+    }
   }, { passive: true });
 
   if (typeof window.IntersectionObserver === 'function') {
     const visibilityObserver = new IntersectionObserver(([entry]) => {
       heroInView = entry.isIntersecting;
-      if (!entry.isIntersecting) closePointerLens({ immediate: true, resetPosition: true });
+      if (!entry.isIntersecting) {
+        closePointerLens({ immediate: true, resetPosition: true });
+        finishFlipTransition();
+      }
     }, { threshold: 0 });
     visibilityObserver.observe(root);
   }
