@@ -1,8 +1,10 @@
 import { CASE_LIBRARY } from './data/projects.js';
 import { BONUS_CATALOG, CITY_TERMS, DEGREE_RANK, EXPERIENCE_CATALOG, INDUSTRY_CATALOG, REQUIRED_SKILL_CATALOG, RESUME_PROFILE, SKILLS } from './data/match-profile.js';
-import { initHeroLens } from './modules/hero-lens.js?v=hero-about-interaction-20261119-1';
+import { initHeroLens } from './modules/hero-lens.js?v=motion-restore-20261121-1';
 import { initExperience } from './modules/experience.js?v=experience-hover-20261117-1';
 import { initReveal } from './modules/reveal.js';
+import { analyzeJobDescription } from './modules/job-fit-engine.js?v=match-engine-v3-20261119-1';
+import { trackEvent } from './modules/analytics.js?v=analytics-contract-20261119-1';
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
 const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
@@ -26,12 +28,20 @@ const gapSkills = $('#gapSkills');
 const unknownSkills = $('#unknownSkills');
 const bonusSkills = $('#bonusSkills');
 const evidenceList = $('#evidenceList');
+const evidenceAllList = $('#evidenceAllList');
+const evidenceDetails = $('#evidenceDetails');
+const evidenceCount = $('#evidenceCount');
+const gapExtraDetails = $('#gapExtraDetails');
+const gapExtraCount = $('#gapExtraCount');
 const jdTrace = $('#jdTrace');
 const resumeTrace = $('#resumeTrace');
 const jdTraceCount = $('#jdTraceCount');
 const resumeTraceCount = $('#resumeTraceCount');
 const resultTip = $('#resultTip');
 const resultRisk = $('#resultRisk');
+const hardGateSummary = $('#hardGateSummary');
+const hardGateList = $('#hardGateList');
+const interviewQuestions = $('#interviewQuestions');
 let lastAnalyzedJD = '';
 
 
@@ -524,6 +534,46 @@ function resultCopy(score, blocked, confidence) {
 }
 */
 
+// V3 rendering helpers. The legacy implementation above remains inert; all new
+// reports come from the isolated deterministic engine in job-fit-engine.js.
+function dimensionToneV3(score) {
+  if (score === null || typeof score === 'undefined') return 'pending';
+  return score >= 80 ? 'high' : score >= 60 ? 'mid' : score >= 40 ? 'caution' : 'reject';
+}
+
+function dimensionStatusV3(dimension) {
+  if (!dimension.applicable) return '未识别（不参与）';
+  if (dimension.unmet?.length) return '明确不满足';
+  if (dimension.unknown?.length) return '待核实';
+  return dimension.score >= 80 ? '较强支持' : dimension.score >= 60 ? '部分支持' : '支持较少';
+}
+
+function dimensionSignalV3(dimension) {
+  return dimension.unmet?.[0] || dimension.unknown?.[0] || dimension.highlights?.[0] || dimension.note || '当前没有可比对的明确要点';
+}
+
+function resultLevelV3(score) {
+  if (score === null || typeof score === 'undefined') return { label: '暂无足够结论', tone: 'uncertain' };
+  if (score >= 80) return { label: '优先沟通', tone: 'high' };
+  if (score >= 60) return { label: '可沟通评估', tone: 'mid' };
+  if (score >= 40) return { label: '谨慎核验', tone: 'caution' };
+  return { label: '当前交集偏少', tone: 'reject' };
+}
+
+function resultCopyV3(result) {
+  const topGap = result.unmetItems[0] || result.unknownItems[0];
+  if (result.score === null) return { title: '暂不生成综合百分比。', desc: '当前 JD 没有足够的有效必备要求，先补充岗位职责、技能或任职条件原文。' };
+  if (result.blocked) return { title: '存在书面硬性条件不满足。', desc: `综合支持率仍只反映已识别要求，不能替代门槛判断；优先核对${topGap || '硬性条件'}。` };
+  if (result.score >= 80) return { title: '真实经历有较清晰交集。', desc: topGap ? `当前资料覆盖了较多显性要求，但仍需核对${topGap}。` : '当前已识别的必备要求均有资料支持，仍建议查看逐项证据。' };
+  if (result.score >= 60) return { title: '存在可沟通的能力交集。', desc: `当前资料覆盖部分显性要求，建议优先核对${topGap || '项目深度和任职条件'}。` };
+  if (result.score >= 40) return { title: '有部分交集，需要补证据。', desc: `当前支持率有限，建议先核对${topGap || '核心技能和项目责任边界'}。` };
+  return { title: '当前资料交集偏少。', desc: `当前已确认履历支持有限，优先核对${topGap || '岗位核心要求'}；未记录不等于不会。` };
+}
+
+function getV3MatchResult(jd) {
+  return analyzeJobDescription(jd);
+}
+
 function radarPoint(cx, cy, radius, index, total, value = 100) {
   const angle = -Math.PI / 2 + (Math.PI * 2 * index) / total;
   const distance = radius * (value / 100);
@@ -542,31 +592,58 @@ function renderRadar(dimensions) {
     const anchor = Number(point[0]) < cx - 5 ? 'end' : Number(point[0]) > cx + 5 ? 'start' : 'middle';
     return `<text x="${point[0]}" y="${point[1]}" text-anchor="${anchor}">${escapeHTML(dimension.shortLabel || dimension.label)}</text>`;
   }).join('');
-  const data = dimensions.map((dimension, index) => radarPoint(cx, cy, radius, index, total, dimension.score)).join(' ');
+  const data = dimensions.map((dimension, index) => radarPoint(cx, cy, radius, index, total, dimension.score ?? 0)).join(' ');
   const dots = dimensions.map((dimension, index) => {
-    const point = radarPoint(cx, cy, radius, index, total, dimension.score).split(',');
-    return `<circle cx="${point[0]}" cy="${point[1]}" r="3.5" />`;
+    const point = radarPoint(cx, cy, radius, index, total, dimension.score ?? 0).split(',');
+    return dimension.score === null ? '' : `<circle cx="${point[0]}" cy="${point[1]}" r="3.5" />`;
   }).join('');
   return `<g class="radar-grid">${grid}</g><g class="radar-axes">${axes}</g><polygon class="radar-data" points="${data}" />${dots}<g class="radar-labels">${labels}</g>`;
 }
 
 function renderDimensionCards(dimensions) {
   return dimensions.map((dimension) => {
-    const level = dimensionTone(dimension.score);
-    const contribution = (dimension.score * dimension.weight / 100).toFixed(1).replace('.0', '');
-    const pendingClass = dimension.unknown?.length ? ' dimension-pending' : '';
-    return `<article class="dimension-card dimension-${level}${pendingClass}"><div class="dimension-card-top"><b>${escapeHTML(dimension.label)}</b><span>权重 ${dimension.weight}%</span></div><div class="dimension-score-row"><strong>${dimension.score}</strong><em>${escapeHTML(dimensionStatus(dimension))}</em></div><div class="dimension-bar"><i style="width:${dimension.score}%"></i></div><p>${escapeHTML(dimensionSignal(dimension))}</p><small class="dimension-contribution">计入总分 ${contribution} 分</small></article>`;
+    const level = dimensionToneV3(dimension.score);
+    const contribution = dimension.applicable && dimension.score !== null ? (dimension.score * dimension.weight / 100).toFixed(1).replace('.0', '') : '—';
+    const pendingClass = dimension.unknown?.length || !dimension.applicable ? ' dimension-pending' : '';
+    const score = dimension.score === null ? '—' : dimension.score;
+    const width = dimension.score === null ? 0 : dimension.score;
+    return `<article class="dimension-card dimension-${level}${pendingClass}"><div class="dimension-card-top"><b>${escapeHTML(dimension.label)}</b><span>权重 ${dimension.weight}%</span></div><div class="dimension-score-row"><strong>${score}</strong><em>${escapeHTML(dimensionStatusV3(dimension))}</em></div><div class="dimension-bar"><i style="width:${width}%"></i></div><p>${escapeHTML(dimensionSignalV3(dimension))}</p><small class="dimension-contribution">计入总分 ${contribution} 分</small></article>`;
   }).join('');
 }
 
 function renderTrace(result) {
-  jdTrace.innerHTML = result.dimensions.map((dimension) => `<div class="trace-row"><b>${escapeHTML(dimension.label)}</b><span>${escapeHTML(dimension.jd)}</span></div>`).join('');
-  resumeTrace.innerHTML = result.dimensions.map((dimension) => `<div class="trace-row"><b>${escapeHTML(dimension.label)}</b><span>${escapeHTML(dimension.resume.join('；'))}</span></div>`).join('');
+  jdTrace.innerHTML = result.dimensions.map((dimension) => {
+    const score = dimension.score === null ? '不适用' : `${dimension.score} / 100`;
+    return `<div class="trace-row"><b>${escapeHTML(dimension.label)}</b><span><strong>${score}</strong> · 有效权重 ${dimension.applicable ? `${dimension.weight}%（按适用维度归一化）` : '不参与'}<br />${escapeHTML(dimension.jd)}</span></div>`;
+  }).join('');
+  resumeTrace.innerHTML = result.requirements.length
+    ? result.requirements.map((requirement) => {
+      const evidenceMarkup = requirement.evidence?.length
+        ? requirement.evidence.map((record) => `<div class="trace-evidence"><b>${escapeHTML(record.project_name)}</b><span>${escapeHTML(record.personal_role)}。${escapeHTML(record.work_content)}</span>${record.portfolio_status === 'linked' && record.portfolio_reference ? `<button class="evidence-portfolio-trigger" type="button" data-project="${escapeHTML(record.portfolio_reference)}">查看相关作品 ↗</button>` : ''}</div>`).join('')
+        : '<span class="trace-empty">当前没有可直接关联的项目证据；不把未记录视为不具备。</span>';
+      const sourceText = requirement.source_text || requirement.source_texts?.[0] || requirement.original_text;
+      return `<details class="trace-requirement trace-status-${escapeHTML(requirement.status)}"><summary><span class="trace-requirement-head"><b>${escapeHTML(requirement.normalized_requirement || requirement.original_text)}</b><span>${escapeHTML(requirement.status_label)}${requirement.priority ? ' · 优先条件' : ''}</span></span><small class="trace-source">JD原文：${escapeHTML(sourceText)}</small></summary><div class="trace-requirement-body"><p>${escapeHTML(requirement.explanation)}</p><small>核验口径：${escapeHTML(requirement.verification_criteria)}</small><div class="trace-evidence-list">${evidenceMarkup}</div></div></details>`;
+    }).join('')
+    : '<p class="trace-empty">没有足够的有效 JD 要求可供逐项对照。</p>';
   jdTraceCount.textContent = `${result.dimensions.length} 项`;
-  resumeTraceCount.textContent = `${result.evidence.length} 条证据`;
+  resumeTraceCount.textContent = `${result.evidenceRecords.length} 条证据`;
+}
+
+function evidenceCardMarkup(record) {
+  return `<article class="evidence-item"><div class="evidence-item-head"><b>${escapeHTML(record.project_name)}</b><span>${escapeHTML(record.project_status)}</span></div><p>${escapeHTML(record.work_content)}</p><small>${escapeHTML(record.personal_role)}</small>${record.portfolio_status === 'linked' && record.portfolio_reference ? `<button class="evidence-portfolio-trigger" type="button" data-project="${escapeHTML(record.portfolio_reference)}">查看相关作品 ↗</button>` : '<span class="evidence-no-link">作品尚未单独关联</span>'}</article>`;
+}
+
+function renderEvidenceCards(records) {
+  return records.length
+    ? records.map(evidenceCardMarkup).join('')
+    : '<span class="gap-item">当前没有与 JD 直接对应的项目证据</span>';
 }
 
 function animateNumber(target, value) {
+  if (value === null || typeof value === 'undefined') {
+    target.textContent = '—';
+    return;
+  }
   const start = Number(target.textContent) || 0;
   const startTime = performance.now();
   const duration = 650;
@@ -580,48 +657,75 @@ function animateNumber(target, value) {
 }
 
 function renderMatchResult(jd, shouldScroll = true) {
-  const result = getMatchResult(jd, false);
-  const copy = resultCopy(result);
+  const result = getV3MatchResult(jd);
+  const copy = resultCopyV3(result);
   matchResult.classList.remove('is-hidden', 'is-ready');
   if (analyzeButtonLabel) analyzeButtonLabel.textContent = '重新匹配';
   if (jdError) {
     jdError.hidden = true;
     jdInput.removeAttribute('aria-invalid');
   }
-  const level = result.blocked ? { label: '门槛未通过', tone: 'reject' } : resultLevel(result.score);
+  const level = resultLevelV3(result.score);
   const scoreTone = result.blocked ? 'reject' : level.tone;
   scoreRing.className = `score-ring score-${scoreTone}${result.blocked ? ' is-blocked' : ''}`;
-  scoreRing.style.setProperty('--score-angle', `${result.score * 3.6}deg`);
+  scoreRing.style.setProperty('--score-angle', `${(result.score ?? 0) * 3.6}deg`);
   animateNumber(scoreValue, result.score);
   scoreTitle.textContent = copy.title;
   scoreDesc.textContent = copy.desc;
-  const resultStatus = result.blocked ? '门槛未通过' : level.label;
+  const resultStatus = result.blocked ? '硬性条件需单独核验' : level.label;
   scoreStatus.textContent = resultStatus;
   scoreStatus.className = `score-status is-${scoreTone}${result.blocked ? ' is-blocked' : ''}`;
-  const scoreMeta = `已识别 ${result.matchedCount} 项可比条件 · 未识别项不加分`;
-  scoreCompare.textContent = result.blocked ? `显示分 ${result.score} · 原始加权 ${result.baseScore} · ${scoreMeta}` : `五维加权总分 ${result.baseScore} / 100 · ${scoreMeta}`;
+  const scoreMeta = `支持 ${result.ratios.supported ?? '—'}% · 待核实 ${result.ratios.pending ?? '—'}% · 明确不满足 ${result.ratios.unmet ?? '—'}%`;
+  scoreCompare.textContent = result.score === null
+    ? `有效必备要求 ${result.validRequirementCount} 项 · 未生成综合百分比`
+    : `五维有效权重归一化 · ${scoreMeta}`;
   radarChart.innerHTML = renderRadar(result.dimensions);
   dimensionCards.innerHTML = renderDimensionCards(result.dimensions);
   matchedSkills.innerHTML = result.matchedItems.length ? result.matchedItems.map((item) => `<span class="skill-chip">✅ ${escapeHTML(item)}</span>`).join('') : '<span class="gap-item">暂无命中项</span>';
   gapSkills.innerHTML = result.unmetItems.map((item) => `<span class="gap-item">❌ ${escapeHTML(item)}</span>`).join('') || '<span class="gap-item">未识别到明确缺口</span>';
   unknownSkills.innerHTML = result.unknownItems.map((item) => `<span class="gap-item is-unknown">⚠ ${escapeHTML(item)}</span>`).join('') || '<span class="gap-item is-unknown">暂无待补充条件</span>';
-  bonusSkills.innerHTML = result.bonusItems.length ? result.bonusItems.map((item) => `<span class="skill-chip bonus-chip">➕ ${escapeHTML(item)}</span>`).join('') : '<span class="gap-item bonus-empty">未识别到加分项（不扣分）</span>';
-  evidenceList.innerHTML = result.evidence.length ? result.evidence.map((item) => `<span class="evidence-item">${escapeHTML(item)}</span>`).join('') : '<span class="gap-item">等待 JD 命中对应项目</span>';
+  const bonusItems = [...result.bonusItems.map((item) => `已支持：${item}`), ...result.bonusPendingItems.map((item) => `待核实：${item}`)];
+  bonusSkills.innerHTML = bonusItems.length ? bonusItems.map((item) => `<span class="skill-chip bonus-chip">➕ ${escapeHTML(item)}</span>`).join('') : '<span class="gap-item bonus-empty">未识别到优先条件（不扣分）</span>';
+  const evidenceRecords = result.evidenceRecords || [];
+  const previewRecords = evidenceRecords.slice(0, 3);
+  evidenceList.innerHTML = renderEvidenceCards(previewRecords);
+  if (evidenceAllList && evidenceDetails) {
+    evidenceAllList.innerHTML = renderEvidenceCards(evidenceRecords);
+    const extraEvidenceCount = Math.max(0, evidenceRecords.length - previewRecords.length);
+    evidenceDetails.hidden = extraEvidenceCount === 0;
+    if (evidenceCount) evidenceCount.textContent = extraEvidenceCount ? `还有 ${extraEvidenceCount} 条` : '';
+  }
+  if (gapExtraDetails) {
+    const extraCount = result.matchedItems.length + bonusItems.length;
+    gapExtraDetails.hidden = extraCount === 0;
+    if (gapExtraCount) gapExtraCount.textContent = extraCount ? `${extraCount} 项` : '';
+  }
+  if (hardGateSummary && hardGateList) {
+    const hardItems = result.hardGates.items;
+    hardGateSummary.hidden = hardItems.length === 0;
+    hardGateList.innerHTML = hardItems.map((requirement) => `<div class="hard-gate-item is-${escapeHTML(requirement.status)}"><b>${escapeHTML(requirement.status_label)}</b><span>${escapeHTML(requirement.normalized_requirement)}</span><p>${escapeHTML(requirement.explanation)}</p></div>`).join('');
+  }
   renderTrace(result);
   $$('.result-trace > details').forEach((details) => {
     details.open = false;
   });
-  resultRisk.textContent = result.risks[0]
-    ? result.risks[0]
-    : '未识别到明确风险；仍需结合项目深度与面试信息判断。';
+  resultRisk.textContent = result.risks[0] || '未识别到明确风险；仍需结合项目深度与面试信息判断。';
   resultTip.textContent = result.blocked
-    ? `初筛提示：${result.gateReasons.join('；')}。`
+    ? result.gateReasons[0]
     : result.unmetItems[0]
-      ? `初筛提示：${result.unmetItems[0]}。`
+      ? `优先核对：${result.unmetItems[0]}。`
       : result.dataGaps[0]
-        ? `初筛提示：${result.dataGaps[0]}。`
-        : '初筛提示：未识别到明确缺口；最终仍需结合项目深度和面试信息判断。';
+        ? `优先补充：${result.dataGaps[0]}。`
+        : result.score === null
+          ? '有效要求过少，暂不生成综合百分比。'
+          : '当前没有识别到明确的待补充条件；最终仍需结合项目深度和面试信息判断。';
+  if (interviewQuestions) {
+    interviewQuestions.innerHTML = result.interviewQuestions.length
+      ? result.interviewQuestions.map((question) => `<li>${escapeHTML(question)}</li>`).join('')
+      : '';
+  }
   lastAnalyzedJD = jd;
+  trackEvent('jd_analysis_complete', { page_id: 'portfolio', section_id: 'match', valid_requirement_count: result.validRequirementCount, score_available: result.score !== null });
   window.requestAnimationFrame(() => matchResult.classList.add('is-ready'));
   if (shouldScroll) matchResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -642,7 +746,19 @@ function analyzeJD() {
     jdError.hidden = true;
     jdInput.removeAttribute('aria-invalid');
   }
-  renderMatchResult(jd);
+  trackEvent('jd_analysis_start', { page_id: 'portfolio', section_id: 'match' });
+  try {
+    renderMatchResult(jd);
+  } catch (error) {
+    trackEvent('jd_analysis_error', { page_id: 'portfolio', section_id: 'match', error_type: error?.name || 'unknown' });
+    if (jdError) {
+      jdError.textContent = '本地分析暂时失败，请检查 JD 文本后重试。';
+      jdError.hidden = false;
+      jdInput.setAttribute('aria-invalid', 'true');
+    }
+    showToast('本地分析暂时失败，请稍后重试。');
+    console.error(error);
+  }
 }
 
 jdInput.addEventListener('input', () => {
@@ -669,8 +785,11 @@ const contactCopies = $$('.contact-copy');
 const contactQrTrigger = $('#contactQrTrigger');
 const contactQrDialog = $('#contactQrDialog');
 const contactQrDialogClose = $('#contactQrDialogClose');
+const contactDialog = $('#contactDialog');
+const contactDialogClose = $('#contactDialogClose');
 let contactFlipped = false;
 let contactFocusFrame = 0;
+let contactDialogReturnTarget = null;
 
 const setContactFlipped = (flipped, { moveFocus = true } = {}) => {
   if (!contactFlipCard || !contactFront || !contactBack || !contactToggle) return;
@@ -694,8 +813,39 @@ const setContactFlipped = (flipped, { moveFocus = true } = {}) => {
 
 contactToggle?.addEventListener('click', () => setContactFlipped(true));
 contactBackButton?.addEventListener('click', () => setContactFlipped(false));
+const openContactDialog = (trigger = null) => {
+  if (!contactDialog) return;
+  contactDialogReturnTarget = trigger || document.activeElement;
+  if (typeof contactDialog.showModal === 'function' && !contactDialog.open) contactDialog.showModal();
+  else contactDialog.setAttribute('open', '');
+  navContact?.setAttribute('aria-expanded', 'true');
+  window.requestAnimationFrame(() => contactDialogClose?.focus({ preventScroll: true }));
+};
+const closeContactDialog = () => {
+  if (!contactDialog) return;
+  if (typeof contactDialog.close === 'function' && contactDialog.open) contactDialog.close();
+  else contactDialog.removeAttribute('open');
+  navContact?.setAttribute('aria-expanded', 'false');
+  contactDialogReturnTarget?.focus?.({ preventScroll: true });
+  contactDialogReturnTarget = null;
+};
+contactDialogClose?.addEventListener('click', closeContactDialog);
+contactDialog?.addEventListener('click', (event) => {
+  if (event.target === contactDialog) closeContactDialog();
+});
+contactDialog?.addEventListener('close', () => {
+  navContact?.setAttribute('aria-expanded', 'false');
+  contactDialogReturnTarget?.focus?.({ preventScroll: true });
+  contactDialogReturnTarget = null;
+});
 document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape' || !contactFlipped) return;
+  if (event.key !== 'Escape') return;
+  if (contactDialog?.open) {
+    event.preventDefault();
+    closeContactDialog();
+    return;
+  }
+  if (!contactFlipped) return;
   event.preventDefault();
   setContactFlipped(false);
 });
@@ -827,6 +977,22 @@ function openProjectCase(projectId) {
   $('.case-dialog-scroll').scrollTop = 0;
 }
 
+evidenceList?.addEventListener('click', (event) => {
+  const trigger = event.target.closest('.evidence-portfolio-trigger');
+  if (!trigger) return;
+  event.preventDefault();
+  event.stopPropagation();
+  openProjectCase(trigger.dataset.project);
+});
+
+resumeTrace?.addEventListener('click', (event) => {
+  const trigger = event.target.closest('.evidence-portfolio-trigger');
+  if (!trigger) return;
+  event.preventDefault();
+  event.stopPropagation();
+  openProjectCase(trigger.dataset.project);
+});
+
 $$('.case-trigger').forEach((button) => {
   button.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -921,7 +1087,7 @@ $$('a[href="#contact"]').forEach((link) => link.addEventListener('click', (event
   event.preventDefault();
   scrollToContact();
 }));
-$$('.brand, .contact-footer a, a[href="#top"]').forEach((link) => link.addEventListener('click', scrollToTop));
+$$('.contact-footer a, a[href="#top"]').forEach((link) => link.addEventListener('click', scrollToTop));
 const getInitialNavId = () => {
   const hashId = window.location.hash.slice(1);
   if (hashId && navItems.some((link) => link.getAttribute('href') === `#${hashId}`)) return hashId;

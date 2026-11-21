@@ -842,6 +842,11 @@ h1 em, h2 em { color: var(--ink); }
   .experience-detail-surface { margin-left: 48px; }
 }
 
+/* Keep the experience overview inside the tablet content safe area. */
+@media (min-width: 681px) and (max-width: 1024px) {
+  .experience-overview-meta { min-width: 0; max-width: 300px; }
+}
+
 @media (max-width: 680px) {
   .experience-section { padding-top: 88px; padding-bottom: 92px; }
   .experience-heading { margin-bottom: 48px; align-items: flex-start; flex-direction: column; gap: 22px; }
@@ -910,23 +915,21 @@ h1 em, h2 em { color: var(--ink); }
 .contact-toggle[aria-expanded="true"] .contact-toggle-arrow { transform: rotate(90deg); }
 
 .contact-back { flex-direction: column; align-items: stretch; justify-content: flex-start; transform: rotateX(180deg); text-align: left; }
-.contact-back-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 42px; align-items: end; padding-bottom: 28px; border-bottom: 1px solid var(--line-dark); }
-.contact-back-heading .section-index { margin: 0; }
-.contact-back-heading h2 { font-size: clamp(48px, 6vw, 84px); line-height: .95; }
-.contact-back-heading p { grid-column: 2; margin: 0; color: #6f6f69; font-size: 15px; line-height: 1.7; }
-.contact-back-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(48px, 8vw, 120px); margin-top: clamp(42px, 6vw, 72px); }
+.contact-back-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(48px, 8vw, 120px); margin-top: 0; }
 .contact-direct-column, .contact-wechat-column { min-width: 0; }
 .contact-wechat-column { padding-left: clamp(28px, 5vw, 76px); border-left: 1px solid var(--line-dark); }
 .contact-back-group + .contact-back-group { margin-top: clamp(42px, 6vw, 68px); padding-top: clamp(26px, 3vw, 38px); border-top: 1px solid var(--line-dark); }
 .contact-detail-label { display: block; color: #777771; font: 500 12px var(--mono); letter-spacing: .1em; }
-.contact-email, .contact-phone { display: inline-block; max-width: 100%; margin-top: 17px; padding-bottom: 6px; border-bottom: 1px solid var(--ink); color: var(--ink); font-size: clamp(24px, 3vw, 40px); font-weight: 600; letter-spacing: -.05em; overflow-wrap: anywhere; transition: color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out); }
+.contact-value-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 6px; max-width: 100%; }
+.contact-value-row .contact-email, .contact-value-row .contact-phone { display: block; width: 100%; min-width: 0; max-width: none; margin-top: 17px; padding-bottom: 0; border-bottom: 0; color: var(--ink); font-size: clamp(17px, 2.2vw, 32px); font-weight: 600; letter-spacing: -.05em; white-space: nowrap; transition: color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out); }
+.contact-copy-inline { flex: 0 0 auto; white-space: nowrap; }
 .contact-email:hover, .contact-email:focus-visible, .contact-phone:hover, .contact-phone:focus-visible { color: #6f6f69; border-color: #6f6f69; }
 .contact-actions { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 27px; }
 .contact-action { display: inline-flex; align-items: center; gap: 8px; padding: 5px 0 7px; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; color: var(--ink); background: transparent; font-size: 14px; line-height: 1.2; transition: color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out), transform var(--motion-ui) var(--ease-out); }
 .contact-action span, .contact-back-button span { display: inline-block; font-size: 17px; font-weight: 400; transition: transform var(--motion-ui) var(--ease-out); }
 .contact-pending-note { max-width: 390px; margin: 13px 0 0; color: #777771; font-size: 13px; line-height: 1.7; }
 .contact-qr-trigger { display: block; width: min(100%, 280px); margin: 17px 0 0; padding: 0; border: 1px solid var(--line-dark); color: var(--ink); background: var(--paper); transition: border-color var(--motion-ui) var(--ease-out), transform var(--motion-ui) var(--ease-out), box-shadow var(--motion-ui) var(--ease-out); }
-.contact-qr-trigger img { display: block; width: 100%; height: auto; aspect-ratio: 972 / 1444; object-fit: contain; }
+.contact-qr-trigger img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; }
 .contact-qr-caption { display: flex; align-items: center; gap: 7px; margin: 15px 0 0; color: var(--ink); font-size: 14px; }
 .contact-qr-caption span { display: inline-block; transition: transform var(--motion-ui) var(--ease-out); }
 .contact-qr-dialog { width: min(90vw, 560px); max-height: 90vh; padding: 0; border: 1px solid var(--ink); color: var(--ink); background: var(--paper); box-shadow: 0 24px 70px rgb(17 17 17 / 20%); }
@@ -958,12 +961,9 @@ h1 em, h2 em { color: var(--ink); }
   .contact-intro { max-width: 340px; margin-top: 24px; font-size: 15px; }
   .contact-toggle { margin-top: 30px; padding: 14px 18px; font-size: 14px; }
   .contact-back { padding-top: 54px; padding-bottom: 54px; }
-  .contact-back-heading { display: block; padding-bottom: 22px; }
-  .contact-back-heading h2 { margin-top: 24px; font-size: clamp(42px, 13vw, 62px); }
-  .contact-back-heading p { margin-top: 18px; font-size: 14px; }
   .contact-back-grid { grid-template-columns: 1fr; gap: 42px; margin-top: 36px; }
   .contact-wechat-column { padding-top: 34px; padding-left: 0; border-top: 1px solid var(--line-dark); border-left: 0; }
-  .contact-email, .contact-phone { font-size: clamp(24px, 8vw, 32px); }
+  .contact-value-row { gap: 6px; }
   .contact-qr-trigger { width: min(100%, 250px); }
   .contact-actions { gap: 12px 20px; margin-top: 23px; }
   .contact-action, .contact-back-button { font-size: 13px; }
@@ -1449,7 +1449,7 @@ h1 em, h2 em { color: var(--ink); }
   padding-top: clamp(64px, 6vw, 88px);
   padding-bottom: clamp(64px, 6vw, 88px);
 }
-.contact-back-grid { margin-top: clamp(48px, 4vw, 56px); }
+.contact-back-grid { margin-top: 0; }
 .contact-back-actions { padding-top: clamp(32px, 3vw, 40px); }
 .contact-footer { margin-top: clamp(56px, 6vw, 88px); }
 
@@ -1460,34 +1460,4053 @@ h1 em, h2 em { color: var(--ink); }
   .contact-face.contact-front { padding-top: 32px; }
   .contact-face { padding-top: 48px; padding-bottom: 48px; }
   .contact-back { padding-top: 42px; padding-bottom: 42px; }
-  .contact-back-grid { gap: 30px; margin-top: 28px; }
+  .contact-back-grid { gap: 30px; margin-top: 0; }
   .contact-back-group + .contact-back-group { margin-top: 34px; padding-top: 22px; }
   .contact-back-actions { padding-top: 30px; }
   .contact-footer { margin-top: 48px; }
 }
 
-/* Hero about-face correction: let the back face size to its content instead of creating an inner scroller. */
-.hero-flip-card { height: auto; }
-.hero-flip-card:not(.is-flipped) .hero-about-face,
-.hero-flip-card.is-flipped .hero-front-face {
+/* V3 report system: shared grid, explicit hierarchy, and evidence that stays in flow. */
+.match-section {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+.match-result .radar-wrap > .result-label,
+.match-result .dimension-panel > .result-label,
+.match-result .gap-summary > .result-label,
+.match-result .result-evidence-panel > .result-label {
+  color: #111111;
+  font-family: var(--sans);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.035em;
+}
+
+.match-result .result-evidence-panel .result-section-note {
+  color: #555555;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.match-result .gap-heading {
+  color: #111111;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.match-result .gap-list .gap-item,
+.match-result .chip-list .skill-chip,
+.match-result .evidence-list .evidence-item {
+  color: #333333;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.match-result .gap-list .gap-item,
+.match-result .chip-list .skill-chip {
+  padding: 13px 0;
+}
+
+.match-result .evidence-list .evidence-item {
+  display: block;
+  padding: 16px 0;
+}
+
+.evidence-item-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.evidence-item-head b {
+  color: #111111;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.evidence-item-head span,
+.evidence-item small,
+.evidence-no-link {
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.evidence-item p {
+  margin: 8px 0 4px;
+  color: #333333;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.evidence-item small {
+  display: block;
+}
+
+.evidence-portfolio-trigger {
+  display: inline-flex;
+  margin-top: 10px;
+  padding: 0;
+  border: 0;
+  color: #111111;
+  background: transparent;
+  font: 600 14px/1.5 var(--sans);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.evidence-portfolio-trigger:hover,
+.evidence-portfolio-trigger:focus-visible {
+  color: #666666;
+}
+
+.result-hard-gates {
+  margin-top: 24px;
+  padding: 20px 24px;
+  border: 1px solid var(--line-dark);
+  border-radius: 12px;
+  background: #fafaf8;
+}
+
+.result-hard-gates-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.result-hard-gates-heading .result-label {
+  margin: 0;
+  font-size: 20px;
+}
+
+.result-hard-gates-note {
+  color: #666666;
+  font-size: 14px;
+}
+
+.result-hard-gate-list {
+  display: grid;
+  gap: 0;
+  margin-top: 12px;
+}
+
+.hard-gate-item {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 4px 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line-dark);
+}
+
+.hard-gate-item b {
+  color: #111111;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.hard-gate-item span,
+.hard-gate-item p {
+  color: #333333;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.hard-gate-item p {
+  grid-column: 2;
+  margin: 0;
+  color: #666666;
+}
+
+.match-result .result-trace > details > summary {
+  min-height: 76px;
+  padding: 16px 52px 16px 24px;
+}
+
+.match-result .trace-summary-title {
+  color: #111111;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.match-result .trace-summary-note {
+  color: #666666;
+  font-size: 15px;
+}
+
+.match-result .result-trace > details > summary > span:last-child {
+  color: #111111;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.match-result .result-trace > details > summary::after {
+  color: #111111;
+  font-size: 24px;
+}
+
+.trace-requirement {
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.trace-requirement:last-child { border-bottom: 0; }
+
+.trace-requirement > summary {
+  position: relative;
+  padding: 17px 34px 17px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.trace-requirement > summary::-webkit-details-marker { display: none; }
+
+.trace-requirement > summary::after {
+  content: '+';
+  position: absolute;
+  top: 17px;
+  right: 0;
+  color: #111111;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.trace-requirement[open] > summary::after { content: '−'; }
+
+.trace-requirement > summary:hover,
+.trace-requirement > summary:focus-visible { color: #111111; }
+
+.trace-requirement-body {
+  padding: 0 0 17px;
+}
+
+.trace-requirement-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.trace-requirement-head b {
+  color: #111111;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.trace-requirement-head span {
+  flex: 0 0 auto;
+  color: #666666;
+  font-size: 14px;
+}
+
+.trace-requirement > summary > .trace-source {
+  display: block;
+  margin-top: 5px;
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.trace-requirement > p,
+.trace-requirement > small,
+.trace-empty {
+  display: block;
+  margin: 7px 0 0;
+  color: #333333;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.trace-requirement > small { color: #666666; }
+
+.trace-evidence-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.trace-evidence {
+  display: grid;
+  gap: 3px;
+  padding: 11px 13px;
+  border-left: 2px solid #111111;
+  background: #fafaf8;
+}
+
+.trace-evidence b { color: #111111; font-size: 15px; }
+.trace-evidence span { color: #333333; font-size: 15px; line-height: 1.65; }
+.trace-evidence .evidence-portfolio-trigger { margin-top: 3px; width: fit-content; }
+
+.match-result .result-tip {
+  align-items: flex-start;
+}
+
+.result-tip-body {
+  min-width: 0;
+}
+
+.interview-question-list {
+  display: grid;
+  gap: 5px;
+  margin: 8px 0 0;
+  padding-left: 19px;
+  color: #666666;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.interview-question-list:empty { display: none; }
+
+@media (max-width: 680px) {
+  .match-section { max-width: none; }
+  .result-hard-gates { padding: 18px; }
+  .result-hard-gates-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .hard-gate-item { grid-template-columns: 1fr; gap: 3px; }
+  .hard-gate-item p { grid-column: auto; }
+  .trace-requirement-head { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .match-result .trace-summary-title { font-size: 20px; }
+  .match-result .trace-summary-note { font-size: 14px; }
+  .match-result .result-tip { display: block; }
+  .match-result .tip-title { display: block; margin-bottom: 6px; }
+  .evidence-item-head { display: block; }
+  .evidence-item-head span { display: block; margin-top: 3px; }
+}
+
+/* V3.3 local layout layer: navigation, Hero back face and section rhythm stay scoped. */
+#top.site-navigation {
+  position: fixed;
+  top: 50%;
+  left: clamp(10px, 1.8vw, 28px);
+  z-index: 40;
+  display: flex;
+  width: 86px;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 15px 8px 12px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 13px;
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 26px;
+  background: rgb(255 255 255 / 39%);
+  box-shadow: 0 18px 44px rgb(17 17 17 / 9%), inset 0 1px 0 rgb(255 255 255 / 86%), inset 0 -1px 0 rgb(17 17 17 / 4%);
+  transform: translateY(-50%);
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+}
+#top.site-navigation .brand {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink);
+  text-align: center;
+}
+#top.site-navigation .brand-logo {
+  display: block;
+  width: 67px;
+  height: auto;
+  object-fit: contain;
+}
+#top.site-navigation .brand-name { display: none; }
+#top.site-navigation .nav {
+  position: static;
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  animation: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+#top.site-navigation .nav a.nav-link {
+  display: flex;
+  width: 100%;
+  min-height: 39px;
+  height: auto;
+  padding: 6px 4px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: #333333;
+  font: 600 12px/1.35 var(--sans);
+  text-align: center;
+  white-space: normal;
+}
+#top.site-navigation .nav a.nav-link::before {
+  inset: 0;
+  background: rgb(255 255 255 / 48%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 84%), 0 4px 12px rgb(17 17 17 / 5%);
+}
+#top.site-navigation .nav a.nav-link:hover,
+#top.site-navigation .nav a.nav-link:focus-visible,
+#top.site-navigation .nav a.nav-link.is-active { color: var(--ink); }
+#top.site-navigation .nav-toggle { display: none; }
+.site-contact-entry {
+  position: fixed;
+  top: 50%;
+  right: clamp(12px, 2vw, 32px);
+  z-index: 60;
+  display: inline-flex;
+  width: 58px;
+  min-height: 158px;
+  height: auto;
+  padding: 18px 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  color: var(--paper);
+  background: var(--ink);
+  box-shadow: 0 12px 25px rgb(17 17 17 / 14%);
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+}
+.site-contact-entry:hover,
+.site-contact-entry:focus-visible {
+  color: var(--ink);
+  border-color: rgb(255 255 255 / 80%);
+  background: rgb(255 255 255 / 35%);
+  box-shadow: 0 15px 34px rgb(17 17 17 / 11%), inset 0 1px 0 rgb(255 255 255 / 84%);
+  backdrop-filter: blur(16px) saturate(1.08);
+  -webkit-backdrop-filter: blur(16px) saturate(1.08);
+}
+.site-contact-entry > span:last-child { writing-mode: horizontal-tb; }
+
+/* Hero remains the same motion stage; only the lens material and scoped face flow change. */
+#heroLens .hero-flip-card {
+  height: auto;
+  min-height: inherit;
+}
+#heroLens .hero-flip-card.is-flipped {
+  min-height: 0;
+}
+#heroLens .hero-flip-card.is-flipped .hero-about-face {
+  min-height: 0;
+}
+#heroLens .hero-flip-card:not(.is-flipped) .hero-about-face,
+#heroLens .hero-flip-card.is-flipped .hero-front-face {
   position: absolute;
   inset: 0;
   z-index: 0;
 }
-.hero-flip-card:not(.is-flipped) .hero-front-face,
-.hero-flip-card.is-flipped .hero-about-face {
+#heroLens .hero-flip-card:not(.is-flipped) .hero-front-face,
+#heroLens .hero-flip-card.is-flipped .hero-about-face {
   position: relative;
   inset: auto;
   z-index: 1;
 }
-.hero-about-face {
+#heroLens .hero-about-face {
+  display: grid;
+  min-height: inherit;
+  grid-template-rows: max-content max-content max-content;
+  align-content: start;
   overflow: visible;
+  padding: clamp(28px, 3.6vw, 56px) clamp(28px, 5vw, 82px) clamp(26px, 3vw, 44px);
 }
-.hero-about-layout {
-  flex: 0 0 auto;
-  min-height: auto;
+#heroLens .hero-about-layout {
+  display: grid;
+  min-height: 0;
+  flex: none;
+  align-self: start;
+  grid-template-columns: minmax(180px, .42fr) minmax(0, .58fr);
+  gap: clamp(32px, 5vw, 76px);
+  align-items: start;
+  padding: clamp(24px, 3.2vw, 44px) 0 clamp(27px, 3.4vw, 48px);
+}
+#heroLens .hero-about-portrait-column,
+#heroLens .hero-about-content-column { min-width: 0; }
+#heroLens .hero-about-portrait-column { display: flex; min-height: 0; flex-direction: column; gap: 18px; }
+#heroLens .hero-about-portrait-card { width: min(100%, 250px); margin: 0; padding: 0; }
+#heroLens .hero-about-portrait-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(1) contrast(1.04);
+}
+#heroLens .hero-about-portrait-card figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 9px;
+  color: rgba(255,255,255,.52);
+  font: 500 10px/1.4 var(--mono);
+  letter-spacing: .06em;
+}
+#heroLens .hero-about-principle-block { padding-top: 3px; }
+#heroLens .hero-about-principle-block > span,
+#heroLens .hero-about-copy-label {
+  display: block;
+  margin-bottom: 13px;
+  color: rgba(255,255,255,.54);
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: .08em;
+}
+#heroLens .hero-about-content-column { display: grid; gap: clamp(24px, 3vw, 38px); }
+#heroLens .hero-about-copy h2 { font-size: clamp(52px, 6vw, 86px); }
+#heroLens .hero-about-intro,
+#heroLens .hero-about-detail { max-width: 620px; }
+#heroLens .hero-about-intro { margin-top: clamp(22px, 2.5vw, 32px); }
+#heroLens .hero-about-skills { align-self: auto; justify-content: flex-start; }
+#heroLens .hero-about-skill { padding: 16px 0; }
+#heroLens .hero-about-footer { position: relative; z-index: 1; }
+
+/* The lens material is restored in the final scoped black-lens block below. */
+
+/* Keep lower sections content-led; no forced viewport-height gaps. */
+#experience.experience-section { padding-bottom: clamp(32px, 4vw, 56px); }
+#design-principle.design-principle-section {
+  padding-top: clamp(48px, 5vw, 84px);
+  padding-bottom: clamp(48px, 5vw, 84px);
+}
+#contact.contact-section {
+  padding-top: clamp(48px, 5vw, 84px);
+  padding-bottom: clamp(64px, 7vw, 112px);
+}
+#contact .contact-face { min-height: 0; }
+#contact .contact-footer { margin-top: clamp(40px, 5vw, 72px); }
+
+/* Keep the analysis grid on the same wide baseline and stack before narrow Chinese wrapping starts. */
+#match.match-section { width: 100%; max-width: 1440px; margin-inline: auto; }
+#match .result-columns > .result-evidence-panel { min-width: 0; }
+@media (min-width: 921px) {
+  #match.match-section {
+    grid-template-columns: minmax(0, .78fr) 1px minmax(0, 1.22fr);
+    column-gap: clamp(38px, 4vw, 68px);
+  }
+}
+
+@media (max-width: 920px) {
+  #match.match-section { display: block; }
+  #match .match-divider { display: none; }
+  #match .match-tool { margin-top: 42px; }
+  #match .match-result { margin-top: 46px; }
 }
 
 @media (max-width: 680px) {
-  .hero-about-layout { flex: 0 0 auto; }
+  #top.site-navigation {
+    top: 12px;
+    left: 12px;
+    width: 60px;
+    padding: 9px 6px;
+    gap: 8px;
+    border-radius: 19px;
+    transform: none;
+  }
+  #top.site-navigation .brand-logo { width: 46px; }
+  #top.site-navigation .nav-toggle { display: block; padding: 5px 3px; }
+  #top.site-navigation .nav-toggle span { width: 24px; margin: 5px auto; }
+  #top.site-navigation .nav {
+    position: absolute;
+    top: calc(100% + 9px);
+    left: 0;
+    width: 208px;
+    padding: 8px 12px 12px;
+    border: 1px solid rgb(255 255 255 / 78%);
+    border-radius: 18px;
+    background: rgb(255 255 255 / 72%);
+    box-shadow: 0 14px 34px rgb(17 17 17 / 10%), inset 0 1px 0 rgb(255 255 255 / 86%);
+    backdrop-filter: blur(18px) saturate(1.08);
+    -webkit-backdrop-filter: blur(18px) saturate(1.08);
+  }
+  #top.site-navigation .nav a.nav-link { justify-content: flex-start; min-height: 44px; padding: 11px 7px; text-align: left; }
+  .site-contact-entry {
+    top: 50%;
+    right: 10px;
+    width: 46px;
+    min-height: 128px;
+    padding: 14px 7px;
+    font-size: 12px;
+  }
+  #heroLens .hero-about-face { padding: 22px 18px 28px; }
+  #heroLens .hero-about-layout { display: flex; flex-direction: column; gap: 28px; padding: 28px 0 32px; }
+  #heroLens .hero-about-portrait-column { width: 100%; }
+  #heroLens .hero-about-portrait-card { width: min(100%, 190px); }
+  #heroLens .hero-about-content-column { gap: 24px; }
+  #heroLens .hero-about-copy h2 { margin-bottom: 20px; font-size: clamp(48px, 14vw, 70px); }
+  #heroLens .hero-about-skill { padding: 15px 0; }
+  #heroLens .hero-about-footer { padding-top: 20px; }
+  #design-principle.design-principle-section { padding-top: 52px; padding-bottom: 56px; }
+  #contact.contact-section { padding-top: 48px; padding-bottom: 70px; }
+  #contact .contact-face { min-height: 0; }
+}
+
+/* Manual acceptance repair layer: keep the confirmed About composition in flow. */
+#heroLens .hero-about-face {
+  min-height: 0;
+  color: var(--ink);
+  background: var(--paper);
+  overflow: visible;
+  padding: clamp(30px, 4.2vw, 64px) clamp(28px, 6.5vw, 104px) clamp(30px, 3.6vw, 54px);
+}
+#heroLens .hero-about-topline {
+  color: #777771;
+  font-size: clamp(10px, .78vw, 12px);
+}
+#heroLens .hero-about-layout {
+  grid-template-columns: minmax(220px, .4fr) minmax(0, .6fr);
+  gap: clamp(36px, 5.5vw, 88px);
+  padding: clamp(30px, 4vw, 58px) 0 clamp(36px, 4.5vw, 64px);
+  align-items: start;
+}
+#heroLens .hero-about-portrait-column,
+#heroLens .hero-about-content-column { min-width: 0; }
+#heroLens .hero-about-portrait-column { gap: 0; }
+#heroLens .hero-about-portrait-card { width: min(100%, 360px); }
+#heroLens .hero-about-portrait-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  background: #202020;
+}
+#heroLens .hero-about-portrait-media::after {
+  content: '';
+  position: absolute;
+  inset: 35% 0 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgb(0 0 0 / 78%));
+}
+#heroLens .hero-about-portrait-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: grayscale(1) contrast(1.03);
+}
+#heroLens .hero-about-portrait-overlay {
+  position: absolute;
+  right: clamp(18px, 2vw, 30px);
+  bottom: clamp(20px, 2.5vw, 36px);
+  left: clamp(18px, 2vw, 30px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0;
+  color: var(--paper);
+  font-family: var(--sans);
+  letter-spacing: 0;
+}
+#heroLens .hero-about-portrait-overlay strong {
+  font-size: clamp(30px, 3.6vw, 54px);
+  line-height: 1;
+  letter-spacing: -.08em;
+}
+#heroLens .hero-about-portrait-overlay span {
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 1.45;
+}
+#heroLens .hero-about-portrait-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  color: #777771;
+  font: 500 10px/1.4 var(--mono);
+  letter-spacing: .06em;
+}
+#heroLens .hero-about-copy-label {
+  margin-bottom: clamp(18px, 2.2vw, 28px);
+  color: #777771;
+}
+#heroLens .hero-about-copy h2 {
+  max-width: 850px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(29px, 3.2vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -.065em;
+}
+#heroLens .hero-about-intro,
+#heroLens .hero-about-detail {
+  max-width: 760px;
+  color: #555550;
+  font-size: clamp(14px, 1.05vw, 17px);
+  line-height: 1.75;
+}
+#heroLens .hero-about-intro { margin: clamp(24px, 3vw, 38px) 0 0; }
+#heroLens .hero-about-detail { margin: 6px 0 0; color: #777771; }
+#heroLens .hero-about-content-column { display: grid; gap: clamp(30px, 4vw, 50px); }
+#heroLens .hero-about-skills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-self: auto;
+  gap: 0 clamp(28px, 4vw, 58px);
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+#heroLens .hero-about-skill {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  padding: clamp(17px, 1.7vw, 24px) 0;
+  border: 0;
+  border-bottom: 1px solid var(--line-dark);
+}
+#heroLens .hero-about-skill:nth-last-child(-n + 2) { border-bottom: 0; }
+#heroLens .hero-about-skill-index {
+  padding-top: 3px;
+  color: #777771;
+  font: 500 10px/1.4 var(--mono);
+  letter-spacing: .06em;
+}
+#heroLens .hero-about-skill h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(16px, 1.35vw, 21px);
+  line-height: 1.25;
+  letter-spacing: -.04em;
+}
+#heroLens .hero-about-skill p {
+  margin: 7px 0 0;
+  color: #777771;
+  font-size: clamp(12px, .9vw, 14px);
+  line-height: 1.55;
+}
+#heroLens .hero-about-footer {
+  position: relative;
+  z-index: 1;
+  padding: clamp(22px, 2.5vw, 34px) clamp(20px, 2.6vw, 38px) clamp(20px, 2.2vw, 30px);
+  border: 0;
+  border-radius: 2px;
+  color: var(--paper);
+  background: var(--ink);
+}
+#heroLens .hero-about-approach-heading { color: rgb(255 255 255 / 78%); }
+#heroLens .hero-about-approach-heading span { color: rgb(255 255 255 / 48%); }
+#heroLens .hero-about-approach-item > span { color: rgb(255 255 255 / 54%); }
+#heroLens .hero-about-approach-item h3 { color: var(--paper); }
+#heroLens .hero-about-approach-item p { color: rgb(255 255 255 / 62%); }
+#heroLens .hero-about-return-prompt { color: rgb(255 255 255 / 48%); }
+
+/* The historical black lens keeps the revealed copy on a high-contrast surface. */
+
+/* Scheme 1 proportions: a readable vertical glass rail, not a top capsule. */
+#top.site-navigation {
+  width: 98px;
+  padding: 18px 10px 16px;
+  gap: 16px;
+  border-radius: 30px;
+}
+#top.site-navigation .brand-logo { width: 76px; }
+#top.site-navigation .nav { gap: 4px; }
+#top.site-navigation .nav a.nav-link {
+  min-height: 43px;
+  padding: 7px 5px;
+  font-size: 12.5px;
+}
+.site-contact-entry {
+  width: 50px;
+  min-height: 146px;
+  padding: 18px 8px;
+  gap: 9px;
+  writing-mode: horizontal-tb;
+}
+.site-contact-entry > span:first-child { writing-mode: vertical-rl; }
+.site-contact-entry > span:last-child { writing-mode: horizontal-tb; font-size: 18px; line-height: 1; }
+
+/* The contact rail opens its own dialog; the existing contact card remains a separate flip interaction. */
+.contact-dialog {
+  width: min(92vw, 760px);
+  max-height: min(88vh, 720px);
+  padding: 0;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 24px 80px rgb(17 17 17 / 22%);
+}
+.contact-dialog::backdrop { background: rgb(17 17 17 / 48%); backdrop-filter: blur(5px); }
+.contact-dialog-inner { padding: clamp(24px, 5vw, 56px); }
+.contact-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.contact-dialog-close { padding: 5px 0 7px; border: 0; border-bottom: 1px solid var(--ink); color: var(--ink); background: transparent; font-size: 14px; }
+.contact-dialog h2 { margin: clamp(46px, 7vw, 76px) 0 16px; font-size: clamp(38px, 6vw, 76px); line-height: .98; letter-spacing: -.08em; }
+.contact-dialog-intro { max-width: 540px; margin: 0; color: #777771; font-size: clamp(15px, 1.4vw, 18px); line-height: 1.7; }
+.contact-dialog-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, .55fr); gap: clamp(28px, 6vw, 72px); margin-top: clamp(34px, 5vw, 60px); }
+.contact-dialog-links { display: grid; align-content: start; gap: 28px; }
+.contact-dialog-links a { display: grid; gap: 9px; color: var(--ink); }
+.contact-dialog-links a span { color: #777771; font: 500 11px var(--mono); letter-spacing: .1em; }
+.contact-dialog-links a strong { width: fit-content; max-width: 100%; padding-bottom: 5px; border-bottom: 1px solid var(--ink); font-size: clamp(20px, 2.3vw, 30px); overflow-wrap: anywhere; }
+.contact-dialog-qr { display: grid; justify-items: start; gap: 12px; }
+.contact-dialog-qr img { width: min(100%, 190px); height: auto; aspect-ratio: 972 / 1444; object-fit: contain; border: 1px solid var(--line-dark); }
+.contact-dialog-qr > span:last-child { color: #555550; font-size: 13px; }
+
+/* JD report: keep conclusions visible and move repeated detail into native, keyboard-accessible disclosure. */
+#match .result-collapsible { margin-top: 22px; border-top: 1px solid var(--line-dark); }
+#match .result-collapsible summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+#match .result-collapsible summary::-webkit-details-marker { display: none; }
+#match .result-collapsible summary::after { content: '+'; color: #777771; font: 400 20px/1 var(--sans); }
+#match .result-collapsible[open] summary::after { content: '−'; }
+#match .result-collapsible-count { color: #777771; font: 500 11px var(--mono); margin-left: auto; }
+#match .result-collapsible-content { padding: 0 0 4px; }
+#match .gap-extra-details .gap-group { margin-top: 16px; }
+#match .evidence-extra-details { margin-top: 18px; }
+#match .evidence-all-list { padding-top: 2px; }
+#match .result-evidence-panel .evidence-list { min-width: 0; }
+#match .result-evidence-panel > .result-label,
+#match .gap-summary > .result-label { margin-bottom: 13px; }
+
+/* Experience readability without changing the timeline or its open/close behavior. */
+#experience .experience-time { font-size: 14px; }
+#experience .experience-role strong { font-size: clamp(20px, 2vw, 28px); }
+#experience .experience-role em { font-size: 15px; }
+#experience .experience-overview-copy { font-size: 16px; line-height: 1.78; }
+
+@media (max-width: 680px) {
+  #top.site-navigation { width: 70px; padding: 11px 7px 10px; gap: 10px; border-radius: 22px; }
+  #top.site-navigation .brand-logo { width: 54px; }
+  .site-contact-entry { width: 44px; min-height: 120px; padding: 14px 7px; }
+  .site-contact-entry > span:last-child { font-size: 16px; }
+  #heroLens .hero-about-face { padding: 24px 18px 28px; }
+  #heroLens .hero-about-layout { display: flex; flex-direction: column; gap: 32px; padding: 30px 0 34px; }
+  #heroLens .hero-about-portrait-card { width: min(100%, 286px); }
+  #heroLens .hero-about-copy h2 { font-size: clamp(28px, 8.5vw, 40px); line-height: 1.2; }
+  #heroLens .hero-about-intro,
+  #heroLens .hero-about-detail { font-size: 14px; line-height: 1.75; }
+  #heroLens .hero-about-skills { grid-template-columns: 1fr; gap: 0; }
+  #heroLens .hero-about-skill,
+  #heroLens .hero-about-skill:nth-last-child(-n + 2) { border-bottom: 1px solid var(--line-dark); }
+  #heroLens .hero-about-skill:last-child { border-bottom: 0; }
+  #heroLens .hero-about-footer { padding: 22px 18px 20px; }
+  #heroLens .hero-about-approach-grid { gap: 17px; }
+  .contact-dialog-grid { grid-template-columns: 1fr; gap: 30px; }
+  .contact-dialog-qr img { width: min(100%, 150px); }
+  #match .result-collapsible { margin-top: 18px; }
+  #match .result-collapsible summary { font-size: 13px; }
+  #experience .experience-time { font-size: 12px; }
+  #experience .experience-role strong { font-size: clamp(17px, 4.8vw, 21px); }
+  #experience .experience-overview-copy { font-size: 15px; }
+}
+
+/* V3.3 second manual pass: one fixed flip stage for the front and About faces. */
+#heroLens.hero-lens {
+  height: clamp(620px, calc(100svh - 112px), 820px);
+  min-height: 0;
+}
+#heroLens .hero-flip-card {
+  height: 100%;
+  min-height: 0;
+}
+#heroLens .hero-front-face,
+#heroLens .hero-about-face {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  min-height: 0;
+}
+#heroLens .hero-lens-reveal {
+  overflow: clip;
+}
+#heroLens .hero-about-face {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-content: start;
+  overflow: visible;
+  padding: 24px clamp(30px, 5.5vw, 78px) 20px;
+}
+#heroLens .hero-about-layout {
+  grid-template-columns: minmax(190px, .34fr) minmax(0, .66fr);
+  gap: clamp(30px, 4vw, 54px);
+  padding: 20px 0;
+  align-items: start;
+}
+#heroLens .hero-about-portrait-card { width: min(100%, 260px); }
+#heroLens .hero-about-content-column { gap: 22px; }
+#heroLens .hero-about-copy-label { margin-bottom: 15px; }
+#heroLens .hero-about-copy h2 {
+  max-width: 900px;
+  font-size: clamp(28px, 2.65vw, 42px);
+  line-height: 1.12;
+}
+#heroLens .hero-about-intro,
+#heroLens .hero-about-detail {
+  max-width: 820px;
+  font-size: clamp(14px, .98vw, 16px);
+  line-height: 1.55;
+}
+#heroLens .hero-about-intro { margin-top: 20px; }
+#heroLens .hero-about-detail { margin-top: 4px; }
+#heroLens .hero-about-skill { padding: 14px 0; }
+#heroLens .hero-about-skill h3 { font-size: clamp(15px, 1.12vw, 18px); }
+#heroLens .hero-about-skill p { margin-top: 5px; font-size: clamp(11px, .78vw, 12px); line-height: 1.42; }
+#heroLens .hero-about-footer {
+  padding: 16px clamp(18px, 2.3vw, 30px) 14px;
+}
+#heroLens .hero-about-approach-grid { gap: clamp(20px, 3.2vw, 42px); margin-top: 12px; }
+#heroLens .hero-about-approach-item { gap: 10px; }
+#heroLens .hero-about-approach-item h3 { font-size: clamp(14px, 1.05vw, 17px); line-height: 1.2; }
+#heroLens .hero-about-approach-item p { font-size: 11px; line-height: 1.35; }
+#heroLens .hero-about-return-prompt { margin-top: 10px; font-size: 9px; }
+
+/* Scheme 1: give the vertical brand rail enough width for its Chinese labels. */
+#top.site-navigation {
+  width: clamp(128px, 8.5vw, 136px);
+  padding: 20px 14px 18px;
+  gap: 18px;
+  border-radius: 34px;
+}
+#top.site-navigation .brand-logo { width: 112px; }
+#top.site-navigation .nav { gap: 7px; }
+#top.site-navigation .nav a.nav-link {
+  min-height: 48px;
+  padding: 8px 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* The direct-contact dialog is a compact contact sheet, not a second invitation section. */
+.contact-dialog {
+  width: min(92vw, 760px);
+  max-height: calc(100vh - 64px);
+  overflow: visible;
+}
+.contact-dialog-inner { padding: clamp(28px, 3.2vw, 40px); }
+.contact-dialog h2 {
+  margin: clamp(24px, 3vw, 32px) 0 10px;
+  font-size: clamp(40px, 4.4vw, 58px);
+  line-height: 1;
+}
+.contact-dialog-grid {
+  gap: clamp(24px, 4vw, 48px);
+  margin-top: 24px;
+}
+.contact-dialog-links { gap: 20px; }
+.contact-dialog-links a { gap: 6px; }
+.contact-dialog-links a strong { font-size: clamp(20px, 2vw, 27px); }
+.contact-dialog-qr { gap: 8px; }
+.contact-dialog-qr img { width: min(100%, 170px); }
+
+@media (max-width: 960px) and (min-width: 681px) {
+  #heroLens .hero-about-face { padding-inline: 28px; }
+  #heroLens .hero-about-layout { gap: 28px; }
+  #heroLens .hero-about-portrait-card { width: min(100%, 220px); }
+  #heroLens .hero-about-copy h2 { font-size: clamp(26px, 3vw, 34px); }
+  #heroLens .hero-about-skill { padding: 11px 0; }
+  #heroLens .hero-about-skill p { font-size: 11px; }
+  #heroLens .hero-about-footer { padding-inline: 20px; }
+}
+
+@media (max-width: 680px) {
+  #top.site-navigation {
+    width: 70px;
+    padding: 11px 7px 10px;
+    gap: 10px;
+    border-radius: 22px;
+  }
+  #top.site-navigation .brand-logo { width: 54px; }
+  #top.site-navigation .nav a.nav-link {
+    min-height: 44px;
+    padding: 11px 7px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  #heroLens.hero-lens {
+    height: clamp(900px, calc(100svh + 180px), 1120px);
+  }
+  #heroLens .hero-about-face { padding: 18px 16px 18px; }
+  #heroLens .hero-about-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 18px 0 20px;
+  }
+  #heroLens .hero-about-portrait-card { width: min(100%, 220px); }
+  #heroLens .hero-about-content-column { gap: 18px; }
+  #heroLens .hero-about-copy h2 { font-size: clamp(27px, 7.5vw, 36px); line-height: 1.15; }
+  #heroLens .hero-about-intro,
+  #heroLens .hero-about-detail { font-size: 14px; line-height: 1.6; }
+  #heroLens .hero-about-intro { margin-top: 16px; }
+  #heroLens .hero-about-skills { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; }
+  #heroLens .hero-about-skill,
+  #heroLens .hero-about-skill:nth-last-child(-n + 2) { padding: 12px 0; border-bottom: 1px solid var(--line-dark); }
+  #heroLens .hero-about-skill:nth-last-child(-n + 2) { border-bottom: 0; }
+  #heroLens .hero-about-skill h3 { font-size: 15px; }
+  #heroLens .hero-about-skill p { font-size: 11px; }
+  #heroLens .hero-about-footer { padding: 14px 16px 12px; }
+  #heroLens .hero-about-approach-grid { gap: 14px; margin-top: 10px; }
+  #heroLens .hero-about-approach-item { gap: 7px; }
+  .contact-dialog { max-height: calc(100vh - 32px); overflow: auto; }
+  .contact-dialog-inner { padding: 24px 20px 26px; }
+  .contact-dialog h2 { margin-top: 22px; font-size: clamp(36px, 11vw, 48px); }
+  .contact-dialog-grid { margin-top: 20px; }
+}
+
+@media (max-width: 359px) {
+  #heroLens .hero-about-skills { grid-template-columns: 1fr; }
+  #heroLens.hero-lens { height: 1120px; }
+}
+
+/* V3.3 third manual pass: keep the fixed brand rail outside every content column. */
+/* The fixed rail keeps the base translateX(-50%) from .nav, so its visible
+   right edge is the fixed left anchor plus half-width. Reserve 24px after it. */
+:root { --site-navigation-safe-left: calc(clamp(50px, 3.5vw, 56px) + 174px); }
+
+@media (max-width: 960px) and (min-width: 681px) {
+  :root { --site-navigation-safe-left: 194px; }
+}
+
+@media (min-width: 681px) {
+  main > section.section-pad:not(#home):not(.signal-bar),
+  footer.footer.section-pad {
+    padding-left: max(clamp(22px, 5vw, 88px), var(--site-navigation-safe-left));
+  }
+}
+
+@media (max-width: 680px) {
+  /* The compact vertical rail remains fixed at the left on small screens. */
+  main > section.section-pad,
+  footer.footer.section-pad {
+    padding-left: 92px;
+  }
+}
+
+/* V3.3 Hero black-lens restoration: retain the shared circular coordinate
+   source and complementary title mask, while restoring the original opaque
+   black surface and white Chinese reveal. */
+#heroLens.hero-lens { overflow: clip; }
+#heroLens .hero-lens-base {
+  position: relative;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+#heroLens .hero-front-face #hero-title {
+  -webkit-mask-image: radial-gradient(
+    circle at var(--title-mask-x) var(--title-mask-y),
+    transparent 0,
+    transparent var(--lens-radius),
+    rgb(0 0 0 / 92%) calc(var(--lens-radius) + 1px),
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    circle at var(--title-mask-x) var(--title-mask-y),
+    transparent 0,
+    transparent var(--lens-radius),
+    rgb(0 0 0 / 92%) calc(var(--lens-radius) + 1px),
+    #000 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+#heroLens .hero-lens-reveal {
+  overflow: visible;
+  isolation: isolate;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+  box-shadow: none;
+  filter: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+/* Black-lens visibility is driven by the shared animation variable, including
+   the zero-radius CTA avoidance state. */
+#heroLens .hero-lens-reveal::before {
+  content: none;
+}
+#heroLens .hero-lens-reveal::after {
+  content: none;
+}
+#heroLens .hero-lens-reveal .hero-content { z-index: 2; }
+#heroLens .hero-lens-reveal .hero-reveal-support { visibility: hidden; }
+#heroLens .hero-lens-reveal .hero-title { color: var(--paper); text-shadow: none; }
+#heroLens .hero-lens-experience {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 11px;
+  width: 100%;
+  min-height: 20px;
+  margin-top: clamp(16px, 2.2vh, 24px);
+  color: rgb(17 17 17 / 54%);
+  font: 500 clamp(11px, .8vw, 13px) / 1.5 var(--mono);
+  letter-spacing: .06em;
+  line-height: 1.5;
+}
+#heroLens .hero-lens-experience > span:nth-child(2) {
+  color: rgb(17 17 17 / 32%);
+}
+#heroLens .hero-lens-experience-placeholder {
+  flex: 0 0 20px;
+  width: 1px;
+  height: 20px;
+  min-height: 20px;
+  margin-top: clamp(16px, 2.2vh, 24px);
+  visibility: hidden;
+  pointer-events: none;
+}
+#heroLens .hero-lens-actions-placeholder {
+  flex: 0 0 46px;
+  width: 1px;
+  min-height: 46px;
+  margin-top: clamp(26px, 3.5vh, 38px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Homepage actions sit under the title while the existing CTA bounds remain
+   available to hero-lens.js for pointer avoidance. */
+#heroLens .hero-content .hero-lens-actions {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-self: center;
+  margin: clamp(26px, 3.5vh, 38px) 0 0;
+}
+#heroLens .hero-content .hero-lens-actions a {
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: clamp(13px, .9vw, 15px);
+}
+#heroLens .hero-content .hero-lens-actions a:first-child {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 0 8px 18px rgb(17 17 17 / 10%);
+}
+#heroLens .hero-content .hero-lens-actions a:last-child {
+  color: var(--ink);
+  background: var(--paper);
+  border-color: #d8d8d2;
+}
+#heroLens .hero-content .hero-lens-actions a:first-child:hover,
+#heroLens .hero-content .hero-lens-actions a:first-child:focus-visible {
+  color: var(--paper);
+  background: #242424;
+  border-color: #242424;
+  box-shadow: 0 12px 24px rgb(17 17 17 / 16%);
+}
+#heroLens .hero-content .hero-lens-actions a:last-child:hover,
+#heroLens .hero-content .hero-lens-actions a:last-child:focus-visible {
+  color: var(--ink);
+  background: #fafaf7;
+  border-color: #bdbdb6;
+  box-shadow: 0 8px 18px rgb(17 17 17 / 8%);
+}
+#heroLens .hero-content .hero-lens-actions a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+@media (max-width: 680px) {
+  #heroLens .hero-content .hero-lens-actions {
+    gap: 10px;
+    margin-top: 24px;
+  }
+  #heroLens .hero-content .hero-lens-actions a {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 12px;
+  }
+  #heroLens .hero-lens-experience {
+    min-height: 18px;
+    margin-top: 16px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  #heroLens .hero-lens-experience-placeholder {
+    flex-basis: 18px;
+    height: 18px;
+    min-height: 18px;
+    margin-top: 16px;
+  }
+  #heroLens .hero-lens-actions-placeholder {
+    flex-basis: 44px;
+    min-height: 44px;
+    margin-top: 24px;
+  }
+}
+
+/* V3.3 Hero reference composition: keep the existing black lens and motion
+   model, while making the front face read as one centered editorial lockup. */
+#heroLens .hero-lens-base::before,
+#heroLens .hero-lens-base::after,
+#heroLens .hero-front-face::before,
+#heroLens .hero-front-face::after {
+  content: none;
+}
+#heroLens .hero-content {
+  padding-inline: clamp(18px, 4.5vw, 72px);
+}
+#heroLens .hero-title,
+#heroLens .hero-lens-reveal .hero-title {
+  font-size: clamp(52px, 7.7vw, 118px);
+  line-height: .94;
+  letter-spacing: -.062em;
+}
+#heroLens .hero-lens-topline {
+  align-items: center;
+  color: #6f6f6a;
+  letter-spacing: .08em;
+}
+#heroLens .hero-meta-primary::after {
+  content: '';
+  display: inline-block;
+  width: clamp(28px, 3.2vw, 48px);
+  margin-left: 14px;
+  border-top: 1px solid currentColor;
+  vertical-align: middle;
+  opacity: .75;
+}
+#heroLens .hero-lens-experience {
+  min-height: 20px;
+  margin-top: clamp(14px, 2vh, 20px);
+  color: rgb(17 17 17 / 56%);
+  font-size: clamp(11px, .78vw, 13px);
+  letter-spacing: .07em;
+}
+#heroLens .hero-lens-tagline {
+  width: min(100%, 720px);
+  margin: clamp(11px, 1.7vh, 18px) 0 0;
+  color: #555550;
+  font: 500 clamp(13px, 1.1vw, 17px) / 1.5 var(--sans);
+  letter-spacing: .02em;
+  text-align: center;
+}
+#heroLens .hero-lens-capabilities {
+  display: flex;
+  width: min(100%, 760px);
+  min-height: 24px;
+  margin-top: clamp(14px, 2.2vh, 22px);
+  align-items: center;
+  justify-content: center;
+  gap: 7px clamp(12px, 2vw, 26px);
+  color: #555550;
+  font: 500 clamp(12px, .9vw, 14px) / 1.4 var(--sans);
+  text-align: center;
+}
+#heroLens .hero-lens-capabilities i {
+  color: #c2c2bb;
+  font-style: normal;
+  font-weight: 400;
+}
+#heroLens .hero-lens-tagline-placeholder,
+#heroLens .hero-lens-capabilities-placeholder {
+  visibility: hidden;
+  pointer-events: none;
+}
+#heroLens .hero-lens-actions {
+  margin-top: clamp(24px, 3vh, 32px);
+}
+.hero-lens-note {
+  display: flex;
+  margin: 10px 0 0;
+  align-items: center;
+  justify-content: center;
+  gap: 3px 8px;
+  color: #777771;
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: center;
+}
+.hero-lens-note .hero-scroll-label {
+  letter-spacing: .04em;
+}
+.hero-lens-note b {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1;
+}
+.hero-lens-note em {
+  color: #9a9a94;
+  font-size: 10px;
+  font-style: normal;
+}
+
+/* Scheme 1 rail: keep the fixed brand presence, but remove the oversized
+   whitespace and give the long Chinese item a single desktop line. */
+#top.site-navigation {
+  width: clamp(118px, 7.8vw, 126px);
+  padding: 16px 10px 14px;
+  gap: 14px;
+  border-radius: 30px;
+  box-shadow: 0 12px 28px rgb(17 17 17 / 6%), inset 0 1px 0 rgb(255 255 255 / 82%), inset 0 -1px 0 rgb(17 17 17 / 3%);
+}
+#top.site-navigation .brand-logo {
+  width: min(100%, 94px);
+}
+#top.site-navigation .nav {
+  gap: 4px;
+}
+#top.site-navigation .nav a.nav-link {
+  min-height: 42px;
+  padding: 6px 7px;
+  border-radius: 13px;
+  font-size: 13px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+#top.site-navigation .nav a.nav-link::before {
+  background: rgb(17 17 17 / 7%);
+  box-shadow: none;
+}
+#top.site-navigation .nav a.nav-link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.site-contact-entry {
+  width: 46px;
+  min-height: 138px;
+  padding: 16px 7px;
+  gap: 8px;
+  box-shadow: 0 10px 22px rgb(17 17 17 / 9%);
+}
+
+@media (max-width: 1100px) and (min-width: 681px) {
+  #heroLens .hero-title,
+  #heroLens .hero-lens-reveal .hero-title {
+    font-size: clamp(48px, 7.3vw, 86px);
+  }
+  #heroLens .hero-lens-capabilities {
+    gap: 7px 14px;
+  }
+}
+
+@media (max-width: 680px) {
+  #heroLens .hero-content {
+    padding-inline: 18px;
+  }
+  #heroLens .hero-title,
+  #heroLens .hero-lens-reveal .hero-title {
+    font-size: clamp(32px, 9.2vw, 48px);
+    letter-spacing: -.065em;
+  }
+  #heroLens .hero-lens-topline {
+    gap: 12px;
+    font-size: 10px;
+  }
+  #heroLens .hero-meta-primary::after {
+    width: 22px;
+    margin-left: 8px;
+  }
+  #heroLens .hero-lens-tagline {
+    max-width: 286px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  #heroLens .hero-lens-capabilities {
+    max-width: 286px;
+    gap: 7px 10px;
+    font-size: 11px;
+  }
+  #heroLens .hero-lens-capabilities i {
+    display: none;
+  }
+  #heroLens .hero-lens-actions {
+    margin-top: 22px;
+  }
+  .hero-lens-note {
+    flex-wrap: wrap;
+    max-width: 286px;
+    margin-inline: auto;
+    font-size: 10px;
+  }
+  .hero-lens-note em {
+    flex-basis: 100%;
+    font-size: 9px;
+  }
+  #top.site-navigation {
+    width: 70px;
+    padding: 11px 7px 10px;
+    gap: 10px;
+    border-radius: 22px;
+  }
+  #top.site-navigation .brand-logo {
+    width: 54px;
+  }
+  #top.site-navigation .nav a.nav-link {
+    min-height: 44px;
+    padding: 10px 5px;
+    font-size: 12px;
+    line-height: 1.35;
+    white-space: normal;
+  }
+  #top.site-navigation .nav a.nav-link.is-active::after {
+    left: 5px;
+  }
+  .site-contact-entry {
+    width: 42px;
+    min-height: 112px;
+    padding: 13px 6px;
+  }
+}
+
+/* Keep the reveal lockup height identical to the front lockup at every
+   breakpoint. The placeholder content intentionally follows the same wrap
+   rules as the visible experience row and CTA row. */
+#heroLens .hero-lens-experience-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 11px;
+  flex: 0 1 auto;
+  width: 100%;
+  height: auto;
+  min-height: 20px;
+  margin-top: clamp(14px, 2vh, 20px);
+  color: rgb(17 17 17 / 56%);
+  font: 500 clamp(11px, .78vw, 13px) / 1.5 var(--mono);
+  letter-spacing: .07em;
+  line-height: 1.5;
+  visibility: hidden;
+  pointer-events: none;
+}
+#heroLens .hero-lens-actions-placeholder {
+  flex: 0 1 auto;
+  width: auto;
+  height: auto;
+  min-height: 0;
+}
+#heroLens .hero-lens-actions-placeholder > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid #d8d8d2;
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--paper);
+  font: 600 clamp(13px, .9vw, 15px) / 1 var(--sans);
+  letter-spacing: .02em;
+}
+#heroLens .hero-lens-actions-placeholder > span b {
+  color: currentColor;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+@media (max-width: 680px) {
+  #heroLens .hero-lens-experience-placeholder {
+    margin-top: clamp(14px, 2vh, 20px);
+  }
+  #heroLens .hero-lens-actions-placeholder {
+    min-height: 0;
+  }
+  #heroLens .hero-lens-actions-placeholder > span {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 12px;
+  }
+}
+
+/* V3.3 safe rollback: restore only the homepage cascade to the verified
+   GitHub Pages release at f577a5c. Other section-specific local layers stay
+   untouched below their own selectors. */
+#home.hero-lens-section { padding-left: clamp(22px, 5vw, 88px); }
+#home #heroLens.hero-lens {
+  height: auto;
+  min-height: clamp(620px, calc(100svh - 112px), 820px);
+  overflow: visible;
+}
+#home #heroLens .hero-flip-card,
+#home #heroLens .hero-flip-card.is-flipped {
+  height: 100%;
+  min-height: inherit;
+}
+#home #heroLens .hero-flip-card.is-flipped .hero-about-face { min-height: inherit; }
+#home #heroLens .hero-front-face,
+#home #heroLens .hero-about-face,
+#home #heroLens .hero-flip-card:not(.is-flipped) .hero-about-face,
+#home #heroLens .hero-flip-card.is-flipped .hero-front-face,
+#home #heroLens .hero-flip-card:not(.is-flipped) .hero-front-face,
+#home #heroLens .hero-flip-card.is-flipped .hero-about-face {
+  position: absolute;
+  inset: 0;
+  z-index: auto;
+  height: auto;
+  min-height: inherit;
+}
+#home #heroLens .hero-about-face {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: clamp(28px, 4.2vw, 64px) clamp(28px, 5.5vw, 88px) clamp(24px, 3vw, 48px);
+  color: var(--paper);
+  background: var(--ink);
+  transform: rotateX(180deg);
+  align-content: normal;
+}
+#home #heroLens .hero-lens-base {
+  position: static;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: inherit;
+  height: 100%;
+  padding: clamp(20px, 3.4vw, 50px) clamp(22px, 7vw, 112px);
+  background: var(--paper);
+}
+#home #heroLens .hero-lens-topline,
+#home #heroLens .hero-lens-bottomline,
+#home #heroLens .hero-about-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: #777771;
+  font: 500 clamp(11px, .85vw, 13px) var(--mono);
+  letter-spacing: .06em;
+  align-items: normal;
+}
+#home #heroLens .hero-lens-topline,
+#home #heroLens .hero-about-topline { width: 100%; }
+#home #heroLens .hero-lens-bottomline {
+  width: 100%;
+  align-items: end;
+  justify-content: space-between;
+  padding-top: 18px;
+}
+#home #heroLens .hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  height: 100%;
+  margin: 0;
+  padding: clamp(20px, 3.4vw, 50px) clamp(22px, 7vw, 112px);
+  transform: translate3d(var(--title-x), var(--title-y), 0) rotateX(var(--title-rotate-x)) rotateY(var(--title-rotate-y)) rotateZ(var(--title-rotate-z));
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  transition: none;
+  will-change: transform;
+}
+#home #heroLens .hero-title,
+#home #heroLens .hero-lens-reveal .hero-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(58px, 10vw, 154px);
+  line-height: .94;
+  letter-spacing: -.07em;
+  font-weight: 650;
+  white-space: nowrap;
+  transform-style: preserve-3d;
+}
+#home #heroLens .hero-lens-reveal .hero-title { color: var(--paper); }
+#home #heroLens .hero-lens-base { -webkit-mask-image: none; mask-image: none; }
+#home #heroLens .hero-front-face #hero-title {
+  -webkit-mask-image: none;
+  mask-image: none;
+  -webkit-mask-repeat: initial;
+  mask-repeat: initial;
+  -webkit-mask-size: auto;
+  mask-size: auto;
+}
+#home #heroLens .hero-lens-reveal {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  overflow: visible;
+  isolation: auto;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+  box-shadow: none;
+  filter: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  clip-path: circle(var(--lens-radius) at var(--lens-x) var(--lens-y));
+  opacity: var(--lens-opacity);
+  pointer-events: none;
+  will-change: clip-path, opacity;
+}
+#home #heroLens .hero-lens-reveal .hero-content { z-index: 1; }
+#home #heroLens .hero-lens-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: normal;
+  gap: clamp(18px, 3vw, 45px);
+  flex-wrap: nowrap;
+  align-self: auto;
+  margin: 0 clamp(20px, 4vw, 70px) 0 auto;
+}
+#home #heroLens .hero-lens-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: normal;
+  gap: 8px;
+  min-height: 0;
+  margin: -7px -8px;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 999px;
+  color: #777771;
+  background: transparent;
+  box-shadow: none;
+  font: 500 clamp(14px, .95vw, 16px) var(--sans);
+  letter-spacing: .03em;
+  text-decoration: none;
+}
+#home #heroLens .hero-lens-actions a:first-child,
+#home #heroLens .hero-lens-actions a:last-child {
+  color: #777771;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+#home #heroLens .hero-lens-actions a span {
+  margin-left: 0;
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+}
+#home #heroLens .hero-lens-actions a:hover,
+#home #heroLens .hero-lens-actions a:focus-visible {
+  color: var(--paper);
+  background: var(--ink);
+  transform: translateY(-2px);
+}
+#home #heroLens .hero-lens-actions a:hover span,
+#home #heroLens .hero-lens-actions a:focus-visible span {
+  color: var(--paper);
+  transform: translate(3px, -3px);
+}
+#home .hero-lens-note {
+  display: block;
+  margin: 11px 2px 0;
+  color: #777771;
+  font: 500 12px var(--mono);
+  line-height: 1.5;
+  text-align: start;
+}
+#home #heroLens .hero-about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .45fr) minmax(0, .55fr);
+  gap: clamp(42px, 6vw, 96px);
+  flex: 1 1 auto;
+  align-self: auto;
+  min-height: 0;
+  padding: clamp(34px, 4.5vw, 62px) 0 clamp(36px, 4.5vw, 62px);
+  align-items: center;
+}
+#home #heroLens .hero-about-copy { max-width: 560px; margin: 0; }
+#home #heroLens .hero-about-copy h2 {
+  margin: 0 0 clamp(24px, 3vw, 38px);
+  color: var(--paper);
+  font-family: var(--display);
+  font-size: clamp(58px, 7.2vw, 108px);
+  line-height: .98;
+  letter-spacing: -.075em;
+  font-weight: 650;
+}
+#home #heroLens .hero-about-principle {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(24px, 2.35vw, 38px);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -.055em;
+}
+#home #heroLens .hero-about-intro,
+#home #heroLens .hero-about-detail {
+  max-width: 540px;
+  color: rgb(255 255 255 / 72%);
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1.75;
+}
+#home #heroLens .hero-about-intro { margin: clamp(30px, 4vw, 48px) 0 0; }
+#home #heroLens .hero-about-detail { margin: 8px 0 0; color: rgb(255 255 255 / 58%); }
+#home #heroLens .hero-about-skills {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  justify-content: center;
+  min-width: 0;
+  gap: normal;
+  grid-template-columns: none;
+}
+#home #heroLens .hero-about-skill {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 20px;
+  padding: clamp(20px, 2.1vw, 30px) 0;
+  border-bottom: 1px solid rgb(255 255 255 / 55%);
+}
+#home #heroLens .hero-about-skill:first-child { border-top: 1px solid rgb(255 255 255 / 55%); }
+#home #heroLens .hero-about-skill-index {
+  padding-top: 5px;
+  color: rgb(255 255 255 / 64%);
+  font: 500 13px var(--mono);
+  letter-spacing: .08em;
+}
+#home #heroLens .hero-about-skill h3 {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -.045em;
+}
+#home #heroLens .hero-about-skill p {
+  margin: 8px 0 0;
+  color: rgb(255 255 255 / 68%);
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.45;
+}
+#home #heroLens .hero-about-footer {
+  width: 100%;
+  position: static;
+  z-index: auto;
+  padding-top: clamp(20px, 2vw, 28px);
+  border-top: 1px solid rgb(255 255 255 / 58%);
+}
+#home #heroLens .hero-about-approach-heading {
+  color: rgb(255 255 255 / 70%);
+  font: 500 12px var(--mono);
+  letter-spacing: .1em;
+}
+#home #heroLens .hero-about-approach-heading span { color: rgb(255 255 255 / 45%); }
+#home #heroLens .hero-about-approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 64px);
+  margin-top: 19px;
+}
+#home #heroLens .hero-about-approach-item {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+}
+#home #heroLens .hero-about-approach-item > span {
+  padding-top: 3px;
+  color: rgb(255 255 255 / 55%);
+  font: 500 11px var(--mono);
+  letter-spacing: .08em;
+}
+#home #heroLens .hero-about-approach-item h3 {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(16px, 1.25vw, 20px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+#home #heroLens .hero-about-approach-item p {
+  margin: 7px 0 0;
+  color: rgb(255 255 255 / 62%);
+  font-size: clamp(12px, .9vw, 14px);
+  line-height: 1.4;
+}
+#home #heroLens .hero-about-return-prompt {
+  display: block;
+  margin-top: 21px;
+  color: rgb(255 255 255 / 42%);
+  font: 500 10px var(--mono);
+  letter-spacing: .04em;
+}
+
+@media (max-width: 680px) {
+  #home.hero-lens-section.hero { padding-top: 12px; padding-bottom: 42px; }
+  #home #heroLens.hero-lens { height: auto; min-height: 620px; perspective: 900px; }
+  #home #heroLens .hero-flip-card,
+  #home #heroLens .hero-face { min-height: 620px; height: auto; }
+  #home #heroLens .hero-lens-base { padding: 18px 18px 54px; }
+  #home #heroLens .hero-about-face { padding: 22px 18px 26px; }
+  #home #heroLens .hero-lens-topline,
+  #home #heroLens .hero-lens-bottomline,
+  #home #heroLens .hero-about-topline { font-size: 10px; }
+  #home #heroLens .hero-lens-topline span:last-child { max-width: 48%; text-align: right; }
+  #home #heroLens .hero-content { padding: 18px; }
+  #home #heroLens .hero-name-lockup { padding: 0; }
+  #home #heroLens .hero-name-english { margin-bottom: 19px; font-size: 9px; letter-spacing: .15em; }
+  #home #heroLens .hero-lens-base .hero-title,
+  #home #heroLens .hero-lens-reveal .hero-title { font-size: clamp(38px, 11.6vw, 70px); line-height: .98; letter-spacing: -.075em; }
+  #home #heroLens .hero-role { margin-top: 20px; font-size: 12px; letter-spacing: .1em; }
+  #home #heroLens .hero-lens-bottomline { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding-top: 14px; justify-content: normal; }
+  #home #heroLens .hero-lens-facts { min-width: 0; font-size: 10px; }
+  #home #heroLens .hero-lens-actions { grid-column: 1 / 2; margin: 13px 0 0; gap: 14px; }
+  #home #heroLens .hero-lens-actions a { font-size: 12px; }
+  #home .hero-lens-note { font-size: 10px; }
+  #home #heroLens .hero-lens-reveal { inset: 0; clip-path: circle(var(--lens-radius) at var(--lens-x) var(--lens-y)); opacity: var(--lens-opacity); }
+  #home #heroLens .hero-about-layout { display: flex; flex-direction: column; gap: 30px; padding: 31px 0 34px; align-items: stretch; flex: 1 1 auto; grid-template-columns: none; }
+  #home #heroLens .hero-about-copy { max-width: none; margin: 0; }
+  #home #heroLens .hero-about-copy h2 { margin-bottom: 22px; font-size: clamp(48px, 14vw, 70px); }
+  #home #heroLens .hero-about-principle { font-size: clamp(22px, 6vw, 30px); }
+  #home #heroLens .hero-about-intro,
+  #home #heroLens .hero-about-detail { font-size: 13px; line-height: 1.7; }
+  #home #heroLens .hero-about-intro { margin-top: 24px; }
+  #home #heroLens .hero-about-skills { display: flex; flex-direction: column; gap: normal; grid-template-columns: none; }
+  #home #heroLens .hero-about-skill { grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 17px 0; }
+  #home #heroLens .hero-about-skill-index { font-size: 10px; }
+  #home #heroLens .hero-about-skill h3 { font-size: 18px; }
+  #home #heroLens .hero-about-skill p { margin-top: 6px; font-size: 12px; }
+  #home #heroLens .hero-about-footer { padding-top: 20px; }
+  #home #heroLens .hero-about-approach-heading { font-size: 10px; }
+  #home #heroLens .hero-about-approach-grid { grid-template-columns: 1fr; gap: 17px; margin-top: 18px; }
+  #home #heroLens .hero-about-approach-item { grid-template-columns: 42px minmax(0, 1fr); gap: 11px; }
+  #home #heroLens .hero-about-approach-item > span { font-size: 10px; }
+  #home #heroLens .hero-about-approach-item h3 { font-size: 16px; }
+  #home #heroLens .hero-about-approach-item p { margin-top: 5px; font-size: 12px; }
+  #home #heroLens .hero-about-return-prompt { margin-top: 20px; font-size: 9px; }
+}
+
+/* V3.3 final static layout: preserve existing motion and only reposition the
+   header, navigation, contact entry, and Hero CTA around the current Hero. */
+.topbar {
+  height: 96px;
+  padding: 0 clamp(28px, 5vw, 84px);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.brand-logo {
+  display: block;
+  width: clamp(210px, 18.3vw, 306px);
+  height: auto;
+}
+
+.topbar-meta {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.1vw, 34px);
+  margin-left: auto;
+  color: var(--ink);
+  font: 500 clamp(13px, 1.1vw, 18px) var(--sans);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.topbar-meta-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.topbar-meta-experience {
+  font-weight: 700;
+}
+
+.topbar-meta-divider {
+  width: 1px;
+  height: 20px;
+  flex: 0 0 1px;
+  background: var(--line-dark);
+}
+
+.topbar-meta-location {
+  gap: 9px;
+  font-weight: 650;
+}
+
+.topbar-location-icon {
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+#home #heroLens .hero-lens-bottomline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 18px;
+}
+
+#home #heroLens .hero-lens-actions {
+  margin: 0;
+  gap: 0;
+}
+
+#home #heroLens .hero-lens-actions a:first-child {
+  min-width: 286px;
+  height: 64px;
+  justify-content: center;
+  padding: 0 34px;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgb(17 17 17 / 12%);
+  font-size: clamp(17px, 1.25vw, 21px);
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+#home #heroLens .hero-lens-actions a:first-child span {
+  color: var(--paper);
+  font-size: 30px;
+}
+
+#home .hero-lens-note {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (min-width: 681px) {
+  .topbar .nav {
+    position: fixed;
+    top: 50%;
+    left: calc(clamp(50px, 3.5vw, 56px) + 75px);
+    width: 150px;
+    height: auto;
+    margin-top: -137px;
+    padding: 14px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    border-radius: 24px;
+    z-index: 60;
+  }
+
+  .topbar .nav a.nav-link {
+    width: 100%;
+    min-height: 52px;
+    height: 52px;
+    justify-content: flex-start;
+    padding: 0 14px;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  .topbar .nav-contact {
+    position: fixed;
+    top: 50%;
+    right: clamp(24px, 3.4vw, 56px);
+    width: 64px;
+    height: 218px;
+    min-height: 218px;
+    margin-top: -109px;
+    padding: 18px 0;
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 14px;
+    border-radius: 32px;
+    color: var(--paper);
+    background: #111;
+    box-shadow: 0 10px 24px rgb(17 17 17 / 12%);
+    z-index: 60;
+  }
+
+  .topbar .nav-contact-icon {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .topbar .nav-contact > span:first-of-type {
+    writing-mode: vertical-rl;
+    letter-spacing: .18em;
+    line-height: 1.1;
+  }
+}
+
+@media (max-width: 960px) and (min-width: 681px) {
+  .topbar-meta {
+    gap: 13px;
+    font-size: 12px;
+  }
+
+  .topbar-meta-divider {
+    height: 17px;
+  }
+
+  .topbar-meta-location {
+    gap: 6px;
+  }
+
+  .topbar-location-icon {
+    width: 17px;
+    height: 17px;
+    flex-basis: 17px;
+  }
+
+  .topbar .nav {
+    left: calc(24px + 73px);
+    width: 146px;
+  }
+
+  .topbar .nav-contact {
+    right: 18px;
+    width: 58px;
+    min-height: 198px;
+    height: 198px;
+    margin-top: -99px;
+  }
+}
+
+@media (max-width: 680px) {
+  .topbar {
+    height: 68px;
+    padding: 0 16px;
+  }
+
+  .brand-logo {
+    width: clamp(142px, 43vw, 184px);
+  }
+
+  .topbar-meta {
+    gap: 8px;
+    margin-left: 8px;
+    font-size: 9px;
+  }
+
+  .topbar-meta-domain,
+  .topbar-meta-domain-divider {
+    display: none;
+  }
+
+  .topbar-meta-divider {
+    height: 14px;
+  }
+
+  .topbar-meta-location {
+    gap: 4px;
+  }
+
+  .topbar-location-icon {
+    width: 14px;
+    height: 14px;
+    flex-basis: 14px;
+    stroke-width: 2;
+  }
+
+  .topbar .nav {
+    top: 68px;
+  }
+
+  .topbar .nav-contact {
+    position: fixed;
+    top: 50%;
+    right: 12px;
+    width: 48px;
+    height: 144px;
+    min-height: 144px;
+    margin-top: -72px;
+    padding: 13px 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    border-radius: 24px;
+    color: var(--paper);
+    background: #111;
+    z-index: 60;
+  }
+
+  .topbar .nav-contact-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .topbar .nav-contact > span:first-of-type {
+    writing-mode: vertical-rl;
+    letter-spacing: .12em;
+    line-height: 1.05;
+    font-size: 13px;
+  }
+
+  #home #heroLens .hero-lens-bottomline {
+    display: flex;
+    justify-content: center;
+    padding-top: 14px;
+  }
+
+  #home #heroLens .hero-lens-actions {
+    margin: 0;
+    grid-column: auto;
+  }
+
+  #home #heroLens .hero-lens-actions a:first-child {
+    min-width: 220px;
+    height: 56px;
+    padding: 0 26px;
+    font-size: 16px;
+  }
+
+  #home #heroLens .hero-lens-actions a:first-child span {
+    font-size: 25px;
+  }
+}
+
+/* V3.3 final closure: static collision and material fixes only.
+   Existing Hero motion, transforms, masks, and event bindings remain untouched. */
+.topbar {
+  background-color: transparent;
+  isolation: isolate;
+}
+
+.topbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: rgb(255 255 255 / 76%);
+  border-bottom: 1px solid rgb(17 17 17 / 10%);
+  backdrop-filter: blur(14px) saturate(1.04);
+  -webkit-backdrop-filter: blur(14px) saturate(1.04);
+}
+
+@supports not ((backdrop-filter: blur(14px))) {
+  .topbar::before {
+    background-color: rgb(255 255 255 / 94%);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Use the same measured rail boundary for the About back face. */
+@media (min-width: 681px) {
+  #home #heroLens .hero-about-face {
+    padding-left: max(
+      clamp(28px, 5.5vw, 88px),
+      calc(var(--site-navigation-safe-left) - clamp(22px, 5vw, 88px))
+    );
+  }
+
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  #home #heroLens .hero-about-layout {
+    grid-template-columns: minmax(0, .5fr) minmax(0, .5fr);
+    gap: 32px;
+  }
+}
+
+/* Give the CTA its own local paint layer above the reveal circle. */
+#home #heroLens .hero-lens-actions a:first-child {
+  position: relative;
+  z-index: 6;
+  isolation: isolate;
+  pointer-events: auto;
+}
+
+/* Keep only the contact entry above the Hero paint layer, not the whole Header. */
+@media (min-width: 961px) {
+  .topbar .nav-contact {
+    width: 48px;
+    height: 160px;
+    min-height: 0;
+    max-height: none;
+    margin-top: -80px;
+    padding: 0;
+    gap: 12px;
+    border-radius: 24px;
+    color: #ffffff;
+    background: #111111;
+    justify-content: center;
+    isolation: isolate;
+    z-index: 70;
+  }
+
+  .topbar .nav-contact-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+  }
+
+  .topbar .nav-contact > span:first-of-type {
+    writing-mode: vertical-rl;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: .08em;
+  }
+}
+
+@media (max-width: 960px) and (min-width: 681px) {
+  .topbar .nav-contact {
+    width: 46px;
+    height: 148px;
+    min-height: 148px;
+    margin-top: -74px;
+    padding: 11px 0;
+    gap: 8px;
+    border-radius: 23px;
+    isolation: isolate;
+    z-index: 70;
+  }
+
+  .topbar .nav-contact-icon {
+    width: 18px;
+    height: 18px;
+    flex-basis: 18px;
+  }
+
+  .topbar .nav-contact > span:first-of-type {
+    font-size: 14px;
+    letter-spacing: .12em;
+  }
+}
+
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-face {
+    padding-right: max(50px, clamp(18px, 5.5vw, 88px));
+  }
+
+  .topbar .nav-contact {
+    width: 44px;
+    height: 116px;
+    min-height: 116px;
+    margin-top: -58px;
+    padding: 10px 0;
+    gap: 7px;
+    border-radius: 22px;
+    isolation: isolate;
+    z-index: 70;
+  }
+
+  .topbar .nav-contact-icon {
+    width: 16px;
+    height: 16px;
+    flex-basis: 16px;
+  }
+
+  .topbar .nav-contact > span:first-of-type {
+    font-size: 12px;
+    letter-spacing: .1em;
+  }
+}
+
+/* A single fine border keeps the black contact control visually separate
+   from the black lens without changing the lens or its event target. */
+.topbar .nav-contact {
+  border: 1px solid rgb(255 255 255 / 82%);
+}
+
+/* V3.3 About face: static black editorial card only. The existing flip card,
+   lens variables, transforms, and event-driven motion remain untouched. */
+#home #heroLens .hero-about-face {
+  box-sizing: border-box;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: clamp(22px, 3vw, 46px);
+  padding-right: clamp(28px, 5.5vw, 88px);
+  padding-bottom: clamp(22px, 3vw, 46px);
+  padding-left: max(
+    clamp(28px, 5.5vw, 88px),
+    calc(var(--site-navigation-safe-left) - clamp(22px, 5vw, 88px))
+  );
+  border: 1px solid rgb(255 255 255 / 30%);
+  border-radius: 20px;
+}
+
+#home #heroLens .hero-about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, .39fr) minmax(0, .61fr);
+  gap: clamp(26px, 3.2vw, 52px);
+  align-items: stretch;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+}
+
+#home #heroLens .hero-about-copy {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  margin: 0;
+  padding: clamp(22px, 2.1vw, 32px);
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 32%);
+  border-radius: 20px;
+  background: #111111;
+}
+
+#home #heroLens .hero-about-topline {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  flex: 0 0 auto;
+  color: rgb(255 255 255 / 82%);
+  font-size: clamp(10px, .78vw, 13px);
+}
+
+#home #heroLens .hero-about-light {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#home #heroLens .hero-about-light::before {
+  content: '';
+  position: absolute;
+  width: 168%;
+  height: 112%;
+  left: -76%;
+  top: 18%;
+  border: 1px solid rgb(255 255 255 / 84%);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgb(255 255 255 / 76%), 0 0 44px rgb(255 255 255 / 28%);
+}
+
+#home #heroLens .hero-about-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 56% 78% at 100% 63%, rgb(255 255 255 / 30%), transparent 68%);
+  opacity: .7;
+}
+
+#home #heroLens .hero-about-copy-content {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 34px;
+}
+
+#home #heroLens .hero-about-copy h2 {
+  margin: 0 0 14px;
+  color: var(--paper);
+  font-size: clamp(48px, 5.5vw, 82px);
+  line-height: 1;
+  letter-spacing: -.075em;
+}
+
+#home #heroLens .hero-about-principle {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(20px, 1.8vw, 30px);
+  line-height: 1.3;
+  letter-spacing: -.04em;
+}
+
+#home #heroLens .hero-about-copy-rule {
+  display: block;
+  width: 42px;
+  height: 1px;
+  margin-top: 28px;
+  background: rgb(255 255 255 / 84%);
+}
+
+#home #heroLens .hero-about-content-column {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+}
+
+#home #heroLens .hero-about-positioning {
+  flex: 0 0 auto;
+  padding: 4px 0 clamp(20px, 1.8vw, 28px);
+  border-bottom: 1px solid rgb(255 255 255 / 62%);
+}
+
+#home #heroLens .hero-about-positioning h3 {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(28px, 3.1vw, 50px);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -.065em;
+}
+
+#home #heroLens .hero-about-intro {
+  max-width: none;
+  margin: 15px 0 0;
+  color: rgb(255 255 255 / 78%);
+  font-size: clamp(14px, 1.05vw, 18px);
+  line-height: 1.6;
+}
+
+#home #heroLens .hero-about-skills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-self: auto;
+  justify-content: normal;
+  min-width: 0;
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+#home #heroLens .hero-about-skill {
+  display: block;
+  min-width: 0;
+  padding: clamp(18px, 1.6vw, 26px) 0;
+  border-top: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 56%);
+}
+
+#home #heroLens .hero-about-skill:nth-child(odd) {
+  padding-right: clamp(18px, 2vw, 30px);
+  border-right: 1px solid rgb(255 255 255 / 62%);
+}
+
+#home #heroLens .hero-about-skill:nth-child(even) {
+  padding-left: clamp(18px, 2vw, 30px);
+}
+
+#home #heroLens .hero-about-skill:nth-child(-n + 2) {
+  border-top: 0;
+}
+
+#home #heroLens .hero-about-skill-index {
+  display: block;
+  padding: 0;
+  color: rgb(255 255 255 / 60%);
+  font-size: clamp(10px, .75vw, 12px);
+  line-height: 1.3;
+  letter-spacing: .06em;
+}
+
+#home #heroLens .hero-about-skill h3 {
+  margin: 10px 0 0;
+  color: var(--paper);
+  font-size: clamp(17px, 1.45vw, 24px);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -.045em;
+}
+
+#home #heroLens .hero-about-skill p {
+  margin: 8px 0 0;
+  color: rgb(255 255 255 / 68%);
+  font-size: clamp(12px, .92vw, 15px);
+  line-height: 1.45;
+}
+
+#home #heroLens .hero-about-footer {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  position: static;
+  z-index: auto;
+  margin-top: auto;
+  padding: clamp(17px, 1.5vw, 24px) clamp(18px, 1.8vw, 28px) clamp(15px, 1.3vw, 21px);
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 4%);
+}
+
+#home #heroLens .hero-about-approach-heading {
+  color: rgb(255 255 255 / 78%);
+  font-size: clamp(10px, .75vw, 12px);
+  letter-spacing: .08em;
+}
+
+#home #heroLens .hero-about-approach-heading span {
+  color: rgb(255 255 255 / 46%);
+}
+
+#home #heroLens .hero-about-approach-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 16px;
+}
+
+#home #heroLens .hero-about-approach-item {
+  display: block;
+  min-width: 0;
+  padding: 0 clamp(10px, 1.2vw, 18px);
+}
+
+#home #heroLens .hero-about-approach-item:first-child { padding-left: 0; }
+#home #heroLens .hero-about-approach-item:last-child { padding-right: 0; }
+
+#home #heroLens .hero-about-approach-item + .hero-about-approach-item {
+  border-left: 1px solid rgb(255 255 255 / 48%);
+}
+
+#home #heroLens .hero-about-approach-item h3 {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(14px, 1vw, 17px);
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+#home #heroLens .hero-about-return-prompt {
+  display: block;
+  margin-top: 13px;
+  color: rgb(255 255 255 / 38%);
+  font-size: 9px;
+  letter-spacing: .03em;
+}
+
+/* The selected source asset is 3:1 rather than the former wordmark ratio;
+   size it explicitly so the fixed 96px header and its metadata stay put. */
+.brand-logo {
+  width: clamp(176px, 14vw, 220px);
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  #home #heroLens .hero-about-layout {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  #home #heroLens .hero-about-copy {
+    min-height: 270px;
+    flex: 0 0 270px;
+  }
+
+  #home #heroLens .hero-about-content-column {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-face {
+    padding: 20px 18px 24px;
+    padding-right: max(50px, 18px);
+    border-radius: 16px;
+  }
+
+  #home #heroLens .hero-about-layout {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  #home #heroLens .hero-about-copy {
+    min-height: 264px;
+    flex: 0 0 264px;
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  #home #heroLens .hero-about-topline {
+    gap: 10px;
+    font-size: 9px;
+  }
+
+  #home #heroLens .hero-about-copy-content {
+    padding-top: 22px;
+  }
+
+  #home #heroLens .hero-about-copy h2 {
+    margin-bottom: 10px;
+    font-size: clamp(43px, 12vw, 58px);
+  }
+
+  #home #heroLens .hero-about-principle {
+    font-size: clamp(18px, 5.4vw, 24px);
+  }
+
+  #home #heroLens .hero-about-copy-rule {
+    margin-top: 20px;
+  }
+
+  #home #heroLens .hero-about-positioning {
+    padding-top: 0;
+    padding-bottom: 18px;
+  }
+
+  #home #heroLens .hero-about-positioning h3 {
+    font-size: clamp(25px, 7.6vw, 34px);
+  }
+
+  #home #heroLens .hero-about-intro {
+    margin-top: 11px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  #home #heroLens .hero-about-skills {
+    grid-template-columns: 1fr;
+  }
+
+  #home #heroLens .hero-about-skill,
+  #home #heroLens .hero-about-skill:nth-child(odd),
+  #home #heroLens .hero-about-skill:nth-child(even) {
+    padding: 15px 0;
+    border-right: 0;
+  }
+
+  #home #heroLens .hero-about-skill:first-child {
+    border-top: 0;
+  }
+
+  #home #heroLens .hero-about-skill h3 {
+    margin-top: 7px;
+    font-size: 17px;
+  }
+
+  #home #heroLens .hero-about-skill p {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  #home #heroLens .hero-about-footer {
+    margin-top: 0;
+    padding: 16px 15px 14px;
+    border-radius: 15px;
+  }
+
+  #home #heroLens .hero-about-approach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 14px;
+    margin-top: 13px;
+  }
+
+  #home #heroLens .hero-about-approach-item {
+    padding: 0 10px;
+  }
+
+  #home #heroLens .hero-about-approach-item:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  #home #heroLens .hero-about-approach-item:nth-child(even) {
+    padding-right: 0;
+  }
+
+  #home #heroLens .hero-about-approach-item:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  #home #heroLens .hero-about-approach-item:nth-child(2n + 3) {
+    padding-top: 14px;
+    border-top: 1px solid rgb(255 255 255 / 28%);
+  }
+
+  #home #heroLens .hero-about-approach-item h3 {
+    font-size: 14px;
+  }
+
+  .brand-logo {
+    width: clamp(128px, 38vw, 156px);
+  }
+}
+
+/* V3.3 About final: one black editorial surface, no nested light card.
+   This only changes static content layout; Hero flip and lens motion remain untouched. */
+#home #heroLens .hero-about-face {
+  display: block;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 46px) clamp(28px, 5.5vw, 88px);
+}
+
+#home #heroLens .hero-about-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  gap: clamp(18px, 2.4vw, 32px);
+  padding: 0;
+}
+
+#home #heroLens .hero-about-copy,
+#home #heroLens .hero-about-light {
+  display: none;
+}
+
+#home #heroLens .hero-about-topline {
+  flex: 0 0 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: rgb(255 255 255 / 72%);
+  font-size: clamp(10px, .78vw, 13px);
+}
+
+#home #heroLens .hero-about-content-column {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+#home #heroLens .hero-about-positioning {
+  flex: 0 0 auto;
+  padding: 0 0 clamp(18px, 1.8vw, 28px);
+  border-bottom: 1px solid rgb(255 255 255 / 58%);
+}
+
+#home #heroLens .hero-about-positioning h3 {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(30px, 3.1vw, 50px);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -.065em;
+}
+
+#home #heroLens .hero-about-intro {
+  max-width: 1080px;
+  margin: 14px 0 0;
+  color: rgb(255 255 255 / 76%);
+  font-size: clamp(14px, 1.05vw, 18px);
+  line-height: 1.55;
+}
+
+#home #heroLens .hero-about-skills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 0 0 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+#home #heroLens .hero-about-skill {
+  display: block;
+  min-width: 0;
+  padding: clamp(14px, 1.35vw, 22px) 0;
+  border-top: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 48%);
+}
+
+#home #heroLens .hero-about-skill:nth-child(odd) {
+  padding-right: clamp(16px, 2vw, 30px);
+  border-right: 1px solid rgb(255 255 255 / 54%);
+}
+
+#home #heroLens .hero-about-skill:nth-child(even) {
+  padding-left: clamp(16px, 2vw, 30px);
+}
+
+#home #heroLens .hero-about-skill-index {
+  display: block;
+  color: rgb(255 255 255 / 56%);
+  font-size: clamp(10px, .72vw, 12px);
+  line-height: 1.3;
+  letter-spacing: .06em;
+}
+
+#home #heroLens .hero-about-skill h3 {
+  margin: 8px 0 0;
+  color: var(--paper);
+  font-size: clamp(16px, 1.35vw, 22px);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -.045em;
+}
+
+#home #heroLens .hero-about-skill p {
+  margin: 7px 0 0;
+  color: rgb(255 255 255 / 66%);
+  font-size: clamp(12px, .88vw, 15px);
+  line-height: 1.4;
+}
+
+#home #heroLens .hero-about-footer {
+  width: 100%;
+  max-width: 100%;
+  margin-top: auto;
+  padding: clamp(14px, 1.35vw, 21px) clamp(16px, 1.8vw, 28px) clamp(12px, 1.1vw, 18px);
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 4%);
+}
+
+#home #heroLens .hero-about-approach-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 13px;
+}
+
+#home #heroLens .hero-about-approach-item {
+  padding: 0 clamp(8px, 1.2vw, 18px);
+}
+
+#home #heroLens .hero-about-approach-item h3 {
+  margin: 0;
+  font-size: clamp(13px, .95vw, 17px);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+#home #heroLens .hero-about-return-prompt {
+  margin-top: 9px;
+  font-size: 9px;
+}
+
+/* Keep the new responsibility titles readable without changing the reveal animation. */
+#experience .experience-detail-surface li p {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#experience .experience-detail-surface li p > strong {
+  color: #171714;
+  font-size: 1em;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+#experience .experience-detail-surface li p > span {
+  color: #33332f;
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  #home #heroLens .hero-about-face {
+    padding: 22px 28px;
+  }
+
+  #home #heroLens .hero-about-layout {
+    gap: 20px;
+  }
+
+  #home #heroLens .hero-about-positioning h3 {
+    font-size: clamp(27px, 4vw, 38px);
+  }
+
+  #home #heroLens .hero-about-skill {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+}
+
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-face {
+    padding: 18px 18px;
+    padding-right: max(50px, 18px);
+  }
+
+  #home #heroLens .hero-about-layout {
+    gap: 13px;
+  }
+
+  #home #heroLens .hero-about-topline {
+    font-size: 9px;
+  }
+
+  #home #heroLens .hero-about-positioning {
+    padding-bottom: 13px;
+  }
+
+  #home #heroLens .hero-about-positioning h3 {
+    font-size: clamp(24px, 7.1vw, 31px);
+  }
+
+  #home #heroLens .hero-about-intro {
+    margin-top: 9px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  #home #heroLens .hero-about-skills {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #home #heroLens .hero-about-skill,
+  #home #heroLens .hero-about-skill:nth-child(odd),
+  #home #heroLens .hero-about-skill:nth-child(even) {
+    padding: 10px 0;
+  }
+
+  #home #heroLens .hero-about-skill:nth-child(odd) {
+    padding-right: 10px;
+    border-right: 1px solid rgb(255 255 255 / 48%);
+  }
+
+  #home #heroLens .hero-about-skill:nth-child(even) {
+    padding-left: 10px;
+  }
+
+  #home #heroLens .hero-about-skill-index {
+    font-size: 9px;
+  }
+
+  #home #heroLens .hero-about-skill h3 {
+    margin-top: 5px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  #home #heroLens .hero-about-skill p {
+    margin-top: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  #home #heroLens .hero-about-footer {
+    padding: 11px 12px 10px;
+    border-radius: 14px;
+  }
+
+  #home #heroLens .hero-about-approach-heading {
+    font-size: 9px;
+  }
+
+  #home #heroLens .hero-about-approach-grid {
+    margin-top: 9px;
+  }
+
+  #home #heroLens .hero-about-approach-item {
+    padding: 0 4px;
+  }
+
+  #home #heroLens .hero-about-approach-item h3 {
+    font-size: 12px;
+  }
+
+  #home #heroLens .hero-about-return-prompt {
+    display: none;
+  }
+
+  #experience .experience-detail-surface li p {
+    gap: 3px;
+  }
+}
+
+/* Final About spacing and divider cleanup. Keep the existing grid and motion untouched. */
+#home #heroLens .hero-about-content-column {
+  gap: clamp(24px, 1.8vw, 28px);
+}
+
+#home #heroLens .hero-about-positioning {
+  padding-bottom: clamp(22px, 1.9vw, 30px);
+  border-bottom: 0;
+}
+
+#home #heroLens .hero-about-positioning h3 {
+  font-size: clamp(32px, 3.4vw, 56px);
+  line-height: 1.08;
+}
+
+#home #heroLens .hero-about-intro {
+  margin-top: 18px;
+  font-size: clamp(15px, 1.05vw, 18px);
+  line-height: 1.6;
+}
+
+#home #heroLens .hero-about-skills {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+#home #heroLens .hero-about-skill {
+  padding-top: clamp(18px, 1.65vw, 25px);
+  padding-bottom: clamp(18px, 1.65vw, 25px);
+}
+
+#home #heroLens .hero-about-skill h3 {
+  margin-top: 10px;
+  font-size: clamp(18px, 1.65vw, 26px);
+  line-height: 1.18;
+}
+
+#home #heroLens .hero-about-skill p {
+  margin-top: 8px;
+  color: rgb(255 255 255 / 64%);
+  font-size: clamp(12px, .95vw, 15px);
+  line-height: 1.45;
+}
+
+#home #heroLens .hero-about-skill:nth-child(n + 3) {
+  border-bottom: 0;
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  #home #heroLens .hero-about-content-column {
+    gap: 24px;
+  }
+
+  #home #heroLens .hero-about-positioning h3 {
+    font-size: clamp(29px, 4.4vw, 40px);
+  }
+
+  #home #heroLens .hero-about-skill {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-content-column {
+    gap: 18px;
+  }
+
+  #home #heroLens .hero-about-positioning {
+    padding-bottom: 16px;
+  }
+
+  #home #heroLens .hero-about-intro {
+    margin-top: 12px;
+    line-height: 1.55;
+  }
+
+  #home #heroLens .hero-about-skill {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  #home #heroLens .hero-about-skill h3 {
+    margin-top: 7px;
+  }
+
+  #home #heroLens .hero-about-skill p {
+    margin-top: 6px;
+  }
+}
+
+/* Keep the About surface clear of the existing fixed navigation rail. */
+@media (min-width: 681px) {
+  #home #heroLens .hero-about-face {
+    padding-left: max(
+      clamp(28px, 5.5vw, 88px),
+      calc(var(--site-navigation-safe-left) - clamp(22px, 5vw, 88px))
+    );
+  }
+}
+
+/* Keep the philosophy block on its own centered rail after the final About
+   cascade. The content column still clears the fixed navigation, while this
+   lower block keeps equal left/right insets to the black surface and equal
+   flex breathing room above/below instead of sticking to the bottom edge. */
+@media (min-width: 681px) {
+  #home #heroLens .hero-about-footer {
+    --about-footer-inset: clamp(28px, 5.5vw, 88px);
+    --about-footer-safe-left: max(
+      var(--about-footer-inset),
+      calc(var(--site-navigation-safe-left) - clamp(22px, 5vw, 88px))
+    );
+    width: calc(100% + var(--about-footer-safe-left) - var(--about-footer-inset));
+    max-width: none;
+    margin-left: calc(var(--about-footer-inset) - var(--about-footer-safe-left));
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  #home #heroLens .hero-about-footer {
+    --about-footer-inset: 28px;
+  }
+}
+
+/* About skills v3.3: scoped static layout plus the new skill-only motion.
+   Existing Hero motion selectors and the Hero lens module remain untouched. */
+#home #heroLens .hero-about-content-column {
+  gap: clamp(16px, 1.7vw, 24px);
+}
+
+#home #heroLens .hero-about-positioning {
+  padding-bottom: clamp(18px, 1.6vw, 26px);
+  border-bottom: 0;
+}
+
+#home #heroLens .hero-about-middle {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  gap: clamp(18px, 2.4vw, 32px);
+}
+
+#home #heroLens .hero-about-skills-panel,
+#home #heroLens .hero-about-core-panel {
+  min-width: 0;
+  min-height: 0;
+}
+
+#home #heroLens .hero-about-skills-panel {
+  padding-right: clamp(18px, 2.4vw, 32px);
+  border-right: 1px solid rgb(255 255 255 / 34%);
+}
+
+#home #heroLens .hero-about-core-panel {
+  padding-left: clamp(18px, 2.4vw, 32px);
+}
+
+#home #heroLens .hero-about-section-heading {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 10px;
+}
+
+#home #heroLens .hero-about-section-marker {
+  display: block;
+  width: 4px;
+  height: 29px;
+  flex: 0 0 4px;
+  border-radius: 999px;
+  background: var(--paper);
+}
+
+#home #heroLens .hero-about-section-heading h3 {
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(18px, 1.55vw, 24px);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -.045em;
+  white-space: nowrap;
+}
+
+#home #heroLens .hero-about-section-heading h3 span {
+  color: rgb(255 255 255 / 58%);
+  font: 500 .7em/1 var(--mono);
+  letter-spacing: .02em;
+}
+
+#home #heroLens .hero-about-skill-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+  margin-top: clamp(14px, 1.2vw, 20px);
+  gap: clamp(16px, 2vw, 28px);
+}
+
+#home #heroLens .hero-about-skill-group {
+  min-width: 0;
+}
+
+#home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+  padding-left: clamp(16px, 2vw, 28px);
+  border-left: 1px solid rgb(255 255 255 / 34%);
+}
+
+#home #heroLens .hero-about-skill-group h4 {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  margin: 0;
+  padding: 6px 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  color: var(--paper);
+  background: rgb(255 255 255 / 15%);
+  font-size: clamp(11px, .82vw, 13px);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#home #heroLens .hero-about-skill-list {
+  display: grid;
+  min-width: 0;
+  margin-top: 13px;
+  gap: 12px;
+}
+
+#home #heroLens .hero-about-skill-row {
+  display: grid;
+  grid-template-columns: minmax(62px, .78fr) minmax(58px, 1fr) auto;
+  align-items: center;
+  min-width: 0;
+  gap: 9px;
+}
+
+#home #heroLens .hero-about-skill-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--paper);
+  font-size: clamp(11px, .95vw, 14px);
+  line-height: 1.3;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#home #heroLens .hero-about-skill-track {
+  display: block;
+  min-width: 0;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 17%);
+}
+
+#home #heroLens .hero-about-skill-fill {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  background: rgb(247 247 244 / 96%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms ease-out;
+  transition-delay: 0ms;
+}
+
+#home #heroLens .hero-about-skill-fill::after {
+  position: absolute;
+  inset: 0 auto 0 -42%;
+  width: 32%;
+  content: '';
+  opacity: 0;
+  background: linear-gradient(90deg, transparent 0%, rgb(255 255 255 / 92%) 50%, transparent 100%);
+  transform: translateX(0);
+  will-change: transform, opacity;
+}
+
+#home #heroLens .hero-about-skills-panel.is-about-skills-active .hero-about-skill-fill {
+  transform: scaleX(var(--skill-progress));
+  transition-delay: var(--skill-delay);
+}
+
+#home #heroLens .hero-about-skills-panel.is-about-skills-shimmer .hero-about-skill-fill::after {
+  animation: about-skill-shimmer 5s ease-in-out var(--skill-shimmer-delay) infinite;
+}
+
+@keyframes about-skill-shimmer {
+  0%, 8% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+
+  14% {
+    opacity: .18;
+    transform: translateX(0);
+  }
+
+  42%, 100% {
+    opacity: 0;
+    transform: translateX(450%);
+  }
+}
+
+#home #heroLens .hero-about-skill-level {
+  min-width: max-content;
+  padding: 5px 8px;
+  border-radius: 7px;
+  color: var(--paper);
+  background: rgb(255 255 255 / 12%);
+  font-size: clamp(10px, .78vw, 12px);
+  font-weight: 600;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+#home #heroLens .hero-about-core-grid {
+  display: flex;
+  align-content: flex-start;
+  align-items: flex-start;
+  min-width: 0;
+  margin-top: clamp(14px, 1.2vw, 20px);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#home #heroLens .hero-about-core-grid span {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 29px;
+  padding: 5px 11px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 999px;
+  color: rgb(255 255 255 / 88%);
+  font-size: clamp(10px, .82vw, 13px);
+  line-height: 1.25;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#home #heroLens .hero-about-footer {
+  flex: 0 0 auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  #home #heroLens .hero-about-middle {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+    gap: 16px;
+  }
+
+  #home #heroLens .hero-about-skills-panel {
+    padding-right: 16px;
+  }
+
+  #home #heroLens .hero-about-core-panel {
+    padding-left: 16px;
+  }
+
+  #home #heroLens .hero-about-skill-groups {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    padding-top: 12px;
+    padding-left: 0;
+    border-top: 1px solid rgb(255 255 255 / 24%);
+    border-left: 0;
+  }
+
+  #home #heroLens .hero-about-skill-list {
+    margin-top: 9px;
+    gap: 8px;
+  }
+
+  #home #heroLens .hero-about-skill-row {
+    grid-template-columns: minmax(58px, .75fr) minmax(45px, 1fr) auto;
+    gap: 7px;
+  }
+
+  #home #heroLens .hero-about-section-heading h3 {
+    font-size: 18px;
+  }
+
+  #home #heroLens .hero-about-core-grid {
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-core-grid span {
+    padding-inline: 8px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-content-column {
+    gap: 16px;
+  }
+
+  #home #heroLens .hero-about-middle {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #home #heroLens .hero-about-skills-panel {
+    flex: 0 0 auto;
+    padding: 0 0 14px;
+    border-right: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 30%);
+  }
+
+  #home #heroLens .hero-about-core-panel {
+    flex: 0 0 auto;
+    padding-left: 0;
+  }
+
+  #home #heroLens .hero-about-section-marker {
+    height: 23px;
+  }
+
+  #home #heroLens .hero-about-section-heading h3 {
+    font-size: 18px;
+  }
+
+  #home #heroLens .hero-about-skill-groups {
+    grid-template-columns: 1fr;
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    padding-top: 10px;
+    padding-left: 0;
+    border-top: 1px solid rgb(255 255 255 / 24%);
+    border-left: 0;
+  }
+
+  #home #heroLens .hero-about-skill-group h4 {
+    padding: 5px 9px;
+    font-size: 10px;
+  }
+
+  #home #heroLens .hero-about-skill-list {
+    margin-top: 8px;
+    gap: 7px;
+  }
+
+  #home #heroLens .hero-about-skill-row {
+    grid-template-columns: minmax(62px, .7fr) minmax(48px, 1fr) auto;
+    gap: 7px;
+  }
+
+  #home #heroLens .hero-about-skill-name {
+    font-size: 11px;
+  }
+
+  #home #heroLens .hero-about-skill-level {
+    padding: 4px 6px;
+    font-size: 9px;
+  }
+
+  #home #heroLens .hero-about-core-grid {
+    margin-top: 10px;
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-core-grid span {
+    min-height: 25px;
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  #home #heroLens .hero-about-footer {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #home #heroLens .hero-about-skill-fill {
+    transform: scaleX(var(--skill-progress));
+    transition: none;
+  }
+
+  #home #heroLens .hero-about-skill-fill::after {
+    display: none;
+    animation: none;
+  }
+}
+
+/* Keep every About element inside the existing compact mobile flip surface. */
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-face {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  #home #heroLens .hero-about-content-column,
+  #home #heroLens .hero-about-middle {
+    flex: 0 0 auto;
+  }
+
+  #home #heroLens .hero-about-content-column {
+    gap: 10px;
+  }
+
+  #home #heroLens .hero-about-positioning {
+    padding-bottom: 8px;
+  }
+
+  #home #heroLens .hero-about-positioning h3 {
+    font-size: clamp(23px, 6.5vw, 27px);
+    line-height: 1.04;
+  }
+
+  #home #heroLens .hero-about-intro {
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  #home #heroLens .hero-about-middle {
+    gap: 10px;
+  }
+
+  #home #heroLens .hero-about-section-marker {
+    height: 20px;
+  }
+
+  #home #heroLens .hero-about-section-heading h3 {
+    font-size: 17px;
+  }
+
+  #home #heroLens .hero-about-skill-groups {
+    margin-top: 8px;
+    gap: 7px;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    padding-top: 7px;
+  }
+
+  #home #heroLens .hero-about-skill-group h4 {
+    padding: 4px 7px;
+    font-size: 9px;
+  }
+
+  #home #heroLens .hero-about-skill-list {
+    margin-top: 6px;
+    gap: 5px;
+  }
+
+  #home #heroLens .hero-about-skill-row {
+    grid-template-columns: minmax(58px, .7fr) minmax(48px, 1fr) auto;
+    gap: 5px;
+  }
+
+  #home #heroLens .hero-about-skill-name {
+    font-size: 10px;
+  }
+
+  #home #heroLens .hero-about-skill-track {
+    height: 5px;
+  }
+
+  #home #heroLens .hero-about-skill-level {
+    padding: 3px 5px;
+    font-size: 8px;
+  }
+
+  #home #heroLens .hero-about-core-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 8px;
+    gap: 4px;
+  }
+
+  #home #heroLens .hero-about-core-grid span {
+    min-height: 0;
+    padding: 3px 3px;
+    border: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 26%);
+    border-radius: 0;
+    font-size: 9px;
+    line-height: 1.25;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+  }
+
+  #home #heroLens .hero-about-footer {
+    padding: 8px 8px 7px;
+    border-radius: 12px;
+  }
+
+  #home #heroLens .hero-about-approach-heading {
+    font-size: 8px;
+  }
+
+  #home #heroLens .hero-about-approach-grid {
+    margin-top: 7px;
+  }
+
+  #home #heroLens .hero-about-approach-item {
+    padding-inline: 4px;
+  }
+
+  #home #heroLens .hero-about-approach-item h3 {
+    font-size: 11px;
+    line-height: 1.15;
+  }
+}
+
+/* About skills final pass: six balanced rows and three static focus directions. */
+#home #heroLens .hero-about-skill-groups {
+  gap: clamp(12px, 1.6vw, 24px);
+}
+
+#home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+  position: relative;
+  padding-left: 0;
+  border-left: 0;
+}
+
+#home #heroLens .hero-about-skill-group + .hero-about-skill-group::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(clamp(12px, 1.6vw, 24px) / -2);
+  width: 1px;
+  content: '';
+  background: rgb(255 255 255 / 34%);
+}
+
+#home #heroLens .hero-about-skill-row {
+  grid-template-columns: 108px minmax(62px, 1fr) 66px;
+  gap: 8px;
+}
+
+#home #heroLens .hero-about-skill-name {
+  overflow: visible;
+  font-size: clamp(11px, .92vw, 14px);
+  text-overflow: clip;
+}
+
+#home #heroLens .hero-about-core-focus-list {
+  display: grid;
+  min-width: 0;
+  margin-top: clamp(14px, 1.2vw, 20px);
+  border-top: 1px solid rgb(255 255 255 / 24%);
+}
+
+#home #heroLens .hero-about-core-focus {
+  min-width: 0;
+  padding: 9px 0 10px;
+  border-bottom: 1px solid rgb(255 255 255 / 24%);
+}
+
+#home #heroLens .hero-about-core-focus-title {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 9px;
+}
+
+#home #heroLens .hero-about-core-focus-title > span {
+  flex: 0 0 auto;
+  color: rgb(255 255 255 / 48%);
+  font: 500 10px/1 var(--mono);
+  letter-spacing: .08em;
+}
+
+#home #heroLens .hero-about-core-focus-title h4 {
+  min-width: 0;
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(13px, 1.05vw, 16px);
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+#home #heroLens .hero-about-core-focus p {
+  margin: 4px 0 0 27px;
+  color: rgb(255 255 255 / 60%);
+  font-size: clamp(10px, .78vw, 12px);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+#home #heroLens .hero-about-core-support {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+#home #heroLens .hero-about-core-support span {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 999px;
+  color: rgb(255 255 255 / 68%);
+  font-size: clamp(10px, .74vw, 12px);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) and (min-width: 821px) {
+  #home #heroLens .hero-about-skill-groups {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    padding-top: 12px;
+    padding-left: 0;
+    border-top: 1px solid rgb(255 255 255 / 24%);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 820px) {
+  #home #heroLens .hero-about-skill-row {
+    grid-template-columns: 104px minmax(52px, 1fr) 66px;
+    gap: 7px;
+  }
+
+  #home #heroLens .hero-about-core-focus {
+    padding-block: 8px 9px;
+  }
+
+  #home #heroLens .hero-about-core-focus p {
+    margin-left: 24px;
+  }
+
+  #home #heroLens .hero-about-core-support {
+    gap: 5px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-content-column {
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-positioning {
+    padding-bottom: 5px;
+  }
+
+  #home #heroLens .hero-about-middle {
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-skill-groups {
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    padding-top: 5px;
+  }
+
+  #home #heroLens .hero-about-skill-list {
+    gap: 4px;
+  }
+
+  #home #heroLens .hero-about-skill-row {
+    grid-template-columns: 100px minmax(44px, 1fr) 64px;
+    gap: 6px;
+  }
+
+  #home #heroLens .hero-about-skill-name {
+    font-size: 10px;
+  }
+
+  #home #heroLens .hero-about-core-focus-title {
+    gap: 7px;
+  }
+
+  #home #heroLens .hero-about-core-focus-title h4 {
+    font-size: 12px;
+  }
+
+  #home #heroLens .hero-about-core-focus-list {
+    margin-top: 9px;
+  }
+
+  #home #heroLens .hero-about-core-focus {
+    padding-block: 4px 5px;
+  }
+
+  #home #heroLens .hero-about-core-focus p {
+    margin-top: 2px;
+    margin-left: 21px;
+    font-size: 9px;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  #home #heroLens .hero-about-core-support {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 7px;
+  }
+
+  #home #heroLens .hero-about-core-support span {
+    justify-content: center;
+    padding-inline: 4px;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* The philosophy area is intentionally title-free: keep only the four principles. */
+#home #heroLens .hero-about-approach-grid {
+  margin-top: 0;
+}
+
+/* Give the four supporting capabilities a balanced desktop grid instead of
+   packing three pills on one line and leaving one stranded below. */
+@media (min-width: 681px) {
+  #home #heroLens .hero-about-middle {
+    /* Let the middle row size to its real content so the footer cannot be
+       pulled into the support tags by the flex filler space. */
+    flex: 0 0 auto;
+  }
+
+  #home #heroLens .hero-about-core-support {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(10px, 1.2vw, 16px);
+    row-gap: clamp(10px, 1.1vw, 14px);
+    margin-top: clamp(18px, 1.8vw, 24px);
+  }
+
+  #home #heroLens .hero-about-core-support span {
+    justify-content: center;
+    min-height: 30px;
+    padding: 6px 8px;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+/* About capabilities: move the supporting labels into one full-width,
+   content-led row without touching the Hero geometry or existing motion. */
+#home #heroLens .hero-about-capabilities {
+  flex: 0 0 auto;
+  min-width: 0;
+  margin-top: clamp(2px, .45vw, 8px);
+  padding-top: clamp(10px, .9vw, 14px);
+  border-top: 1px solid rgb(255 255 255 / 24%);
+}
+
+#home #heroLens .hero-about-capability-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 0;
+  margin-top: 0;
+  gap: clamp(10px, 1.5vw, 22px);
+}
+
+#home #heroLens .hero-about-capability-group {
+  min-width: 0;
+  padding-left: clamp(10px, 1.2vw, 18px);
+  border-left: 1px solid rgb(255 255 255 / 20%);
+}
+
+#home #heroLens .hero-about-capability-group:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+#home #heroLens .hero-about-capability-group h4 {
+  margin: 0 0 8px;
+  color: rgb(255 255 255 / 74%);
+  font-size: clamp(14px, .98vw, 16px);
+  font-weight: 650;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+#home #heroLens .hero-about-capability-tags {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+#home #heroLens .hero-about-capability-tags span {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 30px;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid rgb(255 255 255 / 27%);
+  border-radius: 999px;
+  color: rgb(255 255 255 / 78%);
+  background: rgb(255 255 255 / 4%);
+  font-size: clamp(13px, .98vw, 15px);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+#home #heroLens .hero-about-capability-group-product h4 {
+  color: rgb(255 255 255 / 82%);
+}
+
+#home #heroLens .hero-about-capability-group-product .hero-about-capability-tags span {
+  border-color: rgb(255 255 255 / 30%);
+}
+
+#home #heroLens .hero-about-capability-group-design h4 {
+  color: rgb(255 255 255 / 74%);
+}
+
+#home #heroLens .hero-about-capability-group-design .hero-about-capability-tags span {
+  background: rgb(255 255 255 / 6%);
+}
+
+#home #heroLens .hero-about-capability-group-ai h4 {
+  color: rgb(255 255 255 / 86%);
+}
+
+#home #heroLens .hero-about-capability-group-ai .hero-about-capability-tags span {
+  border-color: rgb(255 255 255 / 34%);
+  background: rgb(255 255 255 / 8%);
+}
+
+@media (max-width: 1100px) and (min-width: 821px) {
+  #home #heroLens .hero-about-capability-groups {
+    gap: 8px;
+  }
+
+  #home #heroLens .hero-about-capability-group {
+    padding-left: 8px;
+  }
+
+  #home #heroLens .hero-about-capability-tags {
+    gap: 4px;
+  }
+
+  #home #heroLens .hero-about-capability-tags span {
+    padding-inline: 7px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 820px) and (min-width: 681px) {
+  #home #heroLens .hero-about-capability-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 8px;
+  }
+
+  #home #heroLens .hero-about-capability-group h4 {
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+
+  #home #heroLens .hero-about-capability-tags {
+    gap: 5px;
+  }
+
+  #home #heroLens .hero-about-capability-tags span {
+    min-height: 24px;
+    padding: 3px 7px;
+    font-size: 11px;
+  }
+
+  #home #heroLens .hero-about-capability-group:nth-child(3) {
+    grid-column: 1 / -1;
+    padding-left: 0;
+    border-left: 0;
+    padding-top: 8px;
+    border-top: 1px solid rgb(255 255 255 / 20%);
+  }
+}
+
+@media (max-width: 680px) {
+  #home #heroLens .hero-about-content-column {
+    gap: 3px;
+  }
+
+  #home #heroLens .hero-about-middle {
+    gap: 4px;
+  }
+
+  #home #heroLens .hero-about-capabilities {
+    margin-top: 0;
+    padding-top: 4px;
+  }
+
+  #home #heroLens .hero-about-capability-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 0;
+    gap: 5px;
+  }
+
+  #home #heroLens .hero-about-capability-group,
+  #home #heroLens .hero-about-capability-group:nth-child(3) {
+    padding: 0;
+    border: 0;
+  }
+
+  #home #heroLens .hero-about-capability-group:nth-child(2) {
+    padding-left: 5px;
+    border-left: 1px solid rgb(255 255 255 / 16%);
+  }
+
+  #home #heroLens .hero-about-capability-group:nth-child(3) {
+    grid-column: 1 / -1;
+    padding-top: 2px;
+    border-top: 1px solid rgb(255 255 255 / 16%);
+  }
+
+  #home #heroLens .hero-about-capability-group h4 {
+    margin-bottom: 2px;
+    font-size: 9px;
+  }
+
+  #home #heroLens .hero-about-capability-tags {
+    gap: 3px;
+  }
+
+  #home #heroLens .hero-about-capability-tags span {
+    min-height: 17px;
+    padding: 1px 5px;
+    font-size: 8px;
+  }
+}
+
+/* Keep the six skill rows inside their column at narrower desktop widths. */
+@media (max-width: 1360px) and (min-width: 1101px) {
+  #home #heroLens .hero-about-skill-groups {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    padding-top: 12px;
+    padding-left: 0;
+    border-top: 1px solid rgb(255 255 255 / 24%);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 1360px) {
+  #home #heroLens .hero-about-skill-group:first-child {
+    grid-row: 1;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    grid-row: 2;
+  }
+
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group::before {
+    display: none;
+  }
+}
+
+@media (max-width: 820px) {
+  #home #heroLens .hero-about-skill-group + .hero-about-skill-group {
+    padding-left: 0;
+    border-left: 0;
+  }
 }

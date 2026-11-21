@@ -278,7 +278,7 @@ export function initHeroLens(root = document.querySelector('#heroLens')) {
     }
   });
 
-  document.querySelectorAll('.nav a[href="#home"], .brand[href="#home"], .brand[href="#top"]').forEach((link) => {
+  document.querySelectorAll('.nav a[href="#home"], .brand[href="#top"]').forEach((link) => {
     link.addEventListener('click', () => setFlipped(false));
   });
 
